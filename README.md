@@ -81,5 +81,4 @@ Les binaires ne sont pas signés : au premier lancement chez un autre utilisateu
 
 ## Notes
 
-- `.claude/settings.json` ajoute un hook `Stop` qui lance `npm run lint` à chaque fin de tour en session de maintenance. À ajuster ou retirer selon le besoin.
 - IP locale uniquement (sortie `Get-NetIPConfiguration`), aucun appel réseau externe.
