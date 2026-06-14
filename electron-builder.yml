@@ -1,0 +1,14 @@
+appId: com.tiercelin.window-companion
+productName: Window Companion
+directories:
+  output: release
+files:
+  - out/**
+win:
+  target:
+    - nsis
+    - portable
+  icon: app_icon/app_icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true

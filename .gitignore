@@ -1,0 +1,17 @@
+# Folders
+.claude/
+app_icon/
+claude-sessions/
+dist/
+docs/
+node_modules/
+out/
+release/
+scripts/
+
+# Files
+*.log
+*.db
+preferences.json
+.DS_Store
+CLAUDE.md

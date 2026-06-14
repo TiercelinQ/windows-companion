@@ -1,0 +1,109 @@
+/* ============================================================
+   tokens.css — Window Companion v1.0.0
+   Reference: design-system.md v1.0 (Electron)
+   ============================================================ */
+
+:root {
+  /* --- TYPOGRAPHY --- */
+  --font-family: "Segoe UI", system-ui, sans-serif;
+  --font-family-mono: "Cascadia Code", "Consolas", monospace;
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 20px;
+  --font-2xl: 24px;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* --- COLORS — light mode --- */
+  --bg: #ffffff;
+  --bg-subtle: #f9fafb;
+  --bg-muted: #f3f4f6;
+  --bg-elevated: #ffffff;
+  --text: #111827;
+  --text-subtle: #6b7280;
+  --text-muted: #9ca3af;
+  --border: #e5e7eb;
+  --border-subtle: #f3f4f6;
+  --border-strong: #d1d5db;
+
+  /* --- PRIMARY (project: Azure) --- */
+  --primary-50: #eff6ff;
+  --primary-400: #60a5fa;
+  --primary-600: #2563eb;
+  --primary-900: #1e3a8a;
+  --primary: var(--primary-600);
+  --primary-bg: var(--primary-50);
+
+  /* --- SEMANTIC — light --- */
+  --success-50: #f0fdf4;
+  --success-600: #16a34a;
+  --warning-50: #fffbeb;
+  --warning-600: #d97706;
+  --danger-50: #fff1f2;
+  --danger-600: #dc2626;
+  --info-50: #eff6ff;
+  --info-600: #2563eb;
+
+  /* --- ICONS --- */
+  --icon-default: #6b7280;
+  --icon-active: var(--primary);
+  --icon-danger: var(--danger-600);
+  --icon-success: var(--success-600);
+  --icon-muted: #9ca3af;
+
+  /* --- SPACING --- */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+
+  /* --- FIXED SIZES --- */
+  --topbar-height: 48px;
+  --statusbar-height: 28px;
+  --content-xl: 1024px;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --toast-width: 320px;
+  --terminal-height: 60vh;
+
+  /* --- TRANSITIONS --- */
+  --transition-default: 150ms ease;
+  --transition-slow: 250ms ease;
+}
+
+[data-theme="dark"] {
+  /* --- COLORS — dark mode (full redefinition of themed tokens) --- */
+  --bg: #111827;
+  --bg-subtle: #1f2937;
+  --bg-muted: #1f2937;
+  --bg-elevated: #374151;
+  --text: #f9fafb;
+  --text-subtle: #9ca3af;
+  --text-muted: #6b7280;
+  --border: #374151;
+  --border-subtle: #1f2937;
+  --border-strong: #4b5563;
+
+  --primary: var(--primary-400);
+  --primary-bg: var(--primary-900);
+
+  --success-600: #4ade80;
+  --warning-600: #fcd34d;
+  --danger-600: #f87171;
+  --info-600: #60a5fa;
+
+  --icon-default: #9ca3af;
+  --icon-active: var(--primary);
+  --icon-danger: var(--danger-600);
+  --icon-success: var(--success-600);
+  --icon-muted: #6b7280;
+}
