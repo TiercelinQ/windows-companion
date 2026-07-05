@@ -27,6 +27,7 @@ src/
     ├── index.html     CSP stricte
     └── src/
         ├── App.tsx, main.tsx
+        ├── assets/    logo.png (logo topbar, dérivé de app_icon)
         ├── views/     UpdateView, HardwareView, SystemView, NetworkView, layout/, ToastManager, ErrorBoundary
         ├── hooks/     useTheme, useToast
         ├── utils/     helpers (formatage pur)

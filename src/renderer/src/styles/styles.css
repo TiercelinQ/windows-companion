@@ -52,10 +52,11 @@ body {
   gap: var(--spacing-2);
   color: var(--text);
 }
-/* token: icon-lg / primary */
+/* token: icon-lg */
 .logo-icon {
-  font-size: var(--icon-lg);
-  color: var(--primary);
+  height: var(--icon-lg);
+  width: auto;
+  display: block;
 }
 /* token: font-base / weight-semibold */
 .topbar-title {

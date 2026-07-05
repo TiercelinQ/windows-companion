@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { APP_NAME } from "../../../../shared/config";
 import { t } from "../../i18n";
 import type { TabDef, TabId } from "../../App";
+import logoUrl from "../../assets/logo.png";
 
 interface TopbarProps {
   tabs: TabDef[];
@@ -16,7 +17,7 @@ export function Topbar({ tabs, active, onSelect, theme, onToggleTheme }: TopbarP
   return (
     <header id="topbar">
       <div className="topbar-brand">
-        <i className="fa-solid fa-display logo-icon" aria-hidden="true" />
+        <img src={logoUrl} className="logo-icon" alt="" />
         <span className="topbar-title">{APP_NAME}</span>
       </div>
       <nav id="topbar-tabs">

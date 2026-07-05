@@ -96,6 +96,11 @@
   --primary: var(--primary-400);
   --primary-bg: var(--primary-900);
 
+  /* Semantic surfaces (toast bg) — deep tints so --text stays readable in dark */
+  --success-50: #1d3f2a;
+  --warning-50: #483b13;
+  --danger-50: #441818;
+  --info-50: #1a3042;
   --success-600: #4ade80;
   --warning-600: #fcd34d;
   --danger-600: #f87171;
