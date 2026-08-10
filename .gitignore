@@ -1,17 +1,39 @@
-# Folders
-.claude/
-app_icon/
-claude-sessions/
-dist/
-docs/
+# --- Dependencies & build --------------------------------------------------
+# Build outputs are anchored: an unanchored release/ would match at every level
+# and hide docs/release/ too.
 node_modules/
-out/
-release/
-scripts/
+/dist/
+/out/
+/release/
+.env
+*.tsbuildinfo
 
-# Files
-*.log
+# --- App runtime data (defensive; normally under app.getPath("userData"), outside the repo) -
 *.db
 preferences.json
+logs/
+*.log
+
+# --- Claude Code -----------------------------------------------------------
+# Personal, never committed.
+.claude/settings.local.json
+.claude/agent-memory/
+# NOTE: .claude/settings.json IS a delivered asset - do NOT ignore it.
+
+# Local work plan - never committed.
+tasks/
+claude-sessions/
+
+# Private specs. Only the published changelog is committed.
+docs/*
+!docs/release/
+docs/release/*
+!docs/release/CHANGELOG.md
+
+# Packaging source assets, not needed to build from a clone.
+app_icon/
+
+# OS noise.
 .DS_Store
-CLAUDE.md
+Thumbs.db
+desktop.ini
