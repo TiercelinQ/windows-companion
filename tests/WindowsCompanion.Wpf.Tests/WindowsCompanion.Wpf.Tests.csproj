@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- xunit.v3 test projects are executables (Microsoft Testing Platform). -->
+    <OutputType>Exe</OutputType>
+    <!-- Needed to reference the WPF application project and to test the converters. -->
+    <UseWPF>true</UseWPF>
+    <RootNamespace>WindowsCompanion.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <!-- The doc file stays on (IDE0005 needs it). CS1591 is off here only: test classes are not a documented API,
+         their French method names state the behavior (rules/tests.md). -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NSubstitute" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\WindowsCompanion.Wpf\WindowsCompanion.Wpf.csproj" />
+  </ItemGroup>
+
+</Project>

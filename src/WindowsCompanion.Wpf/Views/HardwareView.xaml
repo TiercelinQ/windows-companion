@@ -1,0 +1,158 @@
+<Page
+    x:Class="WindowsCompanion.Views.HardwareView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:res="clr-namespace:WindowsCompanion.Resources"
+    xmlns:vm="clr-namespace:WindowsCompanion.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=vm:HardwareViewModel}"
+    Style="{StaticResource PageStyle}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Style="{StaticResource PageHeaderStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource PageTitleStyle}" Text="{x:Static res:Strings.Nav_Hardware}" />
+                <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="{x:Static res:Strings.Hw_Subtitle}" />
+            </StackPanel>
+            <WrapPanel Grid.Column="1" Style="{StaticResource CommandBarPanelStyle}">
+                <ui:Button Style="{StaticResource AnalyzeButtonStyle}" Command="{Binding AnalyzeCommand}" />
+                <ui:Button Style="{StaticResource SecondaryButtonStyle}" Content="{x:Static res:Strings.Common_Export}" Icon="{ui:SymbolIcon Share24}" Command="{Binding ExportCommand}" />
+                <ui:Button Style="{StaticResource GhostButtonStyle}" Content="{x:Static res:Strings.Common_CopySummary}" Icon="{ui:SymbolIcon Copy24}" Command="{Binding CopySummaryCommand}" />
+            </WrapPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Style="{StaticResource PageScrollStyle}">
+            <StackPanel Style="{StaticResource PageContentStyle}">
+                <Border Style="{StaticResource CardPaddedStyle}">
+                    <Grid>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource SummaryTitleStyle}" Text="{Binding ComponentsText}" />
+                            <TextBlock Style="{StaticResource SummarySecondaryStyle}" Text="{x:Static res:Strings.Hw_SummaryNote}" />
+                        </WrapPanel>
+                        <TextBlock Style="{StaticResource TertiaryRightTextStyle}" Text="{Binding LastAnalysisText}" />
+                    </Grid>
+                </Border>
+
+                <UniformGrid Style="{StaticResource CardGridStyle}">
+                    <!-- Processor -->
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <Grid Style="{StaticResource BlockHeaderStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Style="{StaticResource IconSquareStyle}"><ui:SymbolIcon Symbol="DeveloperBoard24" Style="{StaticResource IconSquareIconStyle}" /></Border>
+                                    <TextBlock Style="{StaticResource BlockTitleStyle}" Text="{x:Static res:Strings.Hw_Processor}" />
+                                </StackPanel>
+                                <Border Style="{StaticResource HeaderNeutralPillStyle}"><TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding CpuChip}" /></Border>
+                            </Grid>
+                            <ItemsControl ItemsSource="{Binding CpuRows}" Style="{StaticResource InfoRowsStyle}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Memory -->
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <Grid Style="{StaticResource BlockHeaderStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Style="{StaticResource IconSquareStyle}"><ui:SymbolIcon Symbol="Board24" Style="{StaticResource IconSquareIconStyle}" /></Border>
+                                    <TextBlock Style="{StaticResource BlockTitleStyle}" Text="{x:Static res:Strings.Hw_Memory}" />
+                                </StackPanel>
+                                <Border Style="{StaticResource HeaderNeutralPillStyle}"><TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding MemoryChip}" /></Border>
+                            </Grid>
+                            <Grid>
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{Binding MemoryUsedText}" />
+                                <TextBlock Style="{StaticResource SecondaryRightTextStyle}" Text="{Binding MemoryAvailableText}" />
+                            </Grid>
+                            <ProgressBar Style="{StaticResource MemoryGaugeStyle}" Value="{Binding MemoryPercent, Mode=OneWay}" AutomationProperties.Name="{x:Static res:Strings.Hw_MemoryGaugeName}" />
+                            <ItemsControl ItemsSource="{Binding MemoryRows}" Style="{StaticResource InfoRowsStyle}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Graphics adapters, one block each (F-LIM-08) -->
+                    <ItemsControl ItemsSource="{Binding Gpus}" Style="{StaticResource BlockItemsStyle}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:GpuBlock}">
+                                <Border Style="{StaticResource CardStyle}">
+                                    <StackPanel>
+                                        <Grid Style="{StaticResource BlockHeaderStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border Style="{StaticResource IconSquareStyle}"><ui:SymbolIcon Symbol="Desktop24" Style="{StaticResource IconSquareIconStyle}" /></Border>
+                                                <TextBlock Style="{StaticResource BlockTitleStyle}" Text="{Binding Title}" />
+                                            </StackPanel>
+                                        </Grid>
+                                        <ItemsControl ItemsSource="{Binding Rows}" Style="{StaticResource InfoRowsStyle}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Motherboard and BIOS -->
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <Grid Style="{StaticResource BlockHeaderStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Style="{StaticResource IconSquareStyle}"><ui:SymbolIcon Symbol="Server24" Style="{StaticResource IconSquareIconStyle}" /></Border>
+                                    <TextBlock Style="{StaticResource BlockTitleStyle}" Text="{x:Static res:Strings.Hw_Board}" />
+                                </StackPanel>
+                            </Grid>
+                            <ItemsControl ItemsSource="{Binding BoardRows}" Style="{StaticResource InfoRowsStyle}" />
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- Storage, full width (F-MAT-08 to 15) -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <Grid Style="{StaticResource BlockHeaderStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Style="{StaticResource IconSquareStyle}"><ui:SymbolIcon Symbol="Storage24" Style="{StaticResource IconSquareIconStyle}" /></Border>
+                                <TextBlock Style="{StaticResource BlockTitleStyle}" Text="{x:Static res:Strings.Hw_Storage}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource StorageChipStyle}"><TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding StorageChip}" /></Border>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding Volumes}" Style="{StaticResource DiskBlocksStyle}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:VolumeRow}">
+                                    <Border Style="{StaticResource DiskBlockStyle}">
+                                        <StackPanel>
+                                            <WrapPanel>
+                                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{Binding BlockTitle}" />
+                                                <Border Style="{StaticResource InlineNeutralPillStyle}"><TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding MediaLabel}" /></Border>
+                                            </WrapPanel>
+                                            <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{Binding Info.DiskModel}" />
+                                            <StackPanel Style="{StaticResource VolumeUsagePanelStyle}">
+                                                <Grid>
+                                                    <TextBlock Style="{StaticResource BodyTextStyle}" Text="{Binding UsedText}" />
+                                                    <TextBlock Style="{StaticResource UsageRightTextStyle}" Text="{Binding ShortPercentText}" />
+                                                </Grid>
+                                                <ProgressBar Style="{StaticResource GaugeStyle}" Value="{Binding Percent, Mode=OneWay}" AutomationProperties.Name="{Binding GaugeName}" />
+                                                <Grid>
+                                                    <TextBlock Style="{StaticResource UsageLabelStyle}" Text="{Binding FreeLabel}" />
+                                                    <TextBlock Style="{StaticResource SecondaryRightTextStyle}" Text="{Binding FreeText}" />
+                                                </Grid>
+                                            </StackPanel>
+                                            <TextBlock Style="{StaticResource NoVolumeTextStyle}" Text="{x:Static res:Strings.Hw_NoVolume}" />
+                                            <ItemsControl ItemsSource="{Binding Rows}" Style="{StaticResource InfoRowsCompactStyle}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

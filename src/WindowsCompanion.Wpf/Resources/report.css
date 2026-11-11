@@ -1,0 +1,11 @@
+/* Styles of the exported HTML reports (D-08): a standalone document, not the application interface. */
+body { font-family: "Segoe UI Variable Text", "Segoe UI", sans-serif; font-size: 14px; color: #1b1d21; background: #f6f7f9; margin: 0; padding: 24px; }
+header { margin-bottom: 24px; }
+h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+header p { color: #454b54; margin: 0; }
+section { background: #ffffff; border: 1px solid #e1e4ea; border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; break-inside: avoid; }
+h2 { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; vertical-align: top; padding: 4px 8px 4px 0; white-space: pre-line; font-variant-numeric: tabular-nums; }
+th { color: #454b54; font-weight: 400; width: 40%; }
+tr + tr th, tr + tr td { border-top: 1px solid #eef0f4; }

@@ -1,0 +1,22 @@
+<Project>
+  <!-- Shared compiler settings (rules/config.md). A warning is a defect. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!-- File properties of the published executable (rules/packaging.md). AssemblyVersion, FileVersion and
+       InformationalVersion derive from <Version> in the .csproj: never edited by hand. -->
+  <PropertyGroup>
+    <Company>Quentin Tiercelin</Company>
+    <Product>Windows Companion</Product>
+    <Copyright>Copyright (c) 2026 Quentin Tiercelin</Copyright>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+</Project>

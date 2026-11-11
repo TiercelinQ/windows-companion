@@ -1,0 +1,128 @@
+<ui:FluentWindow
+    x:Class="WindowsCompanion.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:app="clr-namespace:WindowsCompanion"
+    xmlns:models="clr-namespace:WindowsCompanion.Models"
+    xmlns:res="clr-namespace:WindowsCompanion.Resources"
+    xmlns:vm="clr-namespace:WindowsCompanion.ViewModels"
+    xmlns:views="clr-namespace:WindowsCompanion.Views"
+    xmlns:layout="clr-namespace:WindowsCompanion.Views.Layout"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
+    Title="{x:Static app:AppConfig.AppDisplayName}"
+    Width="{x:Static app:AppConfig.WindowDefaultWidth}"
+    Height="{x:Static app:AppConfig.WindowDefaultHeight}"
+    MinWidth="{x:Static app:AppConfig.WindowMinWidth}"
+    MinHeight="{x:Static app:AppConfig.WindowMinHeight}"
+    WindowStartupLocation="CenterScreen"
+    Icon="/Assets/icon.ico"
+    AutomationProperties.Name="{x:Static app:AppConfig.AppDisplayName}"
+    Style="{StaticResource AppWindowStyle}">
+
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Alt" Key="D1" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.Overview}" />
+        <KeyBinding Modifiers="Alt" Key="D2" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.Updates}" />
+        <KeyBinding Modifiers="Alt" Key="D3" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.Hardware}" />
+        <KeyBinding Modifiers="Alt" Key="D4" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.System}" />
+        <KeyBinding Modifiers="Alt" Key="D5" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.Network}" />
+        <KeyBinding Modifiers="Alt" Key="D6" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.History}" />
+        <KeyBinding Modifiers="Alt" Key="D7" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.Settings}" />
+        <KeyBinding Modifiers="Control" Key="OemComma" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:PageKey.Settings}" />
+        <KeyBinding Key="F5" Command="{Binding RunPrimaryCommand}" />
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{StaticResource TitleBarRowHeight}" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="{StaticResource StatusBarRowHeight}" />
+        </Grid.RowDefinitions>
+
+        <!-- Zone A. The header content is realized inside the template: its DataContext is assigned from the
+             constructor (rules/xaml.md, TitleBar.Header trap). -->
+        <ui:TitleBar x:Name="AppTitleBar" Grid.Row="0" Style="{StaticResource AppTitleBarStyle}">
+            <ui:TitleBar.Header>
+                <StackPanel x:Name="TitleHeader" Style="{StaticResource TitleHeaderPanelStyle}">
+                    <ui:Button
+                        Style="{StaticResource TitleBarButtonStyle}"
+                        Command="{Binding TogglePaneCommand}"
+                        Icon="{ui:SymbolIcon Navigation24}"
+                        ToolTip="{x:Static res:Strings.Shell_PaneToggleTip}"
+                        AutomationProperties.Name="{x:Static res:Strings.Shell_PaneToggleName}" />
+                    <Image x:Name="BrandImage" Style="{StaticResource BrandImageStyle}" />
+                    <TextBlock Style="{StaticResource BrandTextStyle}" Text="{x:Static app:AppConfig.AppDisplayName}" />
+                </StackPanel>
+            </ui:TitleBar.Header>
+        </ui:TitleBar>
+
+        <!-- Zone B, C, D. No custom style: NavigationView is not verified to ship an implicit {x:Type} style. -->
+        <ui:NavigationView
+            x:Name="NavView"
+            Grid.Row="1"
+            PaneDisplayMode="Left"
+            IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}"
+            IsPaneToggleVisible="False"
+            IsBackButtonVisible="Collapsed"
+            IsTopSeparatorVisible="False"
+            IsFooterSeparatorVisible="False"
+            OpenPaneLength="{StaticResource NavPaneWidth}"
+            CompactPaneLength="{StaticResource NavPaneCompactWidth}">
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Content="{x:Static res:Strings.Nav_Overview}" ToolTip="{x:Static res:Strings.Nav_Overview}" TargetPageTag="{x:Static models:PageKeys.OverviewId}" TargetPageType="{x:Type views:OverviewView}" Icon="{ui:SymbolIcon Home24}" />
+                <ui:NavigationViewItem ToolTip="{x:Static res:Strings.Nav_Updates}" AutomationProperties.Name="{x:Static res:Strings.Nav_Updates}" TargetPageTag="{x:Static models:PageKeys.UpdatesId}" TargetPageType="{x:Type views:UpdatesView}" Icon="{ui:SymbolIcon ArrowDownload24}">
+                    <StackPanel x:Name="UpdatesNavContent" Style="{StaticResource NavItemContentStyle}">
+                        <TextBlock Text="{x:Static res:Strings.Nav_Updates}" Style="{StaticResource NavItemTextStyle}" />
+                        <ui:InfoBadge Value="{Binding PendingCount}" Style="{StaticResource NavBadgeStyle}" />
+                    </StackPanel>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{x:Static res:Strings.Nav_Hardware}" ToolTip="{x:Static res:Strings.Nav_Hardware}" TargetPageTag="{x:Static models:PageKeys.HardwareId}" TargetPageType="{x:Type views:HardwareView}" Icon="{ui:SymbolIcon DeveloperBoard24}" />
+                <ui:NavigationViewItem Content="{x:Static res:Strings.Nav_System}" ToolTip="{x:Static res:Strings.Nav_System}" TargetPageTag="{x:Static models:PageKeys.SystemId}" TargetPageType="{x:Type views:SystemView}" Icon="{ui:SymbolIcon Desktop24}" />
+                <ui:NavigationViewItem Content="{x:Static res:Strings.Nav_Network}" ToolTip="{x:Static res:Strings.Nav_Network}" TargetPageTag="{x:Static models:PageKeys.NetworkId}" TargetPageType="{x:Type views:NetworkView}" Icon="{ui:SymbolIcon Globe24}" />
+                <ui:NavigationViewItem Content="{x:Static res:Strings.Nav_History}" ToolTip="{x:Static res:Strings.Nav_History}" TargetPageTag="{x:Static models:PageKeys.HistoryId}" TargetPageType="{x:Type views:HistoryView}" Icon="{ui:SymbolIcon History24}" />
+            </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem Content="{x:Static res:Strings.Nav_Settings}" ToolTip="{x:Static res:Strings.Nav_Settings}" TargetPageTag="{x:Static models:PageKeys.SettingsId}" TargetPageType="{x:Type views:SettingsView}" Icon="{ui:SymbolIcon Settings24}" />
+            </ui:NavigationView.FooterMenuItems>
+        </ui:NavigationView>
+
+        <!-- Zone E -->
+        <Border Grid.Row="2" Style="{StaticResource StatusBarStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Style="{StaticResource StatusItemPanelStyle}">
+                    <Ellipse Style="{StaticResource StatusDotStyle}" />
+                    <TextBlock Style="{StaticResource StatusBarTextStyle}" Text="{Binding Updates.WingetStatusText}" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Style="{StaticResource StatusBarSpacedTextStyle}" Text="{Binding Updates.LastSearchText}" />
+                <ui:Button
+                    Grid.Column="2"
+                    Style="{StaticResource StatusRelaunchButtonStyle}"
+                    Command="{Binding RelaunchAsAdminCommand}"
+                    ToolTip="{x:Static res:Strings.Status_Relaunch}"
+                    AutomationProperties.Name="{x:Static res:Strings.Status_Relaunch}">
+                    <StackPanel Style="{StaticResource StatusItemPanelStyle}">
+                        <ui:SymbolIcon Symbol="Shield24" Style="{StaticResource StatusIconStyle}" />
+                        <TextBlock Style="{StaticResource StatusBarTextStyle}" Text="{Binding RightsText}" />
+                    </StackPanel>
+                </ui:Button>
+                <StackPanel Grid.Column="2" Style="{StaticResource StatusAdminPanelStyle}">
+                    <ui:SymbolIcon Symbol="Shield24" Style="{StaticResource StatusIconStyle}" />
+                    <TextBlock Style="{StaticResource StatusBarTextStyle}" Text="{Binding RightsText}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ui:ContentDialogHost x:Name="DialogHost" Grid.RowSpan="3" Panel.ZIndex="{StaticResource ZDialog}" />
+
+        <!-- Zone F (D-01): over everything, captures no click outside the toasts (TS-15). -->
+        <layout:ToastHost x:Name="ToastHostView" Grid.RowSpan="3" Panel.ZIndex="{StaticResource ZSnackbar}" />
+    </Grid>
+</ui:FluentWindow>

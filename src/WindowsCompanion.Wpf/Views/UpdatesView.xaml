@@ -1,0 +1,208 @@
+<Page
+    x:Class="WindowsCompanion.Views.UpdatesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:models="clr-namespace:WindowsCompanion.Models"
+    xmlns:res="clr-namespace:WindowsCompanion.Resources"
+    xmlns:vm="clr-namespace:WindowsCompanion.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=vm:UpdatesViewModel}"
+    Style="{StaticResource PageStyle}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Style="{StaticResource SpacedPageHeaderStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource PageTitleStyle}" Text="{x:Static res:Strings.Nav_Updates}" />
+                <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="{Binding SourcesText}" />
+            </StackPanel>
+            <WrapPanel Grid.Column="1" Style="{StaticResource CommandBarPanelStyle}">
+                <ui:Button Style="{StaticResource SecondaryButtonStyle}" Content="{x:Static res:Strings.Upd_Search}" Icon="{ui:SymbolIcon ArrowSync24}" Command="{Binding SearchCommand}" ToolTip="{Binding SearchToolTip}" ToolTipService.ShowOnDisabled="True" />
+                <ui:Button Style="{StaticResource PrimaryButtonStyle}" Content="{Binding InstallSelectionLabel}" Icon="{ui:SymbolIcon ArrowDownload24}" Command="{Binding InstallSelectionCommand}" />
+                <ui:Button Style="{StaticResource SecondaryButtonStyle}" Content="{x:Static res:Strings.Upd_InstallAll}" Icon="{ui:SymbolIcon Play24}" Command="{Binding InstallAllCommand}" />
+                <ui:Button Style="{StaticResource DangerTextButtonStyle}" Content="{x:Static res:Strings.Upd_CancelAll}" Icon="{ui:SymbolIcon DismissCircle24}" Command="{Binding CancelAllCommand}" />
+                <Rectangle Style="{StaticResource CommandSeparatorStyle}" />
+                <ui:Button Style="{StaticResource GhostButtonStyle}" Content="{x:Static res:Strings.Upd_Ignore}" Icon="{ui:SymbolIcon Prohibited24}" Command="{Binding IgnoreSelectionCommand}" ToolTip="{x:Static res:Strings.Upd_IgnoreTip}" />
+                <Border Style="{StaticResource SegmentedTrackStyle}" AutomationProperties.Name="{x:Static res:Strings.Upd_FilterName}">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="SourceFilter" Content="{x:Static res:Strings.Upd_FilterAll}" IsChecked="{Binding SourceFilter, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static vm:SourceFilter.All}}" />
+                        <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="SourceFilter" Content="{x:Static res:Strings.Source_Winget}" IsChecked="{Binding SourceFilter, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static vm:SourceFilter.Winget}}" />
+                        <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="SourceFilter" Content="{x:Static res:Strings.Source_Store}" IsChecked="{Binding SourceFilter, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static vm:SourceFilter.MsStore}}" />
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Style="{StaticResource PageScrollStyle}">
+            <StackPanel Style="{StaticResource PageContentStyle}">
+
+                <!-- Summary and global progress (F-MAJ-04 to 07) -->
+                <Border Style="{StaticResource CardPaddedStyle}">
+                    <StackPanel>
+                        <Grid Style="{StaticResource NotSearchingStyle}">
+                            <WrapPanel>
+                                <TextBlock Style="{StaticResource SummaryTitleStyle}" Text="{Binding SummaryTitle}" />
+                                <TextBlock Style="{StaticResource SummarySecondaryStyle}" Text="{Binding SummarySize}" />
+                            </WrapPanel>
+                            <TextBlock Style="{StaticResource TertiaryRightTextStyle}" Text="{Binding LastSearchText}" />
+                        </Grid>
+                        <StackPanel Style="{StaticResource SearchingPanelStyle}" AutomationProperties.Name="{x:Static res:Strings.Upd_Searching}">
+                            <ui:ProgressRing Style="{StaticResource ActivityRingStyle}" />
+                            <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Upd_Searching}" />
+                            <TextBlock Style="{StaticResource SecondaryInlineTextStyle}" Text="{Binding SearchingSourcesText}" />
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource InstallProgressPanelStyle}">
+                            <Grid>
+                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{Binding ProgressLabel}" />
+                                <TextBlock Style="{StaticResource StrongRightTextStyle}" Text="{Binding GlobalPercent, StringFormat={x:Static res:Strings.Format_Percent}}" />
+                            </Grid>
+                            <ProgressBar Style="{StaticResource ThinProgressBarStyle}" Value="{Binding GlobalPercent, Mode=OneWay}" AutomationProperties.Name="{Binding ProgressLabel}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Table (C-30) -->
+                <Border Style="{StaticResource TableCardStyle}">
+                    <Grid>
+                        <DataGrid ItemsSource="{Binding VisibleItems}" Style="{StaticResource UpdatesGridStyle}" PreviewMouseWheel="OnGridPreviewMouseWheel">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="{StaticResource CheckColumnWidth}" HeaderStyle="{StaticResource CheckColumnHeaderStyle}">
+                                    <!-- A template, not an element in Header: an element set as Header takes the column as its
+                                         inheritance context, and the column is outside the visual tree, so the ancestor binding never resolves. -->
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <CheckBox
+                                                Style="{StaticResource HeaderCheckBoxStyle}"
+                                                IsChecked="{Binding DataContext.HeaderSelection, RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=OneWay}"
+                                                IsEnabled="{Binding DataContext.CanSelectAny, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                Command="{Binding DataContext.ToggleAllCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                AutomationProperties.Name="{x:Static res:Strings.Upd_SelectAll}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <CheckBox Style="{StaticResource RowCheckBoxStyle}" IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelectable}" AutomationProperties.Name="{Binding SelectName}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="{x:Static res:Strings.Upd_ColApplication}" Width="{StaticResource AppColumnWidth}" MinWidth="{StaticResource AppColumnMinWidth}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Style="{StaticResource AppTileStyle}" Background="{Binding TileIndex, Converter={StaticResource AppTileBrush}}">
+                                                    <TextBlock Style="{StaticResource AppTileTextStyle}" Text="{Binding Initials}" />
+                                                </Border>
+                                                <StackPanel Grid.Column="1" Style="{StaticResource ListTextPanelStyle}">
+                                                    <TextBlock Style="{StaticResource AppNameTextStyle}" Text="{Binding Name}" ToolTip="{Binding Name}" />
+                                                    <TextBlock Style="{StaticResource IdentifierTextStyle}" Text="{Binding Id}" ToolTip="{Binding Id}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="{x:Static res:Strings.Upd_ColInstalled}" Width="{StaticResource VersionColumnWidth}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <TextBlock Style="{StaticResource CellTextStyle}" Text="{Binding InstalledText}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="{x:Static res:Strings.Upd_ColAvailable}" Width="{StaticResource VersionColumnWidth}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <TextBlock Style="{StaticResource CellStrongTextStyle}" Text="{Binding AvailableVersion}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="{x:Static res:Strings.Upd_ColSource}" Width="{StaticResource SourceColumnWidth}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <TextBlock Style="{StaticResource CellTextStyle}" Text="{Binding SourceText}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="{x:Static res:Strings.Upd_ColSize}" Width="{StaticResource SizeColumnWidth}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <TextBlock Style="{StaticResource CellTextStyle}" Text="{Binding SizeText}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="{x:Static res:Strings.Upd_ColState}" Width="{StaticResource StateColumnWidth}" MinWidth="{StaticResource StateColumnMinWidth}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type vm:UpdateItemViewModel}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Style="{StaticResource UpdateStatePillStyle}">
+                                                    <TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding StatusText}" />
+                                                </Border>
+                                                <StackPanel Style="{StaticResource RowProgressPanelStyle}">
+                                                    <ProgressBar Style="{StaticResource RowProgressBarStyle}" Value="{Binding ProgressPercent, Mode=OneWay}" />
+                                                    <TextBlock Style="{StaticResource CaptionTextStyle}" Text="{Binding StatusText}" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                    <ui:Button Style="{StaticResource RowInstallButtonStyle}" Content="{x:Static res:Strings.Upd_Install}" Command="{Binding DataContext.InstallItemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                    <ui:Button Style="{StaticResource RowRetryButtonStyle}" Content="{x:Static res:Strings.Upd_Retry}" Command="{Binding DataContext.InstallItemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                    <ui:Button Style="{StaticResource RowCloseAppButtonStyle}" Content="{x:Static res:Strings.Upd_CloseApp}" Command="{Binding DataContext.CloseAppCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                    <ui:Button Style="{StaticResource RowCancelButtonStyle}" Icon="{ui:SymbolIcon Dismiss24}" ToolTip="{x:Static res:Strings.Common_Cancel}" AutomationProperties.Name="{Binding CancelName}" Command="{Binding DataContext.CancelItemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Empty states (F-MAJ-44, F-MAJ-45, F-LIM-01, A8) -->
+                        <StackPanel Style="{StaticResource UpdatesEmptyStateStyle}">
+                            <ui:SymbolIcon Symbol="CheckmarkCircle24" Style="{StaticResource EmptyIconUpToDateStyle}" />
+                            <TextBlock Style="{StaticResource EmptyTitleStyle}" Text="{Binding EmptyTitle}" />
+                            <TextBlock Style="{StaticResource EmptyTextStyle}" Text="{Binding EmptyText}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- winget log (F-MAJ-40 to 43) -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <Grid>
+                            <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static res:Strings.Upd_LogTitle}" />
+                            <ui:Button Style="{StaticResource GhostHeaderButtonStyle}" Content="{x:Static res:Strings.Upd_ClearLog}" Command="{Binding ClearLogCommand}" />
+                        </Grid>
+                        <ListBox x:Name="LogList" ItemsSource="{Binding Log}" Style="{StaticResource WingetLogStyle}" AutomationProperties.Name="{x:Static res:Strings.Upd_LogName}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:WingetLogLine}">
+                                    <TextBlock Style="{StaticResource LogLineStyle}" Text="{Binding Text}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

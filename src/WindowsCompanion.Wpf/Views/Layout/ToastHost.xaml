@@ -1,0 +1,91 @@
+<UserControl
+    x:Class="WindowsCompanion.Views.Layout.ToastHost"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:res="clr-namespace:WindowsCompanion.Resources"
+    xmlns:vm="clr-namespace:WindowsCompanion.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=vm:ToastHostViewModel}"
+    Style="{StaticResource ToastHostStyle}">
+
+    <!-- The zone captures no pointer: only the toasts are hit-testable (TS-15). -->
+    <ItemsControl ItemsSource="{Binding Toasts}" Style="{StaticResource ToastStackStyle}" AutomationProperties.LiveSetting="Polite">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type vm:ToastViewModel}">
+                <Border
+                    Style="{StaticResource ToastStyle}"
+                    MouseEnter="OnToastMouseEnter"
+                    MouseLeave="OnToastMouseLeave"
+                    SizeChanged="OnToastSizeChanged"
+                    Loaded="OnToastLoaded">
+                    <Border.InputBindings>
+                        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+                    </Border.InputBindings>
+                    <!-- Per toast (not in the style): an animated transform must not be the frozen shared instance of a setter -->
+                    <Border.RenderTransform>
+                        <TranslateTransform />
+                    </Border.RenderTransform>
+                    <Grid>
+                        <Border Style="{StaticResource ToastInfoTintStyle}" />
+                        <Grid Style="{StaticResource ToastContentGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource ToastBadgeColumnWidth}" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="{StaticResource ToastCloseColumnWidth}" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.RowSpan="2" Style="{StaticResource ToastBadgeStyle}">
+                                <ui:SymbolIcon Style="{StaticResource ToastBadgeIconStyle}" />
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Style="{StaticResource ToastKickerStyle}" Text="{Binding Kicker}" />
+                                <TextBlock Style="{StaticResource ToastTitleStyle}" Text="{Binding Title}" />
+                                <TextBlock Style="{StaticResource ToastMessageStyle}" Text="{Binding Message}" />
+                            </StackPanel>
+
+                            <ui:Button
+                                Grid.Column="2"
+                                Style="{StaticResource ToastCloseButtonStyle}"
+                                Command="{Binding CloseCommand}"
+                                Icon="{ui:SymbolIcon Dismiss24}"
+                                ToolTip="{x:Static res:Strings.Toast_CloseName}"
+                                AutomationProperties.Name="{x:Static res:Strings.Toast_CloseName}" />
+
+                            <ItemsControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Actions}" Style="{StaticResource ToastActionsStyle}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ui:Button
+                                            Style="{StaticResource ToastActionButtonStyle}"
+                                            Content="{Binding Label}"
+                                            AutomationProperties.Name="{Binding Label}"
+                                            Command="{Binding DataContext.InvokeActionCommand, RelativeSource={RelativeSource AncestorType=Border}}"
+                                            CommandParameter="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+
+                        <Border Style="{StaticResource ToastTimerStyle}">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="{Binding RemainingFraction}" />
+                            </Border.RenderTransform>
+                        </Border>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

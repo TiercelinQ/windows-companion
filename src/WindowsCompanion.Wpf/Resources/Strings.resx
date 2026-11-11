@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Action_Details" xml:space="preserve"><value>Détails</value></data>
+  <data name="Action_Restart" xml:space="preserve"><value>Redémarrage conseillé</value></data>
+  <data name="Action_RestartDetail" xml:space="preserve"><value>Windows tourne depuis {0} jours sans redémarrage.</value></data>
+  <data name="Action_SecurityCheckMany" xml:space="preserve"><value>Sécurité : {0} points à vérifier</value></data>
+  <data name="Action_SecurityCheckOne" xml:space="preserve"><value>Sécurité : {0} point à vérifier</value></data>
+  <data name="Action_SecurityOk" xml:space="preserve"><value>Sécurité : tout est actif</value></data>
+  <data name="Action_See" xml:space="preserve"><value>Voir</value></data>
+  <data name="Action_UpdatesDetail" xml:space="preserve"><value>{0} au total, dont {1} ({2})</value></data>
+  <data name="Action_UpdatesMany" xml:space="preserve"><value>{0} mises à jour disponibles</value></data>
+  <data name="Action_UpdatesOne" xml:space="preserve"><value>{0} mise à jour disponible</value></data>
+  <data name="Action_UpdatesSizeUnknown" xml:space="preserve"><value>Taille de téléchargement inconnue.</value></data>
+  <data name="Action_UpToDate" xml:space="preserve"><value>Applications à jour</value></data>
+  <data name="Action_UpToDateDetail" xml:space="preserve"><value>Aucune mise à jour en attente.</value></data>
+  <data name="Action_VolumeAttentionDetail" xml:space="preserve"><value>Il reste {0} Go. Libérez de l&apos;espace avant d&apos;atteindre 90 %.</value></data>
+  <data name="Action_VolumeCriticalDetail" xml:space="preserve"><value>Il reste {0} Go. Libérez de l&apos;espace maintenant.</value></data>
+  <data name="Action_VolumeFull" xml:space="preserve"><value>Le volume {0} est plein à {1}</value></data>
+  <data name="Common_AdminRequired" xml:space="preserve"><value>Non disponible sans droits administrateur</value></data>
+  <data name="Common_And" xml:space="preserve"><value>et</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Annuler</value></data>
+  <data name="Common_CopySummary" xml:space="preserve"><value>Copier le résumé</value></data>
+  <data name="Common_Dash" xml:space="preserve"><value>-</value></data>
+  <data name="Common_Export" xml:space="preserve"><value>Exporter</value></data>
+  <data name="Common_Masked" xml:space="preserve"><value>•••••••••• (masqué)</value></data>
+  <data name="Common_No" xml:space="preserve"><value>Non</value></data>
+  <data name="Common_NotAvailable" xml:space="preserve"><value>Non disponible</value></data>
+  <data name="Common_PercentUnit" xml:space="preserve"><value> %</value></data>
+  <data name="Common_Reading" xml:space="preserve"><value>Lecture en cours</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>Oui</value></data>
+  <data name="Csv_Application" xml:space="preserve"><value>Application</value></data>
+  <data name="Csv_Date" xml:space="preserve"><value>Date</value></data>
+  <data name="Csv_Duration" xml:space="preserve"><value>Durée (secondes)</value></data>
+  <data name="Csv_ExitCode" xml:space="preserve"><value>Code de sortie</value></data>
+  <data name="Csv_FromVersion" xml:space="preserve"><value>Version installée</value></data>
+  <data name="Csv_Id" xml:space="preserve"><value>Identifiant</value></data>
+  <data name="Csv_Result" xml:space="preserve"><value>Résultat</value></data>
+  <data name="Csv_ToVersion" xml:space="preserve"><value>Version cible</value></data>
+  <data name="Date_Today" xml:space="preserve"><value>Aujourd&apos;hui {0}</value></data>
+  <data name="Date_Yesterday" xml:space="preserve"><value>Hier {0}</value></data>
+  <data name="Dialog_CloseConfirm" xml:space="preserve"><value>Annuler l&apos;installation et quitter</value></data>
+  <data name="Dialog_CloseMessage" xml:space="preserve"><value>Une installation est en cours. Quitter maintenant l&apos;interrompt.</value></data>
+  <data name="Dialog_CloseTitle" xml:space="preserve"><value>Installation en cours</value></data>
+  <data name="Dialog_Continue" xml:space="preserve"><value>Continuer</value></data>
+  <data name="Dialog_RelaunchConfirm" xml:space="preserve"><value>Interrompre et relancer</value></data>
+  <data name="Dialog_RelaunchMessage" xml:space="preserve"><value>Une installation est en cours. La relance en administrateur l&apos;interrompt.</value></data>
+  <data name="Dialog_RelaunchTitle" xml:space="preserve"><value>Relancer en administrateur</value></data>
+  <data name="Duration_Hours" xml:space="preserve"><value>{0} h {1} min</value></data>
+  <data name="Duration_Minutes" xml:space="preserve"><value>{0} min {1} s</value></data>
+  <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
+  <data name="Elevation_FailedMessage" xml:space="preserve"><value>La relance en administrateur n&apos;a pas pu démarrer.</value></data>
+  <data name="Elevation_FailedTitle" xml:space="preserve"><value>Relance impossible</value></data>
+  <data name="Firmware_Bios" xml:space="preserve"><value>BIOS</value></data>
+  <data name="Firmware_Uefi" xml:space="preserve"><value>UEFI</value></data>
+  <data name="Format_Percent" xml:space="preserve"><value>{0:0} %</value></data>
+  <data name="Health_Good" xml:space="preserve"><value>Bonne</value></data>
+  <data name="Health_Unhealthy" xml:space="preserve"><value>Défaillante</value></data>
+  <data name="Health_Unknown" xml:space="preserve"><value>Inconnue</value></data>
+  <data name="Health_Warning" xml:space="preserve"><value>Attention</value></data>
+  <data name="His_Clear" xml:space="preserve"><value>Effacer l&apos;historique</value></data>
+  <data name="His_ColDate" xml:space="preserve"><value>Date</value></data>
+  <data name="His_ColDuration" xml:space="preserve"><value>Durée</value></data>
+  <data name="His_ColResult" xml:space="preserve"><value>Résultat</value></data>
+  <data name="His_ColVersion" xml:space="preserve"><value>Version</value></data>
+  <data name="His_ConfirmClear" xml:space="preserve"><value>Confirmer l&apos;effacement</value></data>
+  <data name="His_EmptyText" xml:space="preserve"><value>Les installations apparaîtront ici.</value></data>
+  <data name="His_EmptyTitle" xml:space="preserve"><value>Historique vide</value></data>
+  <data name="His_ExportCsv" xml:space="preserve"><value>Exporter en CSV</value></data>
+  <data name="His_Subtitle" xml:space="preserve"><value>Installations, annulations et échecs</value></data>
+  <data name="His_VersionLine" xml:space="preserve"><value>{0} vers {1}</value></data>
+  <data name="Hw_Analyze" xml:space="preserve"><value>Nouvelle analyse</value></data>
+  <data name="Hw_Analyzing" xml:space="preserve"><value>Analyse en cours</value></data>
+  <data name="Hw_BaseFrequency" xml:space="preserve"><value>Fréquence de base</value></data>
+  <data name="Hw_Bios" xml:space="preserve"><value>BIOS</value></data>
+  <data name="Hw_BiosDate" xml:space="preserve"><value>Date du BIOS</value></data>
+  <data name="Hw_Board" xml:space="preserve"><value>Carte mère et BIOS</value></data>
+  <data name="Hw_BootMode" xml:space="preserve"><value>Mode de démarrage</value></data>
+  <data name="Hw_Caches" xml:space="preserve"><value>Caches L1 / L2 / L3</value></data>
+  <data name="Hw_Chipset" xml:space="preserve"><value>Chipset</value></data>
+  <data name="Hw_ComponentsMany" xml:space="preserve"><value>{0} composants détectés</value></data>
+  <data name="Hw_ComponentsOne" xml:space="preserve"><value>{0} composant détecté</value></data>
+  <data name="Hw_CoresThreads" xml:space="preserve"><value>Cœurs / threads</value></data>
+  <data name="Hw_CpuUsage" xml:space="preserve"><value>Utilisation {0}</value></data>
+  <data name="Hw_DedicatedMemory" xml:space="preserve"><value>Mémoire dédiée</value></data>
+  <data name="Hw_DirectX" xml:space="preserve"><value>DirectX</value></data>
+  <data name="Hw_DirectXValue" xml:space="preserve"><value>{0} (niveau {1})</value></data>
+  <data name="Hw_DiskTitle" xml:space="preserve"><value>Disque {0} ({1})</value></data>
+  <data name="Hw_DiskTitleNoVolume" xml:space="preserve"><value>Disque {0}</value></data>
+  <data name="Hw_Displays" xml:space="preserve"><value>Écrans connectés</value></data>
+  <data name="Hw_DisplaysValue" xml:space="preserve"><value>{0} ({1})</value></data>
+  <data name="Hw_DriverDate" xml:space="preserve"><value>Date du pilote</value></data>
+  <data name="Hw_DriverVersion" xml:space="preserve"><value>Version du pilote</value></data>
+  <data name="Hw_FileSystem" xml:space="preserve"><value>Système de fichiers</value></data>
+  <data name="Hw_Graphics" xml:space="preserve"><value>Carte graphique</value></data>
+  <data name="Hw_Health" xml:space="preserve"><value>Santé</value></data>
+  <data name="Hw_Installed" xml:space="preserve"><value>Capacité installée</value></data>
+  <data name="Hw_Interface" xml:space="preserve"><value>Interface</value></data>
+  <data name="Hw_LastAnalysis" xml:space="preserve"><value>Dernière analyse : {0}</value></data>
+  <data name="Hw_Manufacturer" xml:space="preserve"><value>Fabricant</value></data>
+  <data name="Hw_MaxFrequency" xml:space="preserve"><value>Fréquence maximale</value></data>
+  <data name="Hw_Memory" xml:space="preserve"><value>Mémoire</value></data>
+  <data name="Hw_MemoryAvailable" xml:space="preserve"><value>{0} Go disponibles</value></data>
+  <data name="Hw_MemoryGaugeName" xml:space="preserve"><value>Mémoire utilisée</value></data>
+  <data name="Hw_MemoryUsage" xml:space="preserve"><value>{0} utilisée</value></data>
+  <data name="Hw_MemoryUsed" xml:space="preserve"><value>{0} Go utilisés sur {1} Go</value></data>
+  <data name="Hw_Model" xml:space="preserve"><value>Modèle</value></data>
+  <data name="Hw_Modules" xml:space="preserve"><value>Modules</value></data>
+  <data name="Hw_ModulesGroup" xml:space="preserve"><value>{0} × {1} Go</value></data>
+  <data name="Hw_NoVolume" xml:space="preserve"><value>Aucun volume monté</value></data>
+  <data name="Hw_Processor" xml:space="preserve"><value>Processeur</value></data>
+  <data name="Hw_Reserved" xml:space="preserve"><value>Réservée au matériel</value></data>
+  <data name="Hw_Resolution" xml:space="preserve"><value>{0} × {1}</value></data>
+  <data name="Hw_Slots" xml:space="preserve"><value>Emplacements</value></data>
+  <data name="Hw_SlotsValue" xml:space="preserve"><value>{0} occupés sur {1}</value></data>
+  <data name="Hw_Sockets" xml:space="preserve"><value>Sockets</value></data>
+  <data name="Hw_SpeedMts" xml:space="preserve"><value>{0} MT/s</value></data>
+  <data name="Hw_Storage" xml:space="preserve"><value>Stockage</value></data>
+  <data name="Hw_StorageChipAlmostFull" xml:space="preserve"><value>Volume {0} presque plein</value></data>
+  <data name="Hw_StorageChipFull" xml:space="preserve"><value>Volume {0} plein</value></data>
+  <data name="Hw_StorageChipMany" xml:space="preserve"><value>{0} volumes presque pleins</value></data>
+  <data name="Hw_Subtitle" xml:space="preserve"><value>Instantané du matériel, pris à la dernière analyse</value></data>
+  <data name="Hw_SummaryNote" xml:space="preserve"><value>Valeurs relevées lors de l&apos;analyse, non actualisées</value></data>
+  <data name="Hw_SystemDisk" xml:space="preserve"><value>Disque système</value></data>
+  <data name="Hw_Temperature" xml:space="preserve"><value>Température</value></data>
+  <data name="Hw_TemperatureValue" xml:space="preserve"><value>{0} °C</value></data>
+  <data name="Hw_Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="Hw_TpmAbsent" xml:space="preserve"><value>Absent</value></data>
+  <data name="Hw_TpmPresent" xml:space="preserve"><value>Version {0}, présent</value></data>
+  <data name="Hw_TypeSpeed" xml:space="preserve"><value>Type et vitesse</value></data>
+  <data name="Hw_Virtualization" xml:space="preserve"><value>Virtualisation</value></data>
+  <data name="Log_Cancelled" xml:space="preserve"><value>Annulation de {0}</value></data>
+  <data name="Log_Downloading" xml:space="preserve"><value>Téléchargement de {0} {1}</value></data>
+  <data name="Log_FoundMany" xml:space="preserve"><value>{0} mises à jour trouvées</value></data>
+  <data name="Log_FoundOne" xml:space="preserve"><value>{0} mise à jour trouvée</value></data>
+  <data name="Log_Installed" xml:space="preserve"><value>Installée avec succès</value></data>
+  <data name="Log_InstallFailed" xml:space="preserve"><value>Échec de l&apos;installation, code de sortie {0}</value></data>
+  <data name="Log_Installing" xml:space="preserve"><value>Installation en cours</value></data>
+  <data name="Log_SourceFailed" xml:space="preserve"><value>Échec de la source {0} : {1}</value></data>
+  <data name="Log_SourceUpdated" xml:space="preserve"><value>Mise à jour de la source : {0}</value></data>
+  <data name="Media_Hdd" xml:space="preserve"><value>HDD</value></data>
+  <data name="Media_HddUsb" xml:space="preserve"><value>HDD USB</value></data>
+  <data name="Media_Other" xml:space="preserve"><value>Autre</value></data>
+  <data name="Media_SsdNvme" xml:space="preserve"><value>SSD NVMe</value></data>
+  <data name="Media_SsdSata" xml:space="preserve"><value>SSD SATA</value></data>
+  <data name="Nav_Hardware" xml:space="preserve"><value>Matériel</value></data>
+  <data name="Nav_History" xml:space="preserve"><value>Historique</value></data>
+  <data name="Nav_Network" xml:space="preserve"><value>Réseau</value></data>
+  <data name="Nav_Overview" xml:space="preserve"><value>Vue d&apos;ensemble</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Nav_System" xml:space="preserve"><value>Système</value></data>
+  <data name="Nav_Updates" xml:space="preserve"><value>Mises à jour</value></data>
+  <data name="Net_CimFailed" xml:space="preserve"><value>Windows n&apos;a pas répondu</value></data>
+  <data name="Net_Connected" xml:space="preserve"><value>Connecté</value></data>
+  <data name="Net_Connectivity" xml:space="preserve"><value>Connectivité</value></data>
+  <data name="Net_Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Net_Dhcp" xml:space="preserve"><value>DHCP</value></data>
+  <data name="Net_DhcpOn" xml:space="preserve"><value>Oui, {0}</value></data>
+  <data name="Net_Disabled" xml:space="preserve"><value>Désactivé</value></data>
+  <data name="Net_Disconnected" xml:space="preserve"><value>Déconnecté</value></data>
+  <data name="Net_Dns" xml:space="preserve"><value>Serveurs DNS</value></data>
+  <data name="Net_Enable" xml:space="preserve"><value>Activer l&apos;adaptateur</value></data>
+  <data name="Net_EnableOperation" xml:space="preserve"><value>Activer « {0} »</value></data>
+  <data name="Net_FlushDns" xml:space="preserve"><value>Vider le cache DNS</value></data>
+  <data name="Net_FlushOperation" xml:space="preserve"><value>Vider le cache DNS</value></data>
+  <data name="Net_Gateway" xml:space="preserve"><value>Passerelle</value></data>
+  <data name="Net_InvalidAdapter" xml:space="preserve"><value>adaptateur introuvable</value></data>
+  <data name="Net_IpconfigMissing" xml:space="preserve"><value>ipconfig introuvable</value></data>
+  <data name="Net_IPv4" xml:space="preserve"><value>Adresse IPv4</value></data>
+  <data name="Net_IPv6" xml:space="preserve"><value>IPv6 (lien local)</value></data>
+  <data name="Net_Lease" xml:space="preserve"><value>Bail expire</value></data>
+  <data name="Net_LinkSpeed" xml:space="preserve"><value>Vitesse de liaison</value></data>
+  <data name="Net_Mac" xml:space="preserve"><value>Adresse MAC</value></data>
+  <data name="Net_Mask" xml:space="preserve"><value>Masque</value></data>
+  <data name="Net_Mtu" xml:space="preserve"><value>MTU</value></data>
+  <data name="Net_NotTested" xml:space="preserve"><value>Non testé</value></data>
+  <data name="Net_Profile" xml:space="preserve"><value>Profil réseau</value></data>
+  <data name="Net_Running" xml:space="preserve"><value>Test en cours</value></data>
+  <data name="Net_State" xml:space="preserve"><value>État</value></data>
+  <data name="Net_StateConnected" xml:space="preserve"><value>Connecté à Internet</value></data>
+  <data name="Net_StateInternet" xml:space="preserve"><value>Internet inaccessible</value></data>
+  <data name="Net_StateLocal" xml:space="preserve"><value>Réseau local inaccessible</value></data>
+  <data name="Net_StateNone" xml:space="preserve"><value>Aucun réseau</value></data>
+  <data name="Net_StateNotTested" xml:space="preserve"><value>Non testé</value></data>
+  <data name="Net_Subtitle" xml:space="preserve"><value>Adaptateurs, adresses et connectivité</value></data>
+  <data name="Net_Test" xml:space="preserve"><value>Tester la connectivité</value></data>
+  <data name="Net_TestAdapter" xml:space="preserve"><value>Adaptateur réseau</value></data>
+  <data name="Net_TestAdapterFailed" xml:space="preserve"><value>Aucun adaptateur connecté</value></data>
+  <data name="Net_TestAdapterOk" xml:space="preserve"><value>{0} connecté à {1}</value></data>
+  <data name="Net_TestDns" xml:space="preserve"><value>Résolution DNS</value></data>
+  <data name="Net_TestDnsFailed" xml:space="preserve"><value>La résolution de {0} a échoué</value></data>
+  <data name="Net_TestDnsOk" xml:space="preserve"><value>{0} résolu via {1}</value></data>
+  <data name="Net_TestGateway" xml:space="preserve"><value>Passerelle</value></data>
+  <data name="Net_TestGatewayFailed" xml:space="preserve"><value>{0} ne répond pas</value></data>
+  <data name="Net_TestGatewayOk" xml:space="preserve"><value>{0} répond</value></data>
+  <data name="Net_TestInternet" xml:space="preserve"><value>Accès à Internet</value></data>
+  <data name="Net_TestInternetFailed" xml:space="preserve"><value>Test de connectivité Windows échoué</value></data>
+  <data name="Net_TestInternetOk" xml:space="preserve"><value>Test de connectivité Windows réussi</value></data>
+  <data name="Net_TestNoGateway" xml:space="preserve"><value>Aucune passerelle</value></data>
+  <data name="Net_Traffic" xml:space="preserve"><value>Reçus / envoyés</value></data>
+  <data name="Net_TrafficValue" xml:space="preserve"><value>{0} Go / {1} Go</value></data>
+  <data name="Ovw_Actions" xml:space="preserve"><value>Actions recommandées</value></data>
+  <data name="Ovw_CpuDetail" xml:space="preserve"><value>{0} cœurs · {1} threads</value></data>
+  <data name="Ovw_ExportReport" xml:space="preserve"><value>Exporter un rapport</value></data>
+  <data name="Ovw_Loading" xml:space="preserve"><value>Lecture des informations de l&apos;appareil</value></data>
+  <data name="Ovw_Memory" xml:space="preserve"><value>Mémoire</value></data>
+  <data name="Ovw_MemoryDetail" xml:space="preserve"><value>{0} sur {1} Go</value></data>
+  <data name="Ovw_NetworkLimited" xml:space="preserve"><value>Limité</value></data>
+  <data name="Ovw_Processor" xml:space="preserve"><value>Processeur</value></data>
+  <data name="Ovw_SearchUpdates" xml:space="preserve"><value>Rechercher les mises à jour</value></data>
+  <data name="Ovw_Storage" xml:space="preserve"><value>Stockage</value></data>
+  <data name="Profile_Domain" xml:space="preserve"><value>Domaine</value></data>
+  <data name="Profile_Private" xml:space="preserve"><value>Privé</value></data>
+  <data name="Profile_Public" xml:space="preserve"><value>Public</value></data>
+  <data name="Profile_Unidentified" xml:space="preserve"><value>Non identifié</value></data>
+  <data name="Report_Generated" xml:space="preserve"><value>Rapport généré le {0}</value></data>
+  <data name="Report_TitleFull" xml:space="preserve"><value>Windows Companion - Rapport complet</value></data>
+  <data name="Report_TitleHardware" xml:space="preserve"><value>Windows Companion - Matériel</value></data>
+  <data name="Report_TitleNetwork" xml:space="preserve"><value>Windows Companion - Réseau</value></data>
+  <data name="Report_TitleSystem" xml:space="preserve"><value>Windows Companion - Système</value></data>
+  <data name="Result_Cancelled" xml:space="preserve"><value>Annulée</value></data>
+  <data name="Result_Failure" xml:space="preserve"><value>Échec</value></data>
+  <data name="Result_Success" xml:space="preserve"><value>Réussie</value></data>
+  <data name="Security_BitLocker" xml:space="preserve"><value>BitLocker</value></data>
+  <data name="Security_Defender" xml:space="preserve"><value>Defender</value></data>
+  <data name="Security_Firewall" xml:space="preserve"><value>pare-feu</value></data>
+  <data name="Security_SecureBoot" xml:space="preserve"><value>démarrage sécurisé</value></data>
+  <data name="Set_Appearance" xml:space="preserve"><value>Apparence</value></data>
+  <data name="Set_ExclusionDetail" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Set_Ignored" xml:space="preserve"><value>Applications ignorées</value></data>
+  <data name="Set_Installation" xml:space="preserve"><value>Installation</value></data>
+  <data name="Set_NoIgnored" xml:space="preserve"><value>Aucune application ignorée.</value></data>
+  <data name="Set_Reactivate" xml:space="preserve"><value>Réactiver</value></data>
+  <data name="Set_Silent" xml:space="preserve"><value>Installation silencieuse</value></data>
+  <data name="Set_SilentDescription" xml:space="preserve"><value>Aucune fenêtre d&apos;installeur (--silent)</value></data>
+  <data name="Set_Sources" xml:space="preserve"><value>Sources de mises à jour</value></data>
+  <data name="Set_StoreDescription" xml:space="preserve"><value>Applications installées depuis le Store (source msstore)</value></data>
+  <data name="Set_StoreName" xml:space="preserve"><value>Source Microsoft Store</value></data>
+  <data name="Set_Subtitle" xml:space="preserve"><value>Sources, installation, applications ignorées et apparence</value></data>
+  <data name="Set_Theme" xml:space="preserve"><value>Thème</value></data>
+  <data name="Set_ThemeDescription" xml:space="preserve"><value>Suit Windows par défaut</value></data>
+  <data name="Set_Unknown" xml:space="preserve"><value>Inclure les applications à version inconnue</value></data>
+  <data name="Set_UnknownDescription" xml:space="preserve"><value>Équivalent de --include-unknown</value></data>
+  <data name="Set_UnknownName" xml:space="preserve"><value>Inclure les versions inconnues</value></data>
+  <data name="Set_WingetDescription" xml:space="preserve"><value>Dépôt de la communauté Windows Package Manager</value></data>
+  <data name="Set_WingetName" xml:space="preserve"><value>Source winget</value></data>
+  <data name="Shell_PaneToggleName" xml:space="preserve"><value>Réduire ou développer la navigation</value></data>
+  <data name="Shell_PaneToggleTip" xml:space="preserve"><value>Navigation</value></data>
+  <data name="Size_Gb" xml:space="preserve"><value>{0} Go</value></data>
+  <data name="Size_GbOrMore" xml:space="preserve"><value>{0} Go ou plus</value></data>
+  <data name="Source_Store" xml:space="preserve"><value>Store</value></data>
+  <data name="Source_StoreLong" xml:space="preserve"><value>Microsoft Store</value></data>
+  <data name="Source_Winget" xml:space="preserve"><value>winget</value></data>
+  <data name="Started_DayMany" xml:space="preserve"><value>démarré il y a {0} jours</value></data>
+  <data name="Started_DayOne" xml:space="preserve"><value>démarré il y a {0} jour</value></data>
+  <data name="Started_Today" xml:space="preserve"><value>démarré aujourd&apos;hui</value></data>
+  <data name="State_Active" xml:space="preserve"><value>Actif</value></data>
+  <data name="State_AppOpen" xml:space="preserve"><value>Application ouverte</value></data>
+  <data name="State_Available" xml:space="preserve"><value>Disponible</value></data>
+  <data name="State_Cancelled" xml:space="preserve"><value>Annulée</value></data>
+  <data name="State_Disabled" xml:space="preserve"><value>Désactivée</value></data>
+  <data name="State_Downloading" xml:space="preserve"><value>Téléchargement {0}</value></data>
+  <data name="State_Enabled" xml:space="preserve"><value>Activée</value></data>
+  <data name="State_Failed" xml:space="preserve"><value>Échec {0}</value></data>
+  <data name="State_Installed" xml:space="preserve"><value>Installée</value></data>
+  <data name="State_Installing" xml:space="preserve"><value>Installation en cours</value></data>
+  <data name="State_Off" xml:space="preserve"><value>Désactivé</value></data>
+  <data name="State_On" xml:space="preserve"><value>Activé</value></data>
+  <data name="State_Queued" xml:space="preserve"><value>En attente</value></data>
+  <data name="Status_LastSearch" xml:space="preserve"><value>Dernière recherche : {0}</value></data>
+  <data name="Status_NoSearch" xml:space="preserve"><value>Aucune recherche effectuée</value></data>
+  <data name="Status_Relaunch" xml:space="preserve"><value>Relancer en administrateur</value></data>
+  <data name="Status_RightsAdmin" xml:space="preserve"><value>Droits administrateur</value></data>
+  <data name="Status_RightsStandard" xml:space="preserve"><value>Droits standard</value></data>
+  <data name="Status_WingetChecking" xml:space="preserve"><value>Recherche de winget</value></data>
+  <data name="Status_WingetMissing" xml:space="preserve"><value>winget introuvable</value></data>
+  <data name="Status_WingetReady" xml:space="preserve"><value>winget v{0} prêt</value></data>
+  <data name="Storage_Free" xml:space="preserve"><value>{0} Go libres</value></data>
+  <data name="Storage_GaugeName" xml:space="preserve"><value>Espace utilisé sur {0}</value></data>
+  <data name="Storage_LineTitle" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Storage_PercentUsed" xml:space="preserve"><value>{0} utilisé</value></data>
+  <data name="Storage_Used" xml:space="preserve"><value>{0} Go utilisés sur {1} Go</value></data>
+  <data name="Summary_DiskMany" xml:space="preserve"><value>{0} disques</value></data>
+  <data name="Summary_DiskOne" xml:space="preserve"><value>{0} disque</value></data>
+  <data name="Summary_EditionPro" xml:space="preserve"><value>Professionnel</value></data>
+  <data name="Summary_EditionProShort" xml:space="preserve"><value>Pro</value></data>
+  <data name="Summary_Memory" xml:space="preserve"><value>{0} Go</value></data>
+  <data name="Sys_Activated" xml:space="preserve"><value>Windows est activé</value></data>
+  <data name="Sys_Activation" xml:space="preserve"><value>Activation</value></data>
+  <data name="Sys_Architecture" xml:space="preserve"><value>Architecture</value></data>
+  <data name="Sys_BiosMode" xml:space="preserve"><value>Mode BIOS</value></data>
+  <data name="Sys_BitLocker" xml:space="preserve"><value>BitLocker</value></data>
+  <data name="Sys_BitLockerOff" xml:space="preserve"><value>{0} désactivé</value></data>
+  <data name="Sys_BitLockerOn" xml:space="preserve"><value>{0} activé</value></data>
+  <data name="Sys_BootedOn" xml:space="preserve"><value>Démarré le</value></data>
+  <data name="Sys_Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Sys_Defender" xml:space="preserve"><value>Microsoft Defender</value></data>
+  <data name="Sys_DefenderOutdated" xml:space="preserve"><value>Actif, signatures à mettre à jour</value></data>
+  <data name="Sys_DefenderUpToDate" xml:space="preserve"><value>Actif, signatures à jour</value></data>
+  <data name="Sys_DeviceName" xml:space="preserve"><value>Nom de l&apos;appareil</value></data>
+  <data name="Sys_Domain" xml:space="preserve"><value>Domaine</value></data>
+  <data name="Sys_DotnetRuntimes" xml:space="preserve"><value>Runtimes .NET</value></data>
+  <data name="Sys_Drivers" xml:space="preserve"><value>Pilotes installés</value></data>
+  <data name="Sys_DriverWarnings" xml:space="preserve"><value>Pilotes avec avertissement</value></data>
+  <data name="Sys_FastStartup" xml:space="preserve"><value>Démarrage rapide</value></data>
+  <data name="Sys_FilterName" xml:space="preserve"><value>Filtrer les informations système</value></data>
+  <data name="Sys_FilterPlaceholder" xml:space="preserve"><value>Filtrer les informations</value></data>
+  <data name="Sys_Firewall" xml:space="preserve"><value>Pare-feu Windows</value></data>
+  <data name="Sys_FirewallOff" xml:space="preserve"><value>Désactivé : {0}</value></data>
+  <data name="Sys_GroupDevice" xml:space="preserve"><value>Appareil</value></data>
+  <data name="Sys_GroupDrivers" xml:space="preserve"><value>Pilotes et services</value></data>
+  <data name="Sys_GroupOs" xml:space="preserve"><value>Système d&apos;exploitation</value></data>
+  <data name="Sys_GroupSecurity" xml:space="preserve"><value>Sécurité</value></data>
+  <data name="Sys_GroupSession" xml:space="preserve"><value>Session et démarrage</value></data>
+  <data name="Sys_GroupSoftware" xml:space="preserve"><value>Logiciels et composants</value></data>
+  <data name="Sys_InstalledApps" xml:space="preserve"><value>Applications installées</value></data>
+  <data name="Sys_InstalledOn" xml:space="preserve"><value>Installé le</value></data>
+  <data name="Sys_InstalledVersion" xml:space="preserve"><value>Installé ({0})</value></data>
+  <data name="Sys_Language" xml:space="preserve"><value>Langue</value></data>
+  <data name="Sys_LastUpdateCheck" xml:space="preserve"><value>Dernière vérif. Windows Update</value></data>
+  <data name="Sys_Manufacturer" xml:space="preserve"><value>Fabricant</value></data>
+  <data name="Sys_Name" xml:space="preserve"><value>Nom</value></data>
+  <data name="Sys_NoMatchText" xml:space="preserve"><value>Aucune ligne ne correspond au filtre.</value></data>
+  <data name="Sys_NoMatchTitle" xml:space="preserve"><value>Aucune information</value></data>
+  <data name="Sys_NotActivated" xml:space="preserve"><value>Windows n&apos;est pas activé</value></data>
+  <data name="Sys_NotInstalled" xml:space="preserve"><value>Non installé</value></data>
+  <data name="Sys_PowerShell" xml:space="preserve"><value>PowerShell</value></data>
+  <data name="Sys_RestorePoints" xml:space="preserve"><value>Points de restauration</value></data>
+  <data name="Sys_RestorePointsValue" xml:space="preserve"><value>{0} (dernier : {1})</value></data>
+  <data name="Sys_RunningServices" xml:space="preserve"><value>Services en cours</value></data>
+  <data name="Sys_SecureBoot" xml:space="preserve"><value>Démarrage sécurisé</value></data>
+  <data name="Sys_SerialNumber" xml:space="preserve"><value>Numéro de série</value></data>
+  <data name="Sys_Subtitle" xml:space="preserve"><value>Informations de Windows, de la sécurité et des logiciels</value></data>
+  <data name="Sys_SystemType" xml:space="preserve"><value>Type de système</value></data>
+  <data name="Sys_SystemTypeArm64" xml:space="preserve"><value>PC à processeur ARM64</value></data>
+  <data name="Sys_SystemTypeX64" xml:space="preserve"><value>PC à processeur x64</value></data>
+  <data name="Sys_TempFolder" xml:space="preserve"><value>Espace du dossier temporaire</value></data>
+  <data name="Sys_TimeZone" xml:space="preserve"><value>Fuseau horaire</value></data>
+  <data name="Sys_Uac" xml:space="preserve"><value>Contrôle de compte</value></data>
+  <data name="Sys_Uptime" xml:space="preserve"><value>Temps de fonctionnement</value></data>
+  <data name="Sys_User" xml:space="preserve"><value>Utilisateur</value></data>
+  <data name="Sys_Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Sys_WebView2" xml:space="preserve"><value>WebView2</value></data>
+  <data name="Sys_WindowsPowerShell" xml:space="preserve"><value>Windows PowerShell</value></data>
+  <data name="Sys_Winget" xml:space="preserve"><value>winget</value></data>
+  <data name="Sys_Workgroup" xml:space="preserve"><value>Groupe de travail</value></data>
+  <data name="Theme_Dark" xml:space="preserve"><value>Sombre</value></data>
+  <data name="Theme_Light" xml:space="preserve"><value>Clair</value></data>
+  <data name="Theme_System" xml:space="preserve"><value>Système</value></data>
+  <data name="Toast_AdapterEnabled_Message" xml:space="preserve"><value>« {0} » est activé.</value></data>
+  <data name="Toast_AdapterEnabled_Title" xml:space="preserve"><value>Adaptateur activé</value></data>
+  <data name="Toast_AdminRequired_Message" xml:space="preserve"><value>{0} demande une élévation de privilèges.</value></data>
+  <data name="Toast_AdminRequired_Title" xml:space="preserve"><value>Droits administrateur requis</value></data>
+  <data name="Toast_AllCancelled_MessageMany" xml:space="preserve"><value>{0} mises à jour annulées. Les applications déjà installées restent à jour.</value></data>
+  <data name="Toast_AllCancelled_MessageOne" xml:space="preserve"><value>{0} mise à jour annulée. Les applications déjà installées restent à jour.</value></data>
+  <data name="Toast_AllCancelled_Title" xml:space="preserve"><value>Installations annulées</value></data>
+  <data name="Toast_Analyzed_GpuMany" xml:space="preserve"><value>{0} cartes graphiques</value></data>
+  <data name="Toast_Analyzed_GpuOne" xml:space="preserve"><value>{0} carte graphique</value></data>
+  <data name="Toast_Analyzed_Message" xml:space="preserve"><value>{0} composants détectés : processeur, mémoire, {1}, carte mère, {2}.</value></data>
+  <data name="Toast_Analyzed_Title" xml:space="preserve"><value>Analyse terminée</value></data>
+  <data name="Toast_AppOpen_Message" xml:space="preserve"><value>La mise à jour sera appliquée à la fermeture de l&apos;application.</value></data>
+  <data name="Toast_AppOpen_Title" xml:space="preserve"><value>Fermez {0}</value></data>
+  <data name="Toast_AppUpdated_Message" xml:space="preserve"><value>Version {0} appliquée.</value></data>
+  <data name="Toast_AppUpdated_Title" xml:space="preserve"><value>{0} mise à jour</value></data>
+  <data name="Toast_BatchDone_MessageMany" xml:space="preserve"><value>{0} applications ont été mises à jour.</value></data>
+  <data name="Toast_BatchDone_MessageOne" xml:space="preserve"><value>{0} application a été mise à jour.</value></data>
+  <data name="Toast_BatchDone_Title" xml:space="preserve"><value>Mises à jour installées</value></data>
+  <data name="Toast_BatchErrors_Message" xml:space="preserve"><value>{0} installée(s), {1} en échec.</value></data>
+  <data name="Toast_BatchErrors_Title" xml:space="preserve"><value>Terminé avec des erreurs</value></data>
+  <data name="Toast_CloseApp" xml:space="preserve"><value>Fermer {0}</value></data>
+  <data name="Toast_CloseName" xml:space="preserve"><value>Fermer la notification</value></data>
+  <data name="Toast_Connected_Message" xml:space="preserve"><value>Internet accessible en {0}. Passerelle et DNS répondent.</value></data>
+  <data name="Toast_Connected_Title" xml:space="preserve"><value>Connectivité vérifiée</value></data>
+  <data name="Toast_Copied_Message" xml:space="preserve"><value>Les informations du matériel et du système sont dans le presse-papiers.</value></data>
+  <data name="Toast_Copied_Title" xml:space="preserve"><value>Résumé copié</value></data>
+  <data name="Toast_CopyDetail" xml:space="preserve"><value>Copier le détail</value></data>
+  <data name="Toast_CopyFailed_Message" xml:space="preserve"><value>Le presse-papiers est utilisé par une autre application. Réessayez.</value></data>
+  <data name="Toast_CopyFailed_Title" xml:space="preserve"><value>Copie impossible</value></data>
+  <data name="Toast_Dequeued_Message" xml:space="preserve"><value>{0} ne sera pas installée.</value></data>
+  <data name="Toast_Dequeued_Title" xml:space="preserve"><value>Retiré de la file</value></data>
+  <data name="Toast_DnsFlushed_Message" xml:space="preserve"><value>La résolution de noms repart d&apos;un cache propre.</value></data>
+  <data name="Toast_DnsFlushed_Title" xml:space="preserve"><value>Cache DNS vidé</value></data>
+  <data name="Toast_DownloadCancelled_Message" xml:space="preserve"><value>{0} ne sera pas mise à jour.</value></data>
+  <data name="Toast_DownloadCancelled_Title" xml:space="preserve"><value>Téléchargement annulé</value></data>
+  <data name="Toast_ElevationRefused_Message" xml:space="preserve"><value>L&apos;application reste en droits standard.</value></data>
+  <data name="Toast_ElevationRefused_Title" xml:space="preserve"><value>Élévation refusée</value></data>
+  <data name="Toast_Exported_Message" xml:space="preserve"><value>{0} enregistré dans Documents.</value></data>
+  <data name="Toast_Exported_Title" xml:space="preserve"><value>Rapport exporté</value></data>
+  <data name="Toast_ExportFailed_Message" xml:space="preserve"><value>Le fichier n&apos;a pas pu être enregistré : {0}</value></data>
+  <data name="Toast_ExportFailed_Title" xml:space="preserve"><value>Export impossible</value></data>
+  <data name="Toast_HistoryCleared_Message" xml:space="preserve"><value>Les enregistrements des installations ont été supprimés.</value></data>
+  <data name="Toast_HistoryCleared_Title" xml:space="preserve"><value>Historique effacé</value></data>
+  <data name="Toast_Ignored_MessageMany" xml:space="preserve"><value>Elles ne seront plus proposées. Gérez la liste dans Paramètres.</value></data>
+  <data name="Toast_Ignored_MessageOne" xml:space="preserve"><value>Elle ne sera plus proposée. Gérez la liste dans Paramètres.</value></data>
+  <data name="Toast_Ignored_TitleMany" xml:space="preserve"><value>{0} applications ignorées</value></data>
+  <data name="Toast_Ignored_TitleOne" xml:space="preserve"><value>{0} application ignorée</value></data>
+  <data name="Toast_InstallFailed_Detail" xml:space="preserve"><value>winget upgrade --id {0} : code de sortie {1}</value></data>
+  <data name="Toast_InstallFailed_Message" xml:space="preserve"><value>Code de sortie {0} : erreur pendant l&apos;installation.</value></data>
+  <data name="Toast_InstallFailed_Title" xml:space="preserve"><value>Échec : {0}</value></data>
+  <data name="Toast_InstallInterrupted_Message" xml:space="preserve"><value>{0} a été arrêtée pendant l&apos;installation. Vérifiez qu&apos;elle démarre encore.</value></data>
+  <data name="Toast_InstallInterrupted_Title" xml:space="preserve"><value>Installation interrompue</value></data>
+  <data name="Toast_InternetDown_Message" xml:space="preserve"><value>La passerelle répond, mais l&apos;accès à Internet a échoué.</value></data>
+  <data name="Toast_InternetDown_Title" xml:space="preserve"><value>Internet inaccessible</value></data>
+  <data name="Toast_KickerError" xml:space="preserve"><value>ERREUR</value></data>
+  <data name="Toast_KickerInfo" xml:space="preserve"><value>INFORMATION</value></data>
+  <data name="Toast_KickerSuccess" xml:space="preserve"><value>SUCCÈS</value></data>
+  <data name="Toast_KickerWarning" xml:space="preserve"><value>AVERTISSEMENT</value></data>
+  <data name="Toast_Later" xml:space="preserve"><value>Plus tard</value></data>
+  <data name="Toast_LocalDown_Message" xml:space="preserve"><value>La passerelle {0} ne répond pas.</value></data>
+  <data name="Toast_LocalDown_Title" xml:space="preserve"><value>Réseau local inaccessible</value></data>
+  <data name="Toast_NoNetwork_Message" xml:space="preserve"><value>Aucun adaptateur réseau n&apos;est connecté.</value></data>
+  <data name="Toast_NoNetwork_Title" xml:space="preserve"><value>Aucun réseau</value></data>
+  <data name="Toast_OpenFolder" xml:space="preserve"><value>Ouvrir le dossier</value></data>
+  <data name="Toast_OperationFailed_Message" xml:space="preserve"><value>{0} a échoué : {1}.</value></data>
+  <data name="Toast_OperationFailed_Title" xml:space="preserve"><value>Opération échouée</value></data>
+  <data name="Toast_Reactivated_Message" xml:space="preserve"><value>Elle sera de nouveau proposée à la prochaine recherche.</value></data>
+  <data name="Toast_Reactivated_Title" xml:space="preserve"><value>{0} réactivée</value></data>
+  <data name="Toast_Reset_Message" xml:space="preserve"><value>Le fichier était illisible. Les valeurs par défaut sont appliquées.</value></data>
+  <data name="Toast_Reset_Title" xml:space="preserve"><value>Réglages réinitialisés</value></data>
+  <data name="Toast_Retry" xml:space="preserve"><value>Réessayer</value></data>
+  <data name="Toast_SearchDone_MessageMany" xml:space="preserve"><value>{0} mises à jour disponibles via {1}.</value></data>
+  <data name="Toast_SearchDone_MessageOne" xml:space="preserve"><value>{0} mise à jour disponible via {1}.</value></data>
+  <data name="Toast_SearchDone_Title" xml:space="preserve"><value>Recherche terminée</value></data>
+  <data name="Toast_SearchFailed_Message" xml:space="preserve"><value>winget n&apos;a pas répondu : {0}.</value></data>
+  <data name="Toast_SearchFailed_Title" xml:space="preserve"><value>Recherche impossible</value></data>
+  <data name="Toast_SeeHistory" xml:space="preserve"><value>Voir l&apos;historique</value></data>
+  <data name="Toast_SourceUnavailable_Message" xml:space="preserve"><value>La source {0} n&apos;a pas répondu. Les résultats sont partiels.</value></data>
+  <data name="Toast_SourceUnavailable_Title" xml:space="preserve"><value>Source indisponible</value></data>
+  <data name="Toast_Undo" xml:space="preserve"><value>Annuler</value></data>
+  <data name="Toast_UpToDate_Message" xml:space="preserve"><value>Aucune mise à jour disponible pour le moment.</value></data>
+  <data name="Toast_UpToDate_Title" xml:space="preserve"><value>Tout est à jour</value></data>
+  <data name="Unit_Gb" xml:space="preserve"><value>Go</value></data>
+  <data name="Unit_Gbps" xml:space="preserve"><value>Gb/s</value></data>
+  <data name="Unit_Ghz" xml:space="preserve"><value>GHz</value></data>
+  <data name="Unit_Mb" xml:space="preserve"><value>Mo</value></data>
+  <data name="Unit_Mbps" xml:space="preserve"><value>Mb/s</value></data>
+  <data name="Unit_Ms" xml:space="preserve"><value>ms</value></data>
+  <data name="Upd_CancelAll" xml:space="preserve"><value>Annuler tout</value></data>
+  <data name="Upd_CancelName" xml:space="preserve"><value>Annuler {0}</value></data>
+  <data name="Upd_ClearLog" xml:space="preserve"><value>Effacer</value></data>
+  <data name="Upd_CloseApp" xml:space="preserve"><value>Fermer</value></data>
+  <data name="Upd_ColApplication" xml:space="preserve"><value>Application</value></data>
+  <data name="Upd_ColAvailable" xml:space="preserve"><value>Disponible</value></data>
+  <data name="Upd_ColInstalled" xml:space="preserve"><value>Installée</value></data>
+  <data name="Upd_ColSize" xml:space="preserve"><value>Taille</value></data>
+  <data name="Upd_ColSource" xml:space="preserve"><value>Source</value></data>
+  <data name="Upd_ColState" xml:space="preserve"><value>État</value></data>
+  <data name="Upd_FilterAll" xml:space="preserve"><value>Toutes</value></data>
+  <data name="Upd_FilterName" xml:space="preserve"><value>Filtrer par source</value></data>
+  <data name="Upd_Ignore" xml:space="preserve"><value>Ignorer</value></data>
+  <data name="Upd_IgnoredReason" xml:space="preserve"><value>Ignorée depuis la liste</value></data>
+  <data name="Upd_IgnoreTip" xml:space="preserve"><value>Ne plus proposer la sélection</value></data>
+  <data name="Upd_Install" xml:space="preserve"><value>Installer</value></data>
+  <data name="Upd_InstallAll" xml:space="preserve"><value>Tout mettre à jour</value></data>
+  <data name="Upd_InstallSelection" xml:space="preserve"><value>Installer la sélection</value></data>
+  <data name="Upd_InstallSelectionCount" xml:space="preserve"><value>Installer la sélection ({0})</value></data>
+  <data name="Upd_LogName" xml:space="preserve"><value>Sortie de winget</value></data>
+  <data name="Upd_LogTitle" xml:space="preserve"><value>Journal winget</value></data>
+  <data name="Upd_NoResultText" xml:space="preserve"><value>Aucune application ne correspond au filtre.</value></data>
+  <data name="Upd_NoResultTitle" xml:space="preserve"><value>Aucun résultat</value></data>
+  <data name="Upd_NoSourceTooltip" xml:space="preserve"><value>Activez au moins une source dans Paramètres</value></data>
+  <data name="Upd_NotSearchedText" xml:space="preserve"><value>Lancez une recherche pour trouver les mises à jour disponibles.</value></data>
+  <data name="Upd_NotSearchedTitle" xml:space="preserve"><value>Aucune recherche effectuée</value></data>
+  <data name="Upd_ProgressLabel" xml:space="preserve"><value>Application {0} sur {1} : {2}</value></data>
+  <data name="Upd_Retry" xml:space="preserve"><value>Réessayer</value></data>
+  <data name="Upd_Search" xml:space="preserve"><value>Rechercher</value></data>
+  <data name="Upd_Searching" xml:space="preserve"><value>Recherche en cours</value></data>
+  <data name="Upd_SelectAll" xml:space="preserve"><value>Tout sélectionner</value></data>
+  <data name="Upd_SelectName" xml:space="preserve"><value>Sélectionner {0}</value></data>
+  <data name="Upd_Subtitle" xml:space="preserve"><value>Sources : {0}</value></data>
+  <data name="Upd_SummaryMany" xml:space="preserve"><value>{0} mises à jour disponibles</value></data>
+  <data name="Upd_SummaryOne" xml:space="preserve"><value>{0} mise à jour disponible</value></data>
+  <data name="Upd_ToDownload" xml:space="preserve"><value>{0} à télécharger</value></data>
+  <data name="Upd_UpToDateText" xml:space="preserve"><value>Aucune mise à jour disponible. Relancez une recherche.</value></data>
+  <data name="Upd_UpToDateTitle" xml:space="preserve"><value>Tout est à jour</value></data>
+  <data name="Upd_VersionUnknown" xml:space="preserve"><value>Inconnue</value></data>
+  <data name="Upd_WingetMissingText" xml:space="preserve"><value>Installez le Gestionnaire de package Windows (Programme d&apos;installation d&apos;application) depuis le Microsoft Store, puis relancez la recherche.</value></data>
+  <data name="Upd_WingetMissingTitle" xml:space="preserve"><value>winget est introuvable</value></data>
+  <data name="Uptime_DayMany" xml:space="preserve"><value>{0} jours</value></data>
+  <data name="Uptime_DayOne" xml:space="preserve"><value>{0} jour</value></data>
+  <data name="Uptime_HourMany" xml:space="preserve"><value>{0} heures</value></data>
+  <data name="Uptime_HourOne" xml:space="preserve"><value>{0} heure</value></data>
+  <data name="Usage_AlmostFull" xml:space="preserve"><value>Presque plein</value></data>
+  <data name="Usage_FreeSpace" xml:space="preserve"><value>Espace libre</value></data>
+  <data name="Usage_Full" xml:space="preserve"><value>Plein</value></data>
+  <data name="Usage_SuffixAlmostFull" xml:space="preserve"><value> · presque plein</value></data>
+  <data name="Usage_SuffixFull" xml:space="preserve"><value> · plein</value></data>
+  <data name="Winget_ExitCodeCause" xml:space="preserve"><value>code de sortie {0}</value></data>
+  <data name="Winget_NotFound" xml:space="preserve"><value>winget introuvable</value></data>
+  <data name="Winget_NotFoundCause" xml:space="preserve"><value>winget est introuvable</value></data>
+  <data name="Winget_NotFoundCode" xml:space="preserve"><value>-</value></data>
+</root>

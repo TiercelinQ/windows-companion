@@ -1,0 +1,25 @@
+<Application
+    x:Class="WindowsCompanion.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:conv="clr-namespace:WindowsCompanion.Converters"
+    ShutdownMode="OnExplicitShutdown"
+    Startup="OnStartup"
+    Exit="OnExit">
+    <!-- No StartupUri: the composition root decides what to show (rules/splash.md). -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Order matters (rules/xaml.md): Fluent, then project tokens, then styles. No theme token dictionary (D-05). -->
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Light" />
+                <ui:ControlsDictionary />
+                <ResourceDictionary Source="Themes/Tokens.xaml" />
+                <ResourceDictionary Source="Themes/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <conv:EnumEqualsConverter x:Key="EnumEquals" />
+            <conv:AppTileBrushConverter x:Key="AppTileBrush" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

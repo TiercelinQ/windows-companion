@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>WindowsCompanion</AssemblyName>
+    <RootNamespace>WindowsCompanion</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <!-- LibraryImport and the DXGI vtable calls (Services/Platform). -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Canonical version (rules/versioning.md). AppConfig.AppVersion mirrors it; only /wpf-release changes it. -->
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WPF-UI" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Sinks.Debug" />
+    <PackageReference Include="System.Management" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="WindowsCompanion.Wpf.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Embedded in the assembly so the single-file executable needs no loose asset (rules/packaging.md). -->
+    <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Written next to the .resx, never generated at build time (rules/config.md, i18n). -->
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <!-- Styles of the HTML reports (D-08). -->
+    <EmbeddedResource Include="Resources\report.css" LogicalName="WindowsCompanion.Resources.report.css" />
+  </ItemGroup>
+
+</Project>

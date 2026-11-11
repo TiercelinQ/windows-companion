@@ -1,0 +1,102 @@
+<Page
+    x:Class="WindowsCompanion.Views.NetworkView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:res="clr-namespace:WindowsCompanion.Resources"
+    xmlns:vm="clr-namespace:WindowsCompanion.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=vm:NetworkViewModel}"
+    Style="{StaticResource PageStyle}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Style="{StaticResource PageHeaderStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource PageTitleStyle}" Text="{x:Static res:Strings.Nav_Network}" />
+                <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="{x:Static res:Strings.Net_Subtitle}" />
+            </StackPanel>
+            <WrapPanel Grid.Column="1" Style="{StaticResource CommandBarPanelStyle}">
+                <ui:Button Style="{StaticResource PrimaryButtonStyle}" Content="{x:Static res:Strings.Net_Test}" Icon="{ui:SymbolIcon Play24}" Command="{Binding TestConnectivityCommand}" />
+                <ui:Button Style="{StaticResource SecondaryButtonStyle}" Content="{x:Static res:Strings.Common_Export}" Icon="{ui:SymbolIcon Share24}" Command="{Binding ExportCommand}" />
+                <ui:Button Style="{StaticResource GhostButtonStyle}" Content="{x:Static res:Strings.Net_FlushDns}" Icon="{ui:SymbolIcon ArrowSync24}" Command="{Binding FlushDnsCommand}" />
+            </WrapPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Style="{StaticResource PageScrollStyle}">
+            <StackPanel Style="{StaticResource PageContentStyle}">
+
+                <!-- Connectivity (F-RES-02 to 07) -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <Grid Style="{StaticResource BlockHeaderStyle}">
+                            <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static res:Strings.Net_Connectivity}" />
+                            <Border Style="{StaticResource ConnectivityPillStyle}"><TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding StateText}" /></Border>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding Tests}" Style="{StaticResource CardBodyItemsStyle}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:TestRow}">
+                                    <Border Style="{StaticResource ListLineStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="{StaticResource TestIconColumnWidth}" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid>
+                                                <ui:SymbolIcon Style="{StaticResource TestIconStyle}" />
+                                                <ui:ProgressRing Style="{StaticResource TestRunningRingStyle}" />
+                                            </Grid>
+                                            <StackPanel Grid.Column="1" Style="{StaticResource ListTextPanelStyle}">
+                                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{Binding Name}" />
+                                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{Binding Detail}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="2" Style="{StaticResource CaptionRightTextStyle}" Text="{Binding ElapsedText}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Adapters (F-RES-08 to 15) -->
+                <ItemsControl ItemsSource="{Binding Adapters}" Style="{StaticResource CardItemsStyle}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:AdapterBlock}">
+                            <Border Style="{StaticResource CardStyle}">
+                                <StackPanel>
+                                    <Grid Style="{StaticResource BlockHeaderStyle}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Style="{StaticResource IconSquareStyle}"><ui:SymbolIcon Style="{StaticResource AdapterIconStyle}" /></Border>
+                                            <TextBlock Style="{StaticResource BlockTitleStyle}" Text="{Binding Info.Name}" />
+                                        </StackPanel>
+                                        <Border Style="{StaticResource AdapterPillStyle}"><TextBlock Style="{StaticResource PillTextStyle}" Text="{Binding StatusText}" /></Border>
+                                    </Grid>
+                                    <ItemsControl ItemsSource="{Binding Rows}" Style="{StaticResource InfoRowsStyle}" />
+                                    <ui:Button
+                                        Style="{StaticResource EnableAdapterButtonStyle}"
+                                        Content="{x:Static res:Strings.Net_Enable}"
+                                        Icon="{ui:SymbolIcon Play24}"
+                                        AutomationProperties.Name="{Binding EnableName}"
+                                        Command="{Binding DataContext.EnableAdapterCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
