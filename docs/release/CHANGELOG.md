@@ -5,7 +5,7 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ## [Unreleased]
 ### Changed
-- Added GitHub Actions workflows: a CI that restores, builds, checks the format, runs the tests and audits the packages on every pull request and push to `main`, and a release workflow that publishes the ZIP when a `v*` tag is pushed.
+- Added GitHub Actions workflows: a CI that restores, builds, checks the format, runs the tests and audits the packages on every pull request and push to `main`, and a release workflow that, after each merge into `main`, builds the executable and the ZIP and publishes them as a new GitHub release when the version has no tag yet.
 
 ## [1.0.1] - 2026-11-12
 ### Changed

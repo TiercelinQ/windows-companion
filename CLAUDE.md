@@ -29,7 +29,7 @@ Déclarées et validées en phase 4 ; détail dans `docs/specs/04-architect.md` 
 - Navigation depuis les ViewModels par `IPageNavigator` (D-09)
 - Fichiers supplémentaires par entité : `Services/Winget/*`, `Services/Platform/*`, `UpdateItemViewModel`, `ToastViewModel` (D-10)
 - Bouton de volet dans la barre de titre, thème réglé seulement dans Paramètres (D-11)
-- Pipeline GitHub Actions : `.github/workflows/ci.yml` (restore, build, format, test, audit des paquets) et `release.yml` (tag `v*` : publish, ZIP, release GitHub) - reason: le contrat ne prévoyait aucun fichier d'intégration continue (D-12)
+- Pipeline GitHub Actions : `.github/workflows/ci.yml` (restore, build, format, test, audit des paquets) et `release.yml` (push sur `main` : publish, exe et ZIP, release GitHub si le tag de la version n'existe pas) - reason: le contrat ne prévoyait aucun fichier d'intégration continue (D-12)
 
 ## Open points
 
