@@ -1,11 +1,20 @@
-# Release: runs on a v* tag and publishes WindowsCompanion-<version>-win-x64.zip (rules/packaging.md).
-# Manual run (workflow_dispatch) is a dry run: everything except the GitHub release, ZIP kept as a run artifact.
+# Release: runs on every push to main (a merged pull request) and publishes the executable and
+# WindowsCompanion-<version>-win-x64.zip as a new GitHub release (rules/packaging.md).
+# The version is the csproj <Version> (bumped by /wpf-release inside the pull request, rules/versioning.md):
+#   - the tag v<version> does not exist yet  -> the tag and the release are created;
+#   - the tag already exists (no version bump) -> the files are built and kept as a run artifact only.
+# A manual run (workflow_dispatch) is a dry run: it never creates a release.
 name: Release
 
 on:
   push:
-    tags: ['v*']
+    branches: [main]
   workflow_dispatch:
+
+# Two merges in a row are handled one after the other, never in parallel.
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -23,7 +32,7 @@ jobs:
           dotnet-version: 10.0.x
 
       # The csproj <Version> is canonical, AppConfig.AppVersion mirrors it (rules/versioning.md).
-      - name: Read and check the version
+      - name: Read the version and decide whether to release
         id: version
         shell: pwsh
         run: |
@@ -33,10 +42,12 @@ jobs:
           if ($version -ne $mirror) {
               throw "csproj Version ($version) and AppConfig.AppVersion ($mirror) differ."
           }
-          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") {
-              throw "Tag $env:GITHUB_REF_NAME does not match the application version v$version."
-          }
+          git ls-remote --exit-code --tags origin "refs/tags/v$version" *> $null
+          $tagExists = ($LASTEXITCODE -eq 0)
+          $publish = ($env:GITHUB_EVENT_NAME -eq 'push') -and (-not $tagExists)
+          Write-Host "Version $version, tag exists: $tagExists, publish: $publish"
           "version=$version" >> $env:GITHUB_OUTPUT
+          "publish=$($publish.ToString().ToLower())" >> $env:GITHUB_OUTPUT
 
       - name: Restore
         run: dotnet restore
@@ -57,10 +68,12 @@ jobs:
         id: archive
         shell: pwsh
         run: |
-          $zip = "publish/WindowsCompanion-${{ steps.version.outputs.version }}-win-x64.zip"
-          Compress-Archive -Path publish/win-x64/* -DestinationPath $zip -Force
-          "zip=$zip" >> $env:GITHUB_OUTPUT
-          Get-Item $zip | Select-Object Name, Length
+          $name = "WindowsCompanion-${{ steps.version.outputs.version }}-win-x64"
+          Copy-Item publish/win-x64/WindowsCompanion.exe "publish/$name.exe"
+          Compress-Archive -Path publish/win-x64/* -DestinationPath "publish/$name.zip" -Force
+          "exe=publish/$name.exe" >> $env:GITHUB_OUTPUT
+          "zip=publish/$name.zip" >> $env:GITHUB_OUTPUT
+          Get-Item "publish/$name.exe", "publish/$name.zip" | Select-Object Name, Length
 
       # Release notes = the block of the released version in docs/release/CHANGELOG.md.
       - name: Release notes
@@ -79,26 +92,22 @@ jobs:
           Set-Content -Path release-notes.md -Value $notes -Encoding utf8
           Get-Content release-notes.md
 
+      # gh creates the tag v<version> on the merged commit.
       - name: GitHub release
-        if: github.ref_type == 'tag'
+        if: steps.version.outputs.publish == 'true'
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $tag = $env:GITHUB_REF_NAME
-          gh release view $tag *> $null
-          if ($LASTEXITCODE -eq 0) {
-              # The release already exists (cut by hand): only replace the archive.
-              gh release upload $tag "${{ steps.archive.outputs.zip }}" --clobber
-          } else {
-              gh release create $tag "${{ steps.archive.outputs.zip }}" --title "Windows Companion ${{ steps.version.outputs.version }}" --notes-file release-notes.md --verify-tag
-          }
+          gh release create "v${{ steps.version.outputs.version }}" "${{ steps.archive.outputs.exe }}" "${{ steps.archive.outputs.zip }}" `
+              --title "Windows Companion ${{ steps.version.outputs.version }}" --notes-file release-notes.md --target "$env:GITHUB_SHA"
 
-      - name: Keep the archive (dry run)
-        if: github.ref_type != 'tag'
+      - name: Keep the files (no release created)
+        if: steps.version.outputs.publish != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: WindowsCompanion-${{ steps.version.outputs.version }}-win-x64
           path: |
+            ${{ steps.archive.outputs.exe }}
             ${{ steps.archive.outputs.zip }}
             release-notes.md
