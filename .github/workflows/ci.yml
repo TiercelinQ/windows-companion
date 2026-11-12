@@ -1,0 +1,51 @@
+# Continuous integration: the same checks as /wpf-run-tests (rules/verification.md, section A).
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# A newer push to the same ref cancels the run still in progress.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # WPF and net10.0-windows only build on Windows.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      # TreatWarningsAsErrors is on: a warning fails the build.
+      - name: Build
+        run: dotnet build -c Debug --no-restore
+
+      - name: Format and analyzers
+        run: dotnet format --verify-no-changes --no-restore
+
+      # global.json selects the Microsoft.Testing.Platform runner.
+      - name: Test
+        run: dotnet test -c Debug --no-build
+
+      # `dotnet list package --vulnerable` exits 0 even when it finds something: read its output.
+      - name: Vulnerable packages
+        shell: pwsh
+        run: |
+          $report = dotnet list package --vulnerable --include-transitive | Out-String
+          Write-Host $report
+          if ($report -match 'has the following vulnerable packages') {
+              throw 'Vulnerable package found, see the report above.'
+          }
