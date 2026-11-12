@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
 ## [Unreleased]
+
+## [1.0.2] - 2026-11-12
 ### Changed
 - Added GitHub Actions workflows: a CI that restores, builds, checks the format, runs the tests and audits the packages on every pull request and push to `main`, and a release workflow that, after each merge into `main`, builds the executable and the ZIP and publishes them as a new GitHub release when the version has no tag yet.
 
