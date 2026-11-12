@@ -43,7 +43,6 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
     private readonly Lock _logSync = new();
     private UpdateItemViewModel? _current;
     private CancellationTokenSource? _currentCts;
-    private InstallProgress? _currentProgress;
     private bool _cancelAll;
     private int _succeeded;
     private int _failed;
@@ -629,34 +628,12 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
         using var cts = new CancellationTokenSource();
         _currentCts = cts;
         item.StartedAt = _time.GetUtcNow();
-        item.ProgressPercent = 0;
-        item.State = UpdateState.Downloading;
-        _currentProgress = new InstallProgress(InstallPhase.Downloading, 0);
+        item.State = UpdateState.Installing;
         UpdateProgress();
 
-        var progress = new Progress<InstallProgress>(p =>
-        {
-            if (item.State is not (UpdateState.Downloading or UpdateState.Installing))
-            {
-                return; // late report after the end
-            }
-
-            _currentProgress = p;
-            if (p.Phase == InstallPhase.Installing)
-            {
-                item.State = UpdateState.Installing;
-            }
-            else
-            {
-                item.ProgressPercent = p.Percent;
-            }
-
-            UpdateProgress();
-        });
         IProgress<WingetLogLine> log = new Progress<WingetLogLine>(AppendLog);
 
-        var outcome = await _winget.InstallAsync(item.Model, _preferences.Current.SilentInstall, progress, log.Report, cts.Token);
-        var phase = item.State;
+        var outcome = await _winget.InstallAsync(item.Model, _preferences.Current.SilentInstall, log.Report, cts.Token);
         var duration = (int)Math.Round((_time.GetUtcNow() - (item.StartedAt ?? _time.GetUtcNow())).TotalSeconds);
 
         switch (outcome.Kind)
@@ -685,9 +662,7 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
                 item.State = UpdateState.Cancelled;
                 if (!_cancelAll)
                 {
-                    _feedback.Show(phase == UpdateState.Installing
-                        ? new(FeedbackType.Warning, Strings.Toast_InstallInterrupted_Title, Formats.Template(Strings.Toast_InstallInterrupted_Message, item.Name))
-                        : new(FeedbackType.Info, Strings.Toast_DownloadCancelled_Title, Formats.Template(Strings.Toast_DownloadCancelled_Message, item.Name)));
+                    _feedback.Show(new(FeedbackType.Warning, Strings.Toast_InstallInterrupted_Title, Formats.Template(Strings.Toast_InstallInterrupted_Message, item.Name)));
                 }
 
                 await AddHistoryAsync(item, HistoryResult.Cancelled, null, null);
@@ -696,7 +671,6 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
 
         _currentCts = null;
         _current = null;
-        _currentProgress = null;
         SendSummary();
     }
 
@@ -728,7 +702,7 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
 
     private void UpdateProgress()
     {
-        GlobalPercent = _batch.GlobalPercent(_currentProgress);
+        GlobalPercent = _batch.GlobalPercent();
         ProgressLabel = _current is null
             ? string.Empty
             : Formats.Template(Strings.Upd_ProgressLabel, _batch.CurrentPosition, _batch.Total, _current.Name);

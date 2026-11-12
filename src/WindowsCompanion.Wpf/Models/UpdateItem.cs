@@ -19,10 +19,7 @@ public enum UpdateState
     /// <summary>Waiting in the installation queue.</summary>
     Queued,
 
-    /// <summary>Downloading.</summary>
-    Downloading,
-
-    /// <summary>Installer running.</summary>
+    /// <summary>Download and installer running; winget reports no usable progress, so the row shows a spinner (E-01).</summary>
     Installing,
 
     /// <summary>Installed.</summary>

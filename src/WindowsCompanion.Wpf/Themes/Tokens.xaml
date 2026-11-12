@@ -96,9 +96,10 @@
     <sys:Double x:Key="StatusDotSize">8</sys:Double>
     <sys:Double x:Key="GaugeHeight">8</sys:Double>
     <sys:Double x:Key="ProgressBarHeight">4</sys:Double>
-    <sys:Double x:Key="RowProgressWidth">120</sys:Double>
     <sys:Double x:Key="ActivityRingSize">14</sys:Double>
-    <sys:Double x:Key="LogMaxHeight">150</sys:Double>
+    <!-- Updates page: below this page width the winget log goes under the table (E-03); height of the log in that case -->
+    <sys:Double x:Key="UpdatesStackBreakpoint">1150</sys:Double>
+    <sys:Double x:Key="LogStackedHeight">150</sys:Double>
     <sys:Double x:Key="ToastWidth">388</sys:Double>
     <sys:Double x:Key="ToastCloseSize">28</sys:Double>
     <sys:Double x:Key="ToastTimerHeight">3</sys:Double>
@@ -115,14 +116,21 @@
     <sys:Double x:Key="IconSizeXl">36</sys:Double>
 
     <!-- COLUMNS (cahier 4.3, 4.7) -->
+    <!-- Updates table (E-03): column names, State and Action always readable. Fixed columns have a MinWidth equal to their width
+         (or a narrow table shrinks them instead of scrolling); the free width goes to the application name, then to the versions,
+         which are the values that get truncated first. The minimum sum fits the 800 minimum window. -->
     <DataGridLength x:Key="CheckColumnWidth">48</DataGridLength>
-    <DataGridLength x:Key="AppColumnWidth">2.2*</DataGridLength>
-    <sys:Double x:Key="AppColumnMinWidth">190</sys:Double>
-    <DataGridLength x:Key="VersionColumnWidth">92</DataGridLength>
+    <sys:Double x:Key="CheckColumnMinWidth">48</sys:Double>
+    <DataGridLength x:Key="AppColumnWidth">3*</DataGridLength>
+    <sys:Double x:Key="AppColumnMinWidth">100</sys:Double>
+    <DataGridLength x:Key="VersionColumnWidth">1.2*</DataGridLength>
+    <sys:Double x:Key="VersionColumnMinWidth">92</sys:Double>
     <DataGridLength x:Key="SourceColumnWidth">74</DataGridLength>
-    <DataGridLength x:Key="SizeColumnWidth">76</DataGridLength>
-    <DataGridLength x:Key="StateColumnWidth">1.9*</DataGridLength>
-    <sys:Double x:Key="StateColumnMinWidth">210</sys:Double>
+    <sys:Double x:Key="SourceColumnMinWidth">74</sys:Double>
+    <DataGridLength x:Key="StateColumnWidth">140</DataGridLength>
+    <sys:Double x:Key="StateColumnMinWidth">140</sys:Double>
+    <DataGridLength x:Key="ActionColumnWidth">104</DataGridLength>
+    <sys:Double x:Key="ActionColumnMinWidth">104</sys:Double>
     <DataGridLength x:Key="DateColumnWidth">128</DataGridLength>
     <DataGridLength x:Key="HistoryAppColumnWidth">2*</DataGridLength>
     <DataGridLength x:Key="HistoryVersionColumnWidth">1.4*</DataGridLength>

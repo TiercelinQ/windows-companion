@@ -11,12 +11,8 @@ public sealed partial class UpdateItemViewModel : ObservableObject
     private readonly Action _selectionChanged;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsSelectable), nameof(StatusText), nameof(IsBusy), nameof(CanCancel))]
+    [NotifyPropertyChangedFor(nameof(IsSelectable), nameof(StatusText), nameof(CanCancel))]
     private UpdateState _state;
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(StatusText))]
-    private double _progressPercent;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(StatusText))]
@@ -61,27 +57,20 @@ public sealed partial class UpdateItemViewModel : ObservableObject
     /// <summary>Gets the source label.</summary>
     public string SourceText => InfoRows.SourceLabel(Model.Source);
 
-    /// <summary>Gets the download size, or "-" when unknown.</summary>
-    public string SizeText => Model.SizeBytes is { } size ? Formats.Size(size) : Strings.Common_Dash;
-
     /// <summary>Gets or sets the start of the processing, used for the duration.</summary>
     public DateTimeOffset? StartedAt { get; set; }
 
     /// <summary>Gets a value indicating whether the row can be checked and installed (F-MAJ-16).</summary>
     public bool IsSelectable => State is UpdateState.Available or UpdateState.Failed or UpdateState.Cancelled;
 
-    /// <summary>Gets a value indicating whether the row is being processed.</summary>
-    public bool IsBusy => State is UpdateState.Downloading or UpdateState.Installing;
-
     /// <summary>Gets a value indicating whether the row shows the cancel button.</summary>
-    public bool CanCancel => State is UpdateState.Queued or UpdateState.Downloading or UpdateState.Installing;
+    public bool CanCancel => State is UpdateState.Queued or UpdateState.Installing;
 
     /// <summary>Gets the text of the state cell.</summary>
     public string StatusText => State switch
     {
         UpdateState.Available => Strings.State_Available,
         UpdateState.Queued => Strings.State_Queued,
-        UpdateState.Downloading => Formats.Template(Strings.State_Downloading, Formats.Percent(ProgressPercent)),
         UpdateState.Installing => Strings.State_Installing,
         UpdateState.Installed => Strings.State_Installed,
         UpdateState.AppOpen => Strings.State_AppOpen,

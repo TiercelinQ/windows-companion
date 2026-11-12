@@ -23,7 +23,7 @@ public sealed class UpdatesViewModelTests
         _preferences.Current.Returns(new AppSettings());
         _winget.SearchUpgradesAsync(default!, default, default!, default)
             .ReturnsForAnyArgs(Result<UpgradeSearchResult>.Success(new UpgradeSearchResult([Samples.Firefox, Samples.Vscode, Samples.Spotify], [])));
-        _winget.InstallAsync(default!, default, default!, default!, default).ReturnsForAnyArgs(new InstallOutcome(InstallResultKind.Installed));
+        _winget.InstallAsync(default!, default, default!, default).ReturnsForAnyArgs(new InstallOutcome(InstallResultKind.Installed));
         _viewModel = new UpdatesViewModel(
             _winget, _preferences, _history, _running, _feedback, Substitute.For<IClipboardService>(),
             Substitute.For<IPageNavigator>(), _messenger, new ManualTimeProvider(), NullLogger<UpdatesViewModel>.Instance);
@@ -81,9 +81,48 @@ public sealed class UpdatesViewModelTests
     }
 
     [Fact]
+    public async Task Reste_en_installation_jusqu_a_la_fin_du_traitement()
+    {
+        var gate = new TaskCompletionSource<InstallOutcome>();
+        _winget.InstallAsync(default!, default, default!, default).ReturnsForAnyArgs(gate.Task);
+        await _viewModel.SearchCommand.ExecuteAsync(null);
+
+        _viewModel.InstallItemCommand.Execute(Item("Mozilla.Firefox"));
+
+        Assert.Equal(UpdateState.Installing, Item("Mozilla.Firefox").State);
+        Assert.Equal("En cours", Item("Mozilla.Firefox").StatusText);
+        Assert.True(Item("Mozilla.Firefox").CanCancel);
+        Assert.Equal(0, _viewModel.GlobalPercent);
+
+        gate.SetResult(new InstallOutcome(InstallResultKind.Installed));
+        await _viewModel.QueueTask;
+
+        Assert.Equal(UpdateState.Installed, Item("Mozilla.Firefox").State);
+        Assert.False(Item("Mozilla.Firefox").CanCancel);
+    }
+
+    [Fact]
+    public async Task Signale_l_interruption_d_une_installation_annulee_seule()
+    {
+        _winget.InstallAsync(default!, default, default!, default).ReturnsForAnyArgs(async call =>
+        {
+            await Task.Delay(Timeout.Infinite, call.Arg<CancellationToken>()).ContinueWith(_ => { }, TaskScheduler.Default);
+            return new InstallOutcome(InstallResultKind.Cancelled);
+        });
+        await _viewModel.SearchCommand.ExecuteAsync(null);
+        _viewModel.InstallItemCommand.Execute(Item("Mozilla.Firefox"));
+
+        _viewModel.CancelItemCommand.Execute(Item("Mozilla.Firefox"));
+        await _viewModel.QueueTask;
+
+        Assert.Equal(UpdateState.Cancelled, Item("Mozilla.Firefox").State);
+        _feedback.Received(1).Show(Arg.Is<ResultError>(e => e.Message == "Installation interrompue"), Arg.Any<ToastAction[]>());
+    }
+
+    [Fact]
     public async Task Signale_l_echec_et_le_lot_termine_avec_des_erreurs()
     {
-        _winget.InstallAsync(Samples.Vscode, default, default!, default!, default)
+        _winget.InstallAsync(Samples.Vscode, default, default!, default)
             .ReturnsForAnyArgs(call => call.Arg<UpdateItem>().Id == Samples.Vscode.Id
                 ? new InstallOutcome(InstallResultKind.Failed, "1603")
                 : new InstallOutcome(InstallResultKind.Installed));
@@ -115,7 +154,7 @@ public sealed class UpdatesViewModelTests
     public async Task Retire_de_la_file_un_element_en_attente()
     {
         var gate = new TaskCompletionSource<InstallOutcome>();
-        _winget.InstallAsync(default!, default, default!, default!, default).ReturnsForAnyArgs(gate.Task);
+        _winget.InstallAsync(default!, default, default!, default).ReturnsForAnyArgs(gate.Task);
         await _viewModel.SearchCommand.ExecuteAsync(null);
         _viewModel.InstallAllCommand.Execute(null);
 
@@ -131,7 +170,7 @@ public sealed class UpdatesViewModelTests
     [Fact]
     public async Task Annule_tout_avec_un_seul_toast()
     {
-        _winget.InstallAsync(default!, default, default!, default!, default).ReturnsForAnyArgs(async call =>
+        _winget.InstallAsync(default!, default, default!, default).ReturnsForAnyArgs(async call =>
         {
             await Task.Delay(Timeout.Infinite, call.Arg<CancellationToken>()).ContinueWith(_ => { }, TaskScheduler.Default);
             return new InstallOutcome(InstallResultKind.Cancelled);
@@ -144,7 +183,7 @@ public sealed class UpdatesViewModelTests
 
         Assert.All(_viewModel.VisibleItems, i => Assert.Equal(UpdateState.Cancelled, i.State));
         _feedback.Received(1).Show(Arg.Is<ResultError>(e => e.Message == "Installations annulées"), Arg.Any<ToastAction[]>());
-        _feedback.DidNotReceive().Show(Arg.Is<ResultError>(e => e.Message == "Téléchargement annulé"), Arg.Any<ToastAction[]>());
+        _feedback.DidNotReceive().Show(Arg.Is<ResultError>(e => e.Message == "Installation interrompue"), Arg.Any<ToastAction[]>());
         await _history.Received(1).AddAsync(Arg.Is<HistoryEntry>(h => h.Result == HistoryResult.Cancelled), Arg.Any<CancellationToken>());
     }
 

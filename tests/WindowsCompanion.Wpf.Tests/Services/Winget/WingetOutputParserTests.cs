@@ -48,10 +48,12 @@ public sealed class WingetOutputParserTests
     }
 
     [Theory]
-    [InlineData("  ██████████▒▒▒▒▒▒▒▒  12.5 MB / 25.0 MB", 50)]
-    [InlineData("  ██████████  42%", 42)]
-    public void Lit_la_progression_du_telechargement(string line, double expected) =>
-        Assert.Equal(expected, WingetOutputParser.ParseDownloadPercent(line)!.Value, 1);
+    [InlineData("  ██████████▒▒▒▒▒▒▒▒  12.5 MB / 25.0 MB", true)]
+    [InlineData("  ██████████  42%", true)]
+    [InlineData("Le code de hachage de l'installation a été vérifié avec succès", false)]
+    [InlineData("Démarrage du package d'installation...", false)]
+    public void Reconnait_une_ligne_de_progression_du_telechargement(string line, bool expected) =>
+        Assert.Equal(expected, WingetOutputParser.IsProgressLine(line));
 
     [Fact]
     public void Ignore_le_bruit_de_la_console()

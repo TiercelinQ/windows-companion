@@ -176,9 +176,6 @@ public static class Strings
     /// <summary>Gets the resource string <c>Firmware_Uefi</c>.</summary>
     public static string Firmware_Uefi => Get("Firmware_Uefi");
 
-    /// <summary>Gets the resource string <c>Format_Percent</c>.</summary>
-    public static string Format_Percent => Get("Format_Percent");
-
     /// <summary>Gets the resource string <c>Health_Good</c>.</summary>
     public static string Health_Good => Get("Health_Good");
 
@@ -421,9 +418,6 @@ public static class Strings
 
     /// <summary>Gets the resource string <c>Log_InstallFailed</c>.</summary>
     public static string Log_InstallFailed => Get("Log_InstallFailed");
-
-    /// <summary>Gets the resource string <c>Log_Installing</c>.</summary>
-    public static string Log_Installing => Get("Log_Installing");
 
     /// <summary>Gets the resource string <c>Log_SourceFailed</c>.</summary>
     public static string Log_SourceFailed => Get("Log_SourceFailed");
@@ -794,9 +788,6 @@ public static class Strings
     /// <summary>Gets the resource string <c>State_Disabled</c>.</summary>
     public static string State_Disabled => Get("State_Disabled");
 
-    /// <summary>Gets the resource string <c>State_Downloading</c>.</summary>
-    public static string State_Downloading => Get("State_Downloading");
-
     /// <summary>Gets the resource string <c>State_Enabled</c>.</summary>
     public static string State_Enabled => Get("State_Enabled");
 
@@ -1157,12 +1148,6 @@ public static class Strings
     /// <summary>Gets the resource string <c>Toast_DnsFlushed_Title</c>.</summary>
     public static string Toast_DnsFlushed_Title => Get("Toast_DnsFlushed_Title");
 
-    /// <summary>Gets the resource string <c>Toast_DownloadCancelled_Message</c>.</summary>
-    public static string Toast_DownloadCancelled_Message => Get("Toast_DownloadCancelled_Message");
-
-    /// <summary>Gets the resource string <c>Toast_DownloadCancelled_Title</c>.</summary>
-    public static string Toast_DownloadCancelled_Title => Get("Toast_DownloadCancelled_Title");
-
     /// <summary>Gets the resource string <c>Toast_ElevationRefused_Message</c>.</summary>
     public static string Toast_ElevationRefused_Message => Get("Toast_ElevationRefused_Message");
 
@@ -1334,6 +1319,9 @@ public static class Strings
     /// <summary>Gets the resource string <c>Upd_CloseApp</c>.</summary>
     public static string Upd_CloseApp => Get("Upd_CloseApp");
 
+    /// <summary>Gets the resource string <c>Upd_ColAction</c>.</summary>
+    public static string Upd_ColAction => Get("Upd_ColAction");
+
     /// <summary>Gets the resource string <c>Upd_ColApplication</c>.</summary>
     public static string Upd_ColApplication => Get("Upd_ColApplication");
 
@@ -1342,9 +1330,6 @@ public static class Strings
 
     /// <summary>Gets the resource string <c>Upd_ColInstalled</c>.</summary>
     public static string Upd_ColInstalled => Get("Upd_ColInstalled");
-
-    /// <summary>Gets the resource string <c>Upd_ColSize</c>.</summary>
-    public static string Upd_ColSize => Get("Upd_ColSize");
 
     /// <summary>Gets the resource string <c>Upd_ColSource</c>.</summary>
     public static string Upd_ColSource => Get("Upd_ColSource");

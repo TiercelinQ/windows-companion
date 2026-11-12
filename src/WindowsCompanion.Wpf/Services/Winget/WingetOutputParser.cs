@@ -31,24 +31,10 @@ public static partial class WingetOutputParser
             || trimmed.Contains('▒', StringComparison.Ordinal);
     }
 
-    /// <summary>Reads the download progress of a line, from "12.5 MB / 78.0 MB" or from a percentage.</summary>
+    /// <summary>Tells whether a cleaned line is a download progress refresh ("12.5 MB / 78.0 MB" or a percentage): kept out of the log.</summary>
     /// <param name="line">Cleaned line.</param>
-    /// <returns>A percentage, or null when the line reports no progress.</returns>
-    public static double? ParseDownloadPercent(string line)
-    {
-        var sizes = SizeFraction().Match(line);
-        if (sizes.Success
-            && TryNumber(sizes.Groups["done"].Value, out var done)
-            && TryNumber(sizes.Groups["total"].Value, out var total)
-            && total > 0)
-        {
-            var ratio = done * Unit(sizes.Groups["doneUnit"].Value) / (total * Unit(sizes.Groups["totalUnit"].Value));
-            return Math.Clamp(ratio * 100, 0, 100);
-        }
-
-        var percent = Percent().Match(line);
-        return percent.Success && TryNumber(percent.Groups["value"].Value, out var value) ? Math.Clamp(value, 0, 100) : null;
-    }
+    /// <returns>True for a progress line.</returns>
+    public static bool IsProgressLine(string line) => SizeFraction().IsMatch(line) || Percent().IsMatch(line);
 
     /// <summary>Reads the update table of <c>winget upgrade</c>.</summary>
     /// <param name="output">Standard output.</param>
@@ -145,17 +131,6 @@ public static partial class WingetOutputParser
         var length = Math.Min(end, line.Length) - start;
         return length <= 0 ? string.Empty : line.Substring(start, length).Trim();
     }
-
-    private static bool TryNumber(string text, out double value) =>
-        double.TryParse(text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out value);
-
-    private static double Unit(string unit) => unit.ToUpperInvariant() switch
-    {
-        "KB" => 1024d,
-        "MB" => 1024d * 1024,
-        "GB" => 1024d * 1024 * 1024,
-        _ => 1d,
-    };
 
     [GeneratedRegex(@"\x1B\[[0-?]*[ -/]*[@-~]|\x1B\][^\x07]*\x07")]
     private static partial Regex ControlSequence();
