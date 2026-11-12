@@ -42,12 +42,15 @@ jobs:
           if ($version -ne $mirror) {
               throw "csproj Version ($version) and AppConfig.AppVersion ($mirror) differ."
           }
-          git ls-remote --exit-code --tags origin "refs/tags/v$version" *> $null
-          $tagExists = ($LASTEXITCODE -eq 0)
+          # Decide from the output, not the exit code: `git ls-remote` exits non-zero when the tag is absent.
+          $remoteTag = git ls-remote --tags origin "refs/tags/v$version"
+          $tagExists = [bool]$remoteTag
           $publish = ($env:GITHUB_EVENT_NAME -eq 'push') -and (-not $tagExists)
           Write-Host "Version $version, tag exists: $tagExists, publish: $publish"
           "version=$version" >> $env:GITHUB_OUTPUT
           "publish=$($publish.ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          # Explicit success: the step must not inherit a non-zero exit code from a native command.
+          exit 0
 
       - name: Restore
         run: dotnet restore
