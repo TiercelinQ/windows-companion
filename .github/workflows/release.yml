@@ -1,0 +1,104 @@
+# Release: runs on a v* tag and publishes WindowsCompanion-<version>-win-x64.zip (rules/packaging.md).
+# Manual run (workflow_dispatch) is a dry run: everything except the GitHub release, ZIP kept as a run artifact.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    env:
+      PROJECT: src/WindowsCompanion.Wpf
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      # The csproj <Version> is canonical, AppConfig.AppVersion mirrors it (rules/versioning.md).
+      - name: Read and check the version
+        id: version
+        shell: pwsh
+        run: |
+          $version = @(([xml](Get-Content "$env:PROJECT/WindowsCompanion.Wpf.csproj" -Raw)).Project.PropertyGroup.Version) |
+              Where-Object { $_ } | Select-Object -First 1
+          $mirror = (Select-String -Path "$env:PROJECT/AppConfig.cs" -Pattern 'AppVersion = "([^"]+)"').Matches[0].Groups[1].Value
+          if ($version -ne $mirror) {
+              throw "csproj Version ($version) and AppConfig.AppVersion ($mirror) differ."
+          }
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") {
+              throw "Tag $env:GITHUB_REF_NAME does not match the application version v$version."
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Debug --no-restore
+
+      - name: Format and analyzers
+        run: dotnet format --verify-no-changes --no-restore
+
+      - name: Test
+        run: dotnet test -c Debug --no-build
+
+      - name: Publish
+        run: dotnet publish ${{ env.PROJECT }} -c Release -p:PublishProfile=win-x64
+
+      - name: Archive
+        id: archive
+        shell: pwsh
+        run: |
+          $zip = "publish/WindowsCompanion-${{ steps.version.outputs.version }}-win-x64.zip"
+          Compress-Archive -Path publish/win-x64/* -DestinationPath $zip -Force
+          "zip=$zip" >> $env:GITHUB_OUTPUT
+          Get-Item $zip | Select-Object Name, Length
+
+      # Release notes = the block of the released version in docs/release/CHANGELOG.md.
+      - name: Release notes
+        shell: pwsh
+        run: |
+          $lines = Get-Content docs/release/CHANGELOG.md -Encoding utf8
+          $start = [Array]::FindIndex($lines, [Predicate[string]] { param($l) $l.StartsWith('## [${{ steps.version.outputs.version }}]') })
+          if ($start -lt 0) { throw 'No changelog block for version ${{ steps.version.outputs.version }}.' }
+          $end = $lines.Count
+          for ($i = $start + 1; $i -lt $lines.Count; $i++) {
+              if ($lines[$i].StartsWith('## [')) { $end = $i; break }
+          }
+          $notes = ($lines[($start + 1)..($end - 1)] -join "`n").Trim()
+          if (-not $notes) { throw 'The changelog block is empty.' }
+          $notes += "`n`nThe executable is unsigned: Windows SmartScreen shows a warning the first time it runs from a download."
+          Set-Content -Path release-notes.md -Value $notes -Encoding utf8
+          Get-Content release-notes.md
+
+      - name: GitHub release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -eq 0) {
+              # The release already exists (cut by hand): only replace the archive.
+              gh release upload $tag "${{ steps.archive.outputs.zip }}" --clobber
+          } else {
+              gh release create $tag "${{ steps.archive.outputs.zip }}" --title "Windows Companion ${{ steps.version.outputs.version }}" --notes-file release-notes.md --verify-tag
+          }
+
+      - name: Keep the archive (dry run)
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v4
+        with:
+          name: WindowsCompanion-${{ steps.version.outputs.version }}-win-x64
+          path: |
+            ${{ steps.archive.outputs.zip }}
+            release-notes.md
