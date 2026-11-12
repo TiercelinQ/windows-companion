@@ -56,7 +56,6 @@
   <data name="Elevation_FailedTitle" xml:space="preserve"><value>Relance impossible</value></data>
   <data name="Firmware_Bios" xml:space="preserve"><value>BIOS</value></data>
   <data name="Firmware_Uefi" xml:space="preserve"><value>UEFI</value></data>
-  <data name="Format_Percent" xml:space="preserve"><value>{0:0} %</value></data>
   <data name="Health_Good" xml:space="preserve"><value>Bonne</value></data>
   <data name="Health_Unhealthy" xml:space="preserve"><value>Défaillante</value></data>
   <data name="Health_Unknown" xml:space="preserve"><value>Inconnue</value></data>
@@ -138,7 +137,6 @@
   <data name="Log_FoundOne" xml:space="preserve"><value>{0} mise à jour trouvée</value></data>
   <data name="Log_Installed" xml:space="preserve"><value>Installée avec succès</value></data>
   <data name="Log_InstallFailed" xml:space="preserve"><value>Échec de l&apos;installation, code de sortie {0}</value></data>
-  <data name="Log_Installing" xml:space="preserve"><value>Installation en cours</value></data>
   <data name="Log_SourceFailed" xml:space="preserve"><value>Échec de la source {0} : {1}</value></data>
   <data name="Log_SourceUpdated" xml:space="preserve"><value>Mise à jour de la source : {0}</value></data>
   <data name="Media_Hdd" xml:space="preserve"><value>HDD</value></data>
@@ -262,11 +260,10 @@
   <data name="State_Available" xml:space="preserve"><value>Disponible</value></data>
   <data name="State_Cancelled" xml:space="preserve"><value>Annulée</value></data>
   <data name="State_Disabled" xml:space="preserve"><value>Désactivée</value></data>
-  <data name="State_Downloading" xml:space="preserve"><value>Téléchargement {0}</value></data>
   <data name="State_Enabled" xml:space="preserve"><value>Activée</value></data>
   <data name="State_Failed" xml:space="preserve"><value>Échec {0}</value></data>
   <data name="State_Installed" xml:space="preserve"><value>Installée</value></data>
-  <data name="State_Installing" xml:space="preserve"><value>Installation en cours</value></data>
+  <data name="State_Installing" xml:space="preserve"><value>En cours</value></data>
   <data name="State_Off" xml:space="preserve"><value>Désactivé</value></data>
   <data name="State_On" xml:space="preserve"><value>Activé</value></data>
   <data name="State_Queued" xml:space="preserve"><value>En attente</value></data>
@@ -383,8 +380,6 @@
   <data name="Toast_Dequeued_Title" xml:space="preserve"><value>Retiré de la file</value></data>
   <data name="Toast_DnsFlushed_Message" xml:space="preserve"><value>La résolution de noms repart d&apos;un cache propre.</value></data>
   <data name="Toast_DnsFlushed_Title" xml:space="preserve"><value>Cache DNS vidé</value></data>
-  <data name="Toast_DownloadCancelled_Message" xml:space="preserve"><value>{0} ne sera pas mise à jour.</value></data>
-  <data name="Toast_DownloadCancelled_Title" xml:space="preserve"><value>Téléchargement annulé</value></data>
   <data name="Toast_ElevationRefused_Message" xml:space="preserve"><value>L&apos;application reste en droits standard.</value></data>
   <data name="Toast_ElevationRefused_Title" xml:space="preserve"><value>Élévation refusée</value></data>
   <data name="Toast_Exported_Message" xml:space="preserve"><value>{0} enregistré dans Documents.</value></data>
@@ -442,10 +437,10 @@
   <data name="Upd_CancelName" xml:space="preserve"><value>Annuler {0}</value></data>
   <data name="Upd_ClearLog" xml:space="preserve"><value>Effacer</value></data>
   <data name="Upd_CloseApp" xml:space="preserve"><value>Fermer</value></data>
+  <data name="Upd_ColAction" xml:space="preserve"><value>Action</value></data>
   <data name="Upd_ColApplication" xml:space="preserve"><value>Application</value></data>
   <data name="Upd_ColAvailable" xml:space="preserve"><value>Disponible</value></data>
   <data name="Upd_ColInstalled" xml:space="preserve"><value>Installée</value></data>
-  <data name="Upd_ColSize" xml:space="preserve"><value>Taille</value></data>
   <data name="Upd_ColSource" xml:space="preserve"><value>Source</value></data>
   <data name="Upd_ColState" xml:space="preserve"><value>État</value></data>
   <data name="Upd_FilterAll" xml:space="preserve"><value>Toutes</value></data>

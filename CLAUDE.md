@@ -21,7 +21,7 @@ Déclarées et validées en phase 4 ; détail dans `docs/specs/04-architect.md` 
 - Toasts : hôte propre (`ToastHost`) à la place de `ISnackbarService` - reason: actions (Réessayer, Annuler, Copier le détail), empilement et fusion que le snackbar WPF UI n'offre pas (D-01)
 - Relance en administrateur : `UseShellExecute = true` avec `runas` sur `Environment.ProcessPath` - reason: seul moyen d'obtenir l'invite UAC (D-02)
 - ViewModels de page en singleton - reason: la file d'installation et les instantanés survivent à la navigation (D-03)
-- Dimensions et typographie du cahier des charges (barre de titre 40, volet 244, fenêtre minimale 760 x 600) - reason: arbitrage de la phase 1 (D-04)
+- Dimensions et typographie du cahier des charges (barre de titre 40, volet 244, fenêtre minimale 800 x 600) - reason: arbitrage de la phase 1 (D-04)
 - Pas de `Tokens.Light.xaml` / `Tokens.Dark.xaml` - reason: aucun brush ne diffère entre les thèmes hors Fluent (D-05)
 - 14 fichiers de journal conservés au lieu de 7 (D-06)
 - `ClipboardService` et `AppLifetimeService` utilisent des types WPF derrière une interface (D-07)
@@ -32,7 +32,7 @@ Déclarées et validées en phase 4 ; détail dans `docs/specs/04-architect.md` 
 
 ## Open points
 
-Suivi dans `docs/errors.md` (privé) : E-01 (progression d'installation bloquée à « Téléchargement 0 % », diagnostic suspendu, sortie winget réelle à capturer), E-02 (hors application), E-03 (versions tronquées), et la liste des points de recette non exercés.
+Suivi dans `docs/errors.md` (privé) : E-02 (hors application) et la liste des points de recette non exercés. E-01 (progression d'installation) et E-03 (versions tronquées) sont corrigés le 2026-11-12.
 
 ## Maintenance
 

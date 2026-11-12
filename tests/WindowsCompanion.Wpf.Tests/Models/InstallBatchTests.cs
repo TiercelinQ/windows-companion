@@ -5,24 +5,24 @@ namespace WindowsCompanion.Tests.Models;
 public sealed class InstallBatchTests
 {
     [Fact]
-    public void Calcule_le_pourcentage_global_pendant_le_telechargement()
+    public void Avance_d_un_cran_par_element_termine()
     {
         var batch = new InstallBatch();
         batch.Add(4);
         batch.MarkCompleted();
 
-        // (1 + 0.7 * 50 / 100) / 4 = 33.75 %
-        Assert.Equal(33.75, batch.GlobalPercent(new InstallProgress(InstallPhase.Downloading, 50)), 2);
+        // 1 element termine sur 4 = 25 %, l'element en cours ne compte pas
+        Assert.Equal(25, batch.GlobalPercent(), 2);
         Assert.Equal(2, batch.CurrentPosition);
     }
 
     [Fact]
-    public void Garde_70_pour_cent_pendant_l_installation()
+    public void Reste_a_zero_tant_qu_aucun_element_n_est_termine()
     {
         var batch = new InstallBatch();
         batch.Add(2);
 
-        Assert.Equal(35, batch.GlobalPercent(new InstallProgress(InstallPhase.Installing, 100)), 2);
+        Assert.Equal(0, batch.GlobalPercent(), 2);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public sealed class InstallBatchTests
         batch.RemoveWaiting();
 
         Assert.Equal(1, batch.Total);
-        Assert.Equal(100, batch.GlobalPercent(null));
+        Assert.Equal(100, batch.GlobalPercent());
     }
 
     [Fact]
@@ -57,6 +57,6 @@ public sealed class InstallBatchTests
         batch.Reset();
 
         Assert.Equal(0, batch.Total);
-        Assert.Equal(0, batch.GlobalPercent(null));
+        Assert.Equal(0, batch.GlobalPercent());
     }
 }

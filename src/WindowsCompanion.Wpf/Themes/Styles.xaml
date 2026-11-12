@@ -214,6 +214,11 @@
         <Setter Property="Margin" Value="{StaticResource PageContentMargin}" />
     </Style>
 
+    <!-- tokens: PageContentMargin - page content that fills the height (Updates, E-03) -->
+    <Style x:Key="PageContentGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="{StaticResource PageContentMargin}" />
+    </Style>
+
     <Style x:Key="LoadingPanelStyle" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal" />
         <Setter Property="Margin" Value="{StaticResource Spacing4Bottom}" />
@@ -426,10 +431,6 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Typography.NumeralAlignment" Value="Tabular" />
-    </Style>
-
-    <Style x:Key="StrongRightTextStyle" TargetType="TextBlock" BasedOn="{StaticResource StrongTextStyle}">
-        <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
 
     <!-- tokens: FontSizeSm, TextFillColorSecondaryBrush -->
@@ -707,6 +708,11 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Spinner followed by its label -->
+    <Style x:Key="InlineActivityPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+
     <Style x:Key="InstallProgressPanelStyle" TargetType="StackPanel">
         <Setter Property="Margin" Value="{StaticResource Spacing3Top}" />
         <Setter Property="Visibility" Value="Collapsed" />
@@ -745,7 +751,7 @@
         <Setter Property="Margin" Value="{StaticResource Spacing2Left}" />
     </Style>
 
-    <!-- State of an update row (cahier 4.3): hidden while processing (the progress replaces it) -->
+    <!-- State of an update row (cahier 4.3) -->
     <Style x:Key="UpdateStatePillStyle" TargetType="Border" BasedOn="{StaticResource PillStyle}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding State}" Value="{x:Static models:UpdateState.Available}">
@@ -764,8 +770,10 @@
                 <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBackgroundBrush}" />
                 <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsBusy}" Value="True">
-                <Setter Property="Visibility" Value="Collapsed" />
+            <!-- Badge "En cours" while winget works (E-01): caution (yellow) tones, like the other state badges -->
+            <DataTrigger Binding="{Binding State}" Value="{x:Static models:UpdateState.Installing}">
+                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBackgroundBrush}" />
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -994,6 +1002,12 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Updates table (E-03): fills its block and scrolls by itself, both ways; the header stays in place -->
+    <Style x:Key="UpdatesScrollGridStyle" TargetType="DataGrid" BasedOn="{StaticResource UpdatesGridStyle}">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+
     <Style x:Key="HistoryGridStyle" TargetType="DataGrid" BasedOn="{StaticResource UpdatesGridStyle}">
         <Setter Property="MinRowHeight" Value="{StaticResource HistoryRowMinHeight}" />
         <Setter Property="RowStyle" Value="{StaticResource HistoryRowStyle}" />
@@ -1053,32 +1067,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="RowProgressPanelStyle" TargetType="StackPanel">
-        <Setter Property="Orientation" Value="Horizontal" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Visibility" Value="Collapsed" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding IsBusy}" Value="True">
-                <Setter Property="Visibility" Value="Visible" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
-    <!-- tokens: RowProgressWidth, ProgressBarHeight - indeterminate during installation -->
-    <Style x:Key="RowProgressBarStyle" TargetType="ProgressBar" BasedOn="{StaticResource {x:Type ProgressBar}}">
-        <Setter Property="Width" Value="{StaticResource RowProgressWidth}" />
-        <Setter Property="Height" Value="{StaticResource ProgressBarHeight}" />
-        <Setter Property="Minimum" Value="0" />
-        <Setter Property="Maximum" Value="100" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding State}" Value="{x:Static models:UpdateState.Installing}">
-                <Setter Property="IsIndeterminate" Value="True" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
-    <!-- Row actions (cahier 4.3, cell State): each shown in its state only -->
+    <!-- Row actions (cahier 4.3, cell Action): each shown in its state only -->
     <Style x:Key="RowButtonStyle" TargetType="ui:Button" BasedOn="{StaticResource SmallButtonStyle}">
         <Setter Property="Margin" Value="{StaticResource Spacing2Horizontal}" />
         <Setter Property="Visibility" Value="Collapsed" />
@@ -1113,7 +1102,6 @@
 
     <Style x:Key="RowCancelButtonStyle" TargetType="ui:Button" BasedOn="{StaticResource RowButtonStyle}">
         <Setter Property="Appearance" Value="Transparent" />
-        <Setter Property="Padding" Value="{StaticResource IconButtonPadding}" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding CanCancel}" Value="True">
                 <Setter Property="Visibility" Value="Visible" />
@@ -1164,7 +1152,7 @@
         <Setter Property="Margin" Value="{StaticResource Spacing1Top}" />
     </Style>
 
-    <!-- winget log (C-35): monospace, colored lines, 150 high at most -->
+    <!-- winget log (C-35, E-03): monospace, colored lines, fills its block, scrolls both ways (no wrapping) -->
     <Style x:Key="LogItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
         <Setter Property="Padding" Value="{StaticResource Spacing2Horizontal}" />
         <Setter Property="MinHeight" Value="0" />
@@ -1172,10 +1160,10 @@
     </Style>
 
     <Style x:Key="WingetLogStyle" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
-        <Setter Property="MaxHeight" Value="{StaticResource LogMaxHeight}" />
         <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
         <Setter Property="BorderThickness" Value="{StaticResource BorderWidthNone}" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource LogItemStyle}" />
     </Style>
 
@@ -1183,7 +1171,7 @@
         <Setter Property="FontFamily" Value="{StaticResource FontFamilyMono}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXs}" />
         <Setter Property="LineHeight" Value="{StaticResource LeadingLogLine}" />
-        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:LogLineKind.Command}">

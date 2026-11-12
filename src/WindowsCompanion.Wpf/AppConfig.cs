@@ -13,7 +13,7 @@ public static class AppConfig
     public const string AppDisplayName = "Windows Companion";
 
     /// <summary>Version, mirror of the .csproj &lt;Version&gt; (rules/versioning.md).</summary>
-    public const string AppVersion = "1.0.0";
+    public const string AppVersion = "1.0.1";
 
     // Accent (design-system.md §2) - fallback when the Windows accent cannot be read
     /// <summary>Fallback accent, the default Windows blue.</summary>
@@ -35,7 +35,7 @@ public static class AppConfig
 
     // Window (cahier 3.2, D-04)
     /// <summary>Minimum width.</summary>
-    public const double WindowMinWidth = 760;
+    public const double WindowMinWidth = 800;
 
     /// <summary>Minimum height.</summary>
     public const double WindowMinHeight = 600;

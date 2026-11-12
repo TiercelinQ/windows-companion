@@ -26,11 +26,10 @@ public interface IWingetService
     /// <summary>Installs the update of one package.</summary>
     /// <param name="item">Item to install.</param>
     /// <param name="silent">Whether the installer runs without a window.</param>
-    /// <param name="progress">Receives the phase and the download progress.</param>
     /// <param name="log">Receives the log lines, possibly on a background thread.</param>
     /// <param name="ct">Cancellation token; cancelling stops winget and the installer.</param>
     /// <returns>How the installation ended.</returns>
-    Task<InstallOutcome> InstallAsync(UpdateItem item, bool silent, IProgress<InstallProgress> progress, Action<WingetLogLine> log, CancellationToken ct);
+    Task<InstallOutcome> InstallAsync(UpdateItem item, bool silent, Action<WingetLogLine> log, CancellationToken ct);
 }
 
 /// <summary>Command-line implementation of <see cref="IWingetService"/>.</summary>
@@ -115,39 +114,20 @@ public sealed partial class WingetService(IProcessRunner runner, ILogger<WingetS
     public async Task<InstallOutcome> InstallAsync(
         UpdateItem item,
         bool silent,
-        IProgress<InstallProgress> progress,
         Action<WingetLogLine> log,
         CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(item);
-        ArgumentNullException.ThrowIfNull(progress);
         ArgumentNullException.ThrowIfNull(log);
 
         var args = WingetArguments.Install(item, silent);
         log(new WingetLogLine(LogLineKind.Command, WingetArguments.Display(args)));
         log(new WingetLogLine(LogLineKind.Other, Formats.Template(Strings.Log_Downloading, item.Name, item.AvailableVersion)));
-        progress.Report(new InstallProgress(InstallPhase.Downloading, 0));
 
-        var installing = 0;
         void OnLine(string raw)
         {
             var line = WingetOutputParser.Clean(raw);
-            if (WingetOutputParser.ParseDownloadPercent(line) is { } percent)
-            {
-                if (Volatile.Read(ref installing) == 0)
-                {
-                    progress.Report(new InstallProgress(InstallPhase.Downloading, percent));
-                    if (percent >= 100 && Interlocked.Exchange(ref installing, 1) == 0)
-                    {
-                        progress.Report(new InstallProgress(InstallPhase.Installing, 100));
-                        log(new WingetLogLine(LogLineKind.Other, Strings.Log_Installing));
-                    }
-                }
-
-                return;
-            }
-
-            if (!WingetOutputParser.IsNoise(line))
+            if (!WingetOutputParser.IsProgressLine(line) && !WingetOutputParser.IsNoise(line))
             {
                 log(new WingetLogLine(LogLineKind.Other, line));
             }

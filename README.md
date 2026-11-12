@@ -1,4 +1,4 @@
-# Windows Companion - v1.0.0
+# Windows Companion - v1.0.1
 
 ## Objective
 
@@ -9,7 +9,7 @@ It reads, installs and diagnoses. It changes no system setting beyond applicatio
 ## Features
 
 - Shell: title bar, 7-page navigation pane (expanded or icon-only), status bar (winget version, last search, rights).
-- Updates: search through winget and the Microsoft Store, source filter, live winget log, install one, a selection or everything, global progress, per-row state, cancel (waiting item, running item, whole queue), ignore list, "Application open" state with a Close button.
+- Updates: search through winget and the Microsoft Store, source filter, live winget log, install one, a selection or everything, global progress by step, spinner and per-row state, cancel (waiting item, running item, whole queue), ignore list, "Application open" state with a Close button.
 - Overview: four tiles, storage card, recommended actions, full report export.
 - Hardware: processor, memory, graphics, motherboard and BIOS, storage volumes with usage gauges (80 % and 90 % thresholds), disk health and temperature, copy summary, HTML export.
 - System: six cards, filter, copy summary, HTML export.
@@ -56,7 +56,7 @@ windows-companion/
 
 | Area | Service | What it does |
 |---|---|---|
-| Updates | `IWingetService`, `IProcessRunner` | version, one `winget upgrade` call per source, install with progress, cancel by killing the process tree |
+| Updates | `IWingetService`, `IProcessRunner` | version, one `winget upgrade` call per source, install with live log, cancel by killing the process tree |
 | Updates | `IRunningAppService` | finds a running process under the package install location, soft close |
 | Hardware, system | `IHardwareService`, `ISystemInfoService` | snapshots built from CIM, registry, native calls and DXGI |
 | Network | `INetworkService` | adapters, gateway ping, DNS, internet check, enable adapter, flush DNS |
@@ -107,3 +107,7 @@ dotnet test
 ## Palette
 
 System accent: the application follows the accent color chosen in Windows (`ApplySystemAccent`), with `#0067C0` as fallback (`AppConfig.AccentColor`). No other override: backgrounds, text, borders and semantic colors stay Fluent.
+
+## License
+
+Released under the [MIT License](LICENSE).

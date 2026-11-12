@@ -62,7 +62,7 @@ public sealed class WingetServiceTests
     {
         _runner.RunAsync(default!, default!, default, default).ReturnsForAnyArgs(new ProcessResult(1603, string.Empty, string.Empty));
 
-        var outcome = await _service.InstallAsync(Samples.Firefox, true, new Progress<InstallProgress>(), _log.Add, TestContext.Current.CancellationToken);
+        var outcome = await _service.InstallAsync(Samples.Firefox, true, _log.Add, TestContext.Current.CancellationToken);
 
         Assert.Equal(new InstallOutcome(InstallResultKind.Failed, "1603"), outcome);
         Assert.Contains(_log, l => l.Kind == LogLineKind.Error);
@@ -73,16 +73,14 @@ public sealed class WingetServiceTests
     {
         _runner.RunAsync(default!, default!, default, default).ThrowsAsyncForAnyArgs(new OperationCanceledException());
 
-        var outcome = await _service.InstallAsync(Samples.Firefox, true, new Progress<InstallProgress>(), _log.Add, TestContext.Current.CancellationToken);
+        var outcome = await _service.InstallAsync(Samples.Firefox, true, _log.Add, TestContext.Current.CancellationToken);
 
         Assert.Equal(InstallResultKind.Cancelled, outcome.Kind);
     }
 
     [Fact]
-    public async Task Signale_le_passage_a_l_installation_apres_le_telechargement()
+    public async Task Garde_les_lignes_de_progression_hors_du_journal()
     {
-        var phases = new List<InstallPhase>();
-        var progress = new SyncProgress(p => phases.Add(p.Phase));
         _runner.RunAsync(default!, default!, default, default).ReturnsForAnyArgs(call =>
         {
             var onLine = call.ArgAt<Action<string>?>(2)!;
@@ -92,15 +90,10 @@ public sealed class WingetServiceTests
             return Task.FromResult(new ProcessResult(0, string.Empty, string.Empty));
         });
 
-        var outcome = await _service.InstallAsync(Samples.Firefox, true, progress, _log.Add, TestContext.Current.CancellationToken);
+        var outcome = await _service.InstallAsync(Samples.Firefox, true, _log.Add, TestContext.Current.CancellationToken);
 
         Assert.Equal(InstallResultKind.Installed, outcome.Kind);
-        Assert.Equal(InstallPhase.Installing, phases[^1]);
         Assert.Contains(_log, l => l.Text == "Installation réussie");
-    }
-
-    private sealed class SyncProgress(Action<InstallProgress> report) : IProgress<InstallProgress>
-    {
-        public void Report(InstallProgress value) => report(value);
+        Assert.DoesNotContain(_log, l => l.Text.Contains("MB /", StringComparison.Ordinal));
     }
 }
