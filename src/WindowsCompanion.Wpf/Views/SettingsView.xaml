@@ -24,7 +24,14 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" Style="{StaticResource PageScrollStyle}">
-            <StackPanel Style="{StaticResource PageContentStyle}">
+            <Grid Style="{StaticResource PageContentGridStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Left column: sources, installation, appearance (the card margin is the gutter) -->
+                <StackPanel>
 
                 <!-- Update sources -->
                 <Border Style="{StaticResource CardStyle}">
@@ -67,6 +74,30 @@
 </DockPanel>
                     </StackPanel>
                 </Border>
+
+                <!-- Appearance -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static res:Strings.Set_Appearance}" />
+                        <DockPanel Style="{StaticResource SettingRowStyle}">
+<Border Style="{StaticResource SettingSegmentedStyle}" AutomationProperties.Name="{x:Static res:Strings.Set_Theme}">
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="Theme" Content="{x:Static res:Strings.Theme_System}" IsChecked="{Binding ThemeMode, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static models:ThemeMode.System}}" />
+                                    <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="Theme" Content="{x:Static res:Strings.Theme_Light}" IsChecked="{Binding ThemeMode, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static models:ThemeMode.Light}}" />
+                                    <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="Theme" Content="{x:Static res:Strings.Theme_Dark}" IsChecked="{Binding ThemeMode, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static models:ThemeMode.Dark}}" />
+                                </StackPanel>
+                            </Border>
+<StackPanel Style="{StaticResource SettingTextPanelStyle}">
+                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_Theme}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_ThemeDescription}" />
+                            </StackPanel>
+</DockPanel>
+                    </StackPanel>
+                </Border>
+                </StackPanel>
+
+                <!-- Right column: application updates, ignored applications -->
+                <StackPanel Grid.Column="1">
 
                 <!-- Application updates (D-13) -->
                 <Border Style="{StaticResource CardStyle}">
@@ -113,27 +144,8 @@
                         <TextBlock Style="{StaticResource NoExclusionTextStyle}" Text="{x:Static res:Strings.Set_NoIgnored}" />
                     </StackPanel>
                 </Border>
-
-                <!-- Appearance -->
-                <Border Style="{StaticResource CardStyle}">
-                    <StackPanel>
-                        <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static res:Strings.Set_Appearance}" />
-                        <DockPanel Style="{StaticResource SettingRowStyle}">
-<Border Style="{StaticResource SettingSegmentedStyle}" AutomationProperties.Name="{x:Static res:Strings.Set_Theme}">
-                                <StackPanel Orientation="Horizontal">
-                                    <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="Theme" Content="{x:Static res:Strings.Theme_System}" IsChecked="{Binding ThemeMode, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static models:ThemeMode.System}}" />
-                                    <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="Theme" Content="{x:Static res:Strings.Theme_Light}" IsChecked="{Binding ThemeMode, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static models:ThemeMode.Light}}" />
-                                    <RadioButton Style="{StaticResource SegmentedRadioStyle}" GroupName="Theme" Content="{x:Static res:Strings.Theme_Dark}" IsChecked="{Binding ThemeMode, Converter={StaticResource EnumEquals}, ConverterParameter={x:Static models:ThemeMode.Dark}}" />
-                                </StackPanel>
-                            </Border>
-<StackPanel Style="{StaticResource SettingTextPanelStyle}">
-                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_Theme}" />
-                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_ThemeDescription}" />
-                            </StackPanel>
-</DockPanel>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Page>
