@@ -11,13 +11,36 @@ public sealed class SettingsViewModelTests
     private readonly IPreferencesService _preferences = Substitute.For<IPreferencesService>();
     private readonly IAppThemeService _theme = Substitute.For<IAppThemeService>();
     private readonly IFeedbackService _feedback = Substitute.For<IFeedbackService>();
+    private readonly IExportService _export = Substitute.For<IExportService>();
     private readonly IMessenger _messenger = new WeakReferenceMessenger();
     private readonly SettingsViewModel _viewModel;
 
     public SettingsViewModelTests()
     {
         _preferences.Current.Returns(new AppSettings { Exclusions = [new ExclusionEntry("Valve.Steam", "Steam", "Mise à jour automatique intégrée", DateTimeOffset.UnixEpoch)] });
-        _viewModel = new SettingsViewModel(_preferences, _theme, _feedback, _messenger);
+        _viewModel = new SettingsViewModel(_preferences, _theme, _feedback, _export, _messenger);
+    }
+
+    [Fact]
+    public void Garde_la_recherche_automatique_au_demarrage_desactivee_par_defaut()
+    {
+        Assert.False(_viewModel.AutoSearchUpdates);
+    }
+
+    [Fact]
+    public void Enregistre_le_choix_de_la_recherche_au_demarrage()
+    {
+        _viewModel.AutoSearchUpdates = true;
+
+        _preferences.ReceivedWithAnyArgs(1).UpdateAsync(default!, default);
+    }
+
+    [Fact]
+    public void Ouvre_le_dossier_des_journaux_depuis_la_commande()
+    {
+        _viewModel.OpenLogsFolderCommand.Execute(null);
+
+        _export.Received(1).OpenLogsFolder();
     }
 
     [Fact]

@@ -79,6 +79,64 @@ public sealed class UpdatesViewModelTests
     }
 
     [Fact]
+    public async Task Cherche_au_demarrage_quand_le_reglage_est_actif()
+    {
+        _preferences.Current.Returns(new AppSettings { AutoSearchUpdates = true });
+        _winget.GetVersionAsync(default).ReturnsForAnyArgs(Result<string>.Success("1.29.380"));
+
+        await _viewModel.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(3, _viewModel.PendingCount);
+        _feedback.Received(1).Show(Arg.Is<ResultError>(e => e.Type == FeedbackType.Info), Arg.Any<ToastAction[]>());
+    }
+
+    [Fact]
+    public async Task Ne_cherche_pas_au_demarrage_par_defaut()
+    {
+        _winget.GetVersionAsync(default).ReturnsForAnyArgs(Result<string>.Success("1.29.380"));
+
+        await _viewModel.InitializeAsync(TestContext.Current.CancellationToken);
+
+        await _winget.DidNotReceiveWithAnyArgs().SearchUpgradesAsync(default!, default, default!, default);
+    }
+
+    [Fact]
+    public async Task Ne_cherche_pas_au_demarrage_sans_winget()
+    {
+        _preferences.Current.Returns(new AppSettings { AutoSearchUpdates = true });
+        _winget.GetVersionAsync(default).ReturnsForAnyArgs(Result<string>.Failure(new(FeedbackType.Danger, "winget introuvable")));
+
+        await _viewModel.InitializeAsync(TestContext.Current.CancellationToken);
+
+        await _winget.DidNotReceiveWithAnyArgs().SearchUpgradesAsync(default!, default, default!, default);
+    }
+
+    [Fact]
+    public async Task N_annonce_pas_tout_est_a_jour_apres_une_recherche_automatique()
+    {
+        _preferences.Current.Returns(new AppSettings { AutoSearchUpdates = true });
+        _winget.GetVersionAsync(default).ReturnsForAnyArgs(Result<string>.Success("1.29.380"));
+        _winget.SearchUpgradesAsync(default!, default, default!, default)
+            .ReturnsForAnyArgs(Result<UpgradeSearchResult>.Success(new UpgradeSearchResult([], [])));
+
+        await _viewModel.InitializeAsync(TestContext.Current.CancellationToken);
+
+        _feedback.DidNotReceiveWithAnyArgs().Show(default!, default!);
+        Assert.Equal(0, _viewModel.PendingCount);
+    }
+
+    [Fact]
+    public async Task Annonce_tout_est_a_jour_apres_une_recherche_manuelle()
+    {
+        _winget.SearchUpgradesAsync(default!, default, default!, default)
+            .ReturnsForAnyArgs(Result<UpgradeSearchResult>.Success(new UpgradeSearchResult([], [])));
+
+        await _viewModel.SearchCommand.ExecuteAsync(null);
+
+        _feedback.Received(1).Show(Arg.Is<ResultError>(e => e.Type == FeedbackType.Success), Arg.Any<ToastAction[]>());
+    }
+
+    [Fact]
     public async Task Desactive_la_recherche_sans_source_active()
     {
         _preferences.Current.Returns(new AppSettings { UseWinget = false, UseMsStore = false });

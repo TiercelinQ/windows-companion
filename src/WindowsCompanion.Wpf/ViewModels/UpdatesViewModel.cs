@@ -194,9 +194,9 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
     /// <summary>Gets the running installation loop, for the tests and the exit sequence.</summary>
     internal Task QueueTask { get; private set; } = Task.CompletedTask;
 
-    /// <summary>Reads the winget version and the time of the last search, at startup.</summary>
+    /// <summary>Reads the winget version and the time of the last search, at startup, then searches the updates when the setting asks for it.</summary>
     /// <param name="ct">Cancellation token.</param>
-    /// <returns>A task completed once the version is known.</returns>
+    /// <returns>A task completed once the version is known, and the automatic search has ended when it ran.</returns>
     public async Task InitializeAsync(CancellationToken ct)
     {
         LastSearchAt = _preferences.Current.LastSearchAt;
@@ -204,6 +204,12 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
         IsWingetMissing = !version.Ok;
         WingetVersion = version.Data;
         RefreshAll();
+
+        // Optional search at launch (off by default). A missing winget or no active source leaves it out.
+        if (_preferences.Current.AutoSearchUpdates && CanSearch())
+        {
+            await SearchCoreAsync(automatic: true, ct);
+        }
     }
 
     /// <inheritdoc />
@@ -250,7 +256,10 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
     private bool CanSearch() => !IsSearching && !IsInstalling && !IsWingetMissing && ActiveSources().Count > 0;
 
     [RelayCommand(CanExecute = nameof(CanSearch))]
-    private async Task SearchAsync(CancellationToken ct)
+    private Task SearchAsync(CancellationToken ct) => SearchCoreAsync(automatic: false, ct);
+
+    // automatic: started at launch by the setting. The "up to date" toast would repeat at every start, so it is skipped.
+    private async Task SearchCoreAsync(bool automatic, CancellationToken ct)
     {
         IsSearching = true;
         try
@@ -291,7 +300,7 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
                         return Task.CompletedTask;
                     }));
             }
-            else
+            else if (!automatic)
             {
                 _feedback.Show(new(FeedbackType.Success, Strings.Toast_UpToDate_Title, Strings.Toast_UpToDate_Message));
             }

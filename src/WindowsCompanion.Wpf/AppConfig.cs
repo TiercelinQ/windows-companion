@@ -22,6 +22,9 @@ public static class AppConfig
     /// <summary>Gets the parsed fallback accent.</summary>
     public static Color AccentColorValue { get; } = (Color)ColorConverter.ConvertFromString(AccentColor)!;
 
+    /// <summary>Folder of the log files, under the user data folder.</summary>
+    public const string LogsFolderName = "logs";
+
     // Data files - relative to %APPDATA%\WindowsCompanion
     /// <summary>Settings file.</summary>
     public const string PreferencesFileName = "preferences.json";

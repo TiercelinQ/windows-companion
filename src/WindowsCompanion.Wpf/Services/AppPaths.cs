@@ -16,6 +16,9 @@ public interface IAppPaths
 
     /// <summary>Gets the user's Documents folder, destination of the exports.</summary>
     string Documents { get; }
+
+    /// <summary>Gets the folder of the log files.</summary>
+    string Logs { get; }
 }
 
 /// <summary>Default implementation of <see cref="IAppPaths"/>.</summary>
@@ -34,4 +37,7 @@ public sealed class AppPaths : IAppPaths
 
     /// <inheritdoc />
     public string Documents { get; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+    /// <inheritdoc />
+    public string Logs => Path.Combine(UserData, AppConfig.LogsFolderName);
 }

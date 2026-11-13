@@ -41,6 +41,9 @@ public interface IExportService
     /// <summary>Opens the Explorer on a file, selected.</summary>
     /// <param name="path">Full path of the file.</param>
     void RevealInExplorer(string path);
+
+    /// <summary>Opens the Explorer on the folder of the log files, creating it when it does not exist yet.</summary>
+    void OpenLogsFolder();
 }
 
 /// <summary>File-system implementation of <see cref="IExportService"/>.</summary>
@@ -118,6 +121,14 @@ public sealed partial class ExportService(IAppPaths paths, IProcessRunner runner
     /// <inheritdoc />
     public void RevealInExplorer(string path) =>
         runner.Start(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"), ["/select," + path]);
+
+    /// <inheritdoc />
+    public void OpenLogsFolder()
+    {
+        // Created when missing: explorer.exe falls back to Documents on a folder that does not exist.
+        Directory.CreateDirectory(paths.Logs);
+        runner.Start(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"), [paths.Logs]);
+    }
 
     private static string ShortEdition(string edition) => edition.Replace(Strings.Summary_EditionPro, Strings.Summary_EditionProShort, StringComparison.Ordinal);
 

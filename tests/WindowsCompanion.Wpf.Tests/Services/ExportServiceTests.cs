@@ -11,13 +11,28 @@ namespace WindowsCompanion.Tests.Services;
 public sealed class ExportServiceTests : IDisposable
 {
     private readonly TempFolder _documents = new();
+    private readonly IProcessRunner _runner = Substitute.For<IProcessRunner>();
     private readonly ExportService _service;
 
     public ExportServiceTests()
     {
         var paths = Substitute.For<IAppPaths>();
         paths.Documents.Returns(_documents.Path);
-        _service = new ExportService(paths, Substitute.For<IProcessRunner>(), new ManualTimeProvider(), NullLogger<ExportService>.Instance);
+        paths.Logs.Returns(Path.Combine(_documents.Path, "logs"));
+        _service = new ExportService(paths, _runner, new ManualTimeProvider(), NullLogger<ExportService>.Instance);
+    }
+
+    [Fact]
+    public void Ouvre_le_dossier_des_journaux_et_le_cree_s_il_manque()
+    {
+        var logs = Path.Combine(_documents.Path, "logs");
+
+        _service.OpenLogsFolder();
+
+        Assert.True(Directory.Exists(logs));
+        _runner.Received(1).Start(
+            Arg.Is<string>(f => f.EndsWith("explorer.exe", StringComparison.OrdinalIgnoreCase)),
+            Arg.Is<IReadOnlyList<string>>(a => a.SequenceEqual(new[] { logs })));
     }
 
     [Fact]

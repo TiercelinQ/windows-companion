@@ -31,7 +31,7 @@ public partial class App
     private static readonly string LogPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         AppConfig.AppName,
-        "logs",
+        AppConfig.LogsFolderName,
         "app-.log");
 
     private IHost? _host;
