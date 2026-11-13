@@ -226,6 +226,12 @@
   <data name="Security_Defender" xml:space="preserve"><value>Defender</value></data>
   <data name="Security_Firewall" xml:space="preserve"><value>pare-feu</value></data>
   <data name="Security_SecureBoot" xml:space="preserve"><value>démarrage sécurisé</value></data>
+  <data name="Set_AppUpdates" xml:space="preserve"><value>Mises à jour de l&apos;application</value></data>
+  <data name="Set_AppUpdatesAuto" xml:space="preserve"><value>Rechercher au démarrage</value></data>
+  <data name="Set_AppUpdatesAutoDescription" xml:space="preserve"><value>Une fois par jour au plus, sur les releases GitHub</value></data>
+  <data name="Set_AppUpdatesAutoName" xml:space="preserve"><value>Recherche automatique d&apos;une nouvelle version</value></data>
+  <data name="Set_AppUpdatesCheck" xml:space="preserve"><value>Rechercher maintenant</value></data>
+  <data name="Set_AppUpdatesCheckDescription" xml:space="preserve"><value>Compare votre version à la dernière release</value></data>
   <data name="Set_Appearance" xml:space="preserve"><value>Apparence</value></data>
   <data name="Set_ExclusionDetail" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="Set_Ignored" xml:space="preserve"><value>Applications ignorées</value></data>
@@ -247,6 +253,7 @@
   <data name="Set_WingetName" xml:space="preserve"><value>Source winget</value></data>
   <data name="Shell_PaneToggleName" xml:space="preserve"><value>Réduire ou développer la navigation</value></data>
   <data name="Shell_PaneToggleTip" xml:space="preserve"><value>Navigation</value></data>
+  <data name="Shell_Version" xml:space="preserve"><value>v{0}</value></data>
   <data name="Size_Gb" xml:space="preserve"><value>{0} Go</value></data>
   <data name="Size_GbOrMore" xml:space="preserve"><value>{0} Go ou plus</value></data>
   <data name="Source_Store" xml:space="preserve"><value>Store</value></data>
@@ -369,6 +376,13 @@
   <data name="Toast_BatchErrors_Title" xml:space="preserve"><value>Terminé avec des erreurs</value></data>
   <data name="Toast_CloseApp" xml:space="preserve"><value>Fermer {0}</value></data>
   <data name="Toast_CloseName" xml:space="preserve"><value>Fermer la notification</value></data>
+  <data name="Toast_CompanionCurrent_Message" xml:space="preserve"><value>Version {0}, c&apos;est la plus récente.</value></data>
+  <data name="Toast_CompanionCurrent_Title" xml:space="preserve"><value>Windows Companion est à jour</value></data>
+  <data name="Toast_CompanionDownload" xml:space="preserve"><value>Télécharger</value></data>
+  <data name="Toast_CompanionFailed_Message" xml:space="preserve"><value>GitHub n&apos;a pas répondu. Vérifiez la connexion et réessayez.</value></data>
+  <data name="Toast_CompanionFailed_Title" xml:space="preserve"><value>Vérification impossible</value></data>
+  <data name="Toast_CompanionNew_Message" xml:space="preserve"><value>La version {0} est disponible, vous utilisez la {1}.</value></data>
+  <data name="Toast_CompanionNew_Title" xml:space="preserve"><value>Nouvelle version disponible</value></data>
   <data name="Toast_Connected_Message" xml:space="preserve"><value>Internet accessible en {0}. Passerelle et DNS répondent.</value></data>
   <data name="Toast_Connected_Title" xml:space="preserve"><value>Connectivité vérifiée</value></data>
   <data name="Toast_Copied_Message" xml:space="preserve"><value>Les informations du matériel et du système sont dans le presse-papiers.</value></data>

@@ -51,6 +51,27 @@ public sealed class SettingsViewModelTests
     }
 
     [Fact]
+    public void Enregistre_le_choix_de_la_recherche_automatique_de_version()
+    {
+        Assert.True(_viewModel.CheckAppUpdates);
+
+        _viewModel.CheckAppUpdates = false;
+
+        _preferences.ReceivedWithAnyArgs(1).UpdateAsync(default!, default);
+    }
+
+    [Fact]
+    public void Demande_au_shell_de_rechercher_une_version()
+    {
+        var requested = false;
+        _messenger.Register<AppUpdateCheckRequestedMessage>(this, (_, _) => requested = true);
+
+        _viewModel.CheckAppUpdateCommand.Execute(null);
+
+        Assert.True(requested);
+    }
+
+    [Fact]
     public void Applique_le_theme_choisi()
     {
         _viewModel.ThemeMode = ThemeMode.Dark;

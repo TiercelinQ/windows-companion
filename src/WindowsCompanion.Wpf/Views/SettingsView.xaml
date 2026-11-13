@@ -68,6 +68,27 @@
                     </StackPanel>
                 </Border>
 
+                <!-- Application updates (D-13) -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static res:Strings.Set_AppUpdates}" />
+                        <DockPanel Style="{StaticResource SettingRowStyle}">
+<ui:ToggleSwitch Style="{StaticResource SettingToggleStyle}" IsChecked="{Binding CheckAppUpdates}" AutomationProperties.Name="{x:Static res:Strings.Set_AppUpdatesAutoName}" />
+<StackPanel Style="{StaticResource SettingTextPanelStyle}">
+                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_AppUpdatesAuto}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_AppUpdatesAutoDescription}" />
+                            </StackPanel>
+</DockPanel>
+                        <DockPanel Style="{StaticResource SettingRowStyle}">
+<ui:Button Style="{StaticResource SettingButtonStyle}" Content="{x:Static res:Strings.Set_AppUpdatesCheck}" Command="{Binding CheckAppUpdateCommand}" />
+<StackPanel Style="{StaticResource SettingTextPanelStyle}">
+                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_AppUpdatesCheck}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_AppUpdatesCheckDescription}" />
+                            </StackPanel>
+</DockPanel>
+                    </StackPanel>
+                </Border>
+
                 <!-- Ignored applications (F-PAR-05) -->
                 <Border Style="{StaticResource CardStyle}">
                     <StackPanel>

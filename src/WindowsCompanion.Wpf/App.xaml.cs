@@ -169,6 +169,7 @@ public partial class App
         services.AddSingleton<INetworkService, NetworkService>();
         services.AddSingleton<IExportService, ExportService>();
         services.AddSingleton<IRecommendationService, RecommendationService>();
+        services.AddSingleton<IUpdateCheckService, UpdateCheckService>();
 
         // Shell and toasts
         services.AddSingleton<MainWindow>();

@@ -62,6 +62,13 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <!-- tokens: FontWeightNormal, Spacing2Horizontal, TextFillColorTertiaryBrush - version next to the brand name -->
+    <Style x:Key="BrandVersionStyle" TargetType="TextBlock" BasedOn="{StaticResource BrandTextStyle}">
+        <Setter Property="FontWeight" Value="{StaticResource FontWeightNormal}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+        <Setter Property="Margin" Value="{StaticResource Spacing2Horizontal}" />
+    </Style>
+
     <Style x:Key="NavItemContentStyle" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal" />
     </Style>

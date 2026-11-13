@@ -1,4 +1,4 @@
-# Windows Companion - v1.0.2
+# Windows Companion - v1.1.0
 
 ## Objective
 
@@ -8,14 +8,15 @@ It reads, installs and diagnoses. It changes no system setting beyond applicatio
 
 ## Features
 
-- Shell: title bar, 7-page navigation pane (expanded or icon-only), status bar (winget version, last search, rights).
+- Shell: title bar (with the version next to the name), 7-page navigation pane (expanded or icon-only), status bar (winget version, last search, rights).
 - Updates: search through winget and the Microsoft Store, source filter, live winget log, install one, a selection or everything, global progress by step, spinner and per-row state, cancel (waiting item, running item, whole queue), ignore list, "Application open" state with a Close button.
 - Overview: four tiles, storage card, recommended actions, full report export.
 - Hardware: processor, memory, graphics, motherboard and BIOS, storage volumes with usage gauges (80 % and 90 % thresholds), disk health and temperature, copy summary, HTML export.
 - System: six cards, filter, copy summary, HTML export.
 - Network: adapter blocks, four local connectivity tests, enable an adapter, flush DNS, HTML export.
 - History: installation history, CSV export, two-step clear.
-- Settings: sources, unknown versions, silent install, theme (System, Light, Dark), ignored applications.
+- Settings: sources, unknown versions, silent install, new-version check (automatic switch and "Rechercher maintenant" button), theme (System, Light, Dark), ignored applications.
+- New-version check: at startup (once a day at most) and on demand, compares the installed version with the latest GitHub release and shows a toast with a "Télécharger" action that opens the releases page.
 - Toasts: own host with four severities, up to two actions, stack of four, duplicate merge, pause on hover.
 - Relaunch as administrator on the same page, single instance with activation of the open window, remembered window size and position, `F5` runs the main command of the page.
 
@@ -25,6 +26,7 @@ It reads, installs and diagnoses. It changes no system setting beyond applicatio
 - Composition: IHost + Microsoft.Extensions.DependencyInjection · MVVM: CommunityToolkit.Mvvm 8.4.2
 - Storage: JSON files under `%APPDATA%\WindowsCompanion` (`System.Text.Json`, source-generated context, atomic writes). No database.
 - System access: `System.Management` (CIM/WMI), `LibraryImport` native calls, `winget.exe` through `Process` with an `ArgumentList`
+- Network: `HttpClient` for the connectivity probe and the GitHub release check
 - Logging: Serilog (rolling file under `%APPDATA%\WindowsCompanion\logs`)
 - i18n: No (French only, single `Strings.resx`)
 - Salesforce CLI: No
@@ -62,6 +64,7 @@ windows-companion/
 | Network | `INetworkService` | adapters, gateway ping, DNS, internet check, enable adapter, flush DNS |
 | Export | `IExportService` | HTML reports, history CSV, text summary, reveal in Explorer |
 | Overview | `IRecommendationService` | recommended actions from the latest snapshots |
+| App version | `IUpdateCheckService` | latest GitHub release compared with the installed version (daily at startup, or on demand), opens the releases page |
 | Persistence | `IPreferencesService`, `IHistoryService`, `IJsonFileStore` | settings, exclusions, history (1,000 entries at most) |
 | App | `IFeedbackService`, `IAppThemeService`, `IElevationService`, `ISingleInstanceService`, `IAppLifetimeService`, `IClipboardService` | toasts, theme and accent, elevation, single instance, shutdown, clipboard |
 
@@ -81,6 +84,7 @@ The full command table (ViewModel command, service method, data, view) is in `do
 
 - .NET SDK 10.0 or later to build. Nothing to install to run the self-contained publish.
 - Windows 11 with `winget` (App Installer) for the Updates page. Without it the page shows a message and the rest of the application works.
+- Internet access to `api.github.com` is optional. It is used only by the new-version check (one `GET` of the latest release, a generic `User-Agent`, nothing else sent). Without it the check is skipped silently at startup.
 - Administrator rights are optional. They are needed to enable a disabled network adapter and flush the DNS cache; the application offers to relaunch itself elevated.
 
 ## Installation
