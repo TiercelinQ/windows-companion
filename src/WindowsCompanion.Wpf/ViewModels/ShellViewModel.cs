@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
+using WindowsCompanion.Helpers;
 using WindowsCompanion.Models;
 using WindowsCompanion.Resources;
 using WindowsCompanion.Services;
@@ -11,8 +12,8 @@ using Wpf.Ui.Extensions;
 
 namespace WindowsCompanion.ViewModels;
 
-/// <summary>Shell: navigation pane, status bar, relaunch as administrator, close confirmation.</summary>
-public sealed partial class ShellViewModel : ObservableObject, IRecipient<ElevationRequestedMessage>
+/// <summary>Shell: navigation pane, status bar, relaunch as administrator, close confirmation, check for a newer version.</summary>
+public sealed partial class ShellViewModel : ObservableObject, IRecipient<ElevationRequestedMessage>, IRecipient<AppUpdateCheckRequestedMessage>
 {
     private readonly IReadOnlyList<IPageViewModel> _pages;
     private readonly HardwareViewModel _hardware;
@@ -22,6 +23,7 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
     private readonly IPageNavigator _navigator;
     private readonly IPreferencesService _preferences;
     private readonly IElevationService _elevation;
+    private readonly IUpdateCheckService _updateCheck;
     private readonly IAppLifetimeService _lifetime;
     private readonly IContentDialogService _dialogs;
     private readonly IFeedbackService _feedback;
@@ -50,6 +52,7 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
     /// <param name="navigator">Page navigation.</param>
     /// <param name="preferences">Settings.</param>
     /// <param name="elevation">Elevation state and relaunch.</param>
+    /// <param name="updateCheck">Looks for a newer version of the application (D-13).</param>
     /// <param name="lifetime">Closes the application.</param>
     /// <param name="dialogs">WPF UI confirmation dialogs.</param>
     /// <param name="feedback">Toasts.</param>
@@ -65,6 +68,7 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
         IPageNavigator navigator,
         IPreferencesService preferences,
         IElevationService elevation,
+        IUpdateCheckService updateCheck,
         IAppLifetimeService lifetime,
         IContentDialogService dialogs,
         IFeedbackService feedback,
@@ -82,6 +86,7 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
         _navigator = navigator;
         _preferences = preferences;
         _elevation = elevation;
+        _updateCheck = updateCheck;
         _lifetime = lifetime;
         _dialogs = dialogs;
         _feedback = feedback;
@@ -125,7 +130,8 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
             _hardware.InitializeAsync(ct),
             _system.InitializeAsync(ct),
             _network.InitializeAsync(ct),
-            _history.InitializeAsync(ct));
+            _history.InitializeAsync(ct),
+            CheckAppUpdateAsync(manual: false, ct));
     }
 
     /// <summary>Folds the pane at 900 or less, restores the saved state above (F-NAV-07, A6).</summary>
@@ -178,6 +184,9 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
         ArgumentNullException.ThrowIfNull(message);
         RelaunchAsAdminCommand.Execute(message.Page);
     }
+
+    /// <inheritdoc />
+    public void Receive(AppUpdateCheckRequestedMessage message) => _ = CheckAppUpdateAsync(manual: true, CancellationToken.None);
 
     [RelayCommand]
     private void Navigate(PageKey page)
@@ -258,6 +267,49 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
         }
     }
 
+    // Automatic at startup: only a newer version is announced. Manual (Settings): every outcome is announced (D-13).
+    // Also fire-and-forget from the message handler, so faults are logged here (rules/threading.md).
+    private async Task CheckAppUpdateAsync(bool manual, CancellationToken ct)
+    {
+        try
+        {
+            var result = await _updateCheck.CheckAsync(manual, ct);
+            if (!result.Ok)
+            {
+                if (manual)
+                {
+                    _feedback.Show(result.Error!);
+                }
+
+                return;
+            }
+
+            var check = result.Data!;
+            if (check.Status == UpdateCheckStatus.Available)
+            {
+                _feedback.Show(
+                    new(FeedbackType.Info, Strings.Toast_CompanionNew_Title, Formats.Template(Strings.Toast_CompanionNew_Message, check.LatestVersion, AppConfig.AppVersion)),
+                    new ToastAction(Strings.Toast_CompanionDownload, true, () =>
+                    {
+                        _updateCheck.OpenReleasesPage();
+                        return Task.CompletedTask;
+                    }));
+            }
+            else if (check.Status == UpdateCheckStatus.UpToDate && manual)
+            {
+                _feedback.Show(new(FeedbackType.Success, Strings.Toast_CompanionCurrent_Title, Formats.Template(Strings.Toast_CompanionCurrent_Message, AppConfig.AppVersion)));
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // not an error - rules/errors.md
+        }
+        catch (Exception ex)
+        {
+            LogUpdateCheckFailed(_logger, ex);
+        }
+    }
+
     // Fire-and-forget page entry: faults are logged, never lost (rules/threading.md).
     private async Task EnterPageAsync(IPageViewModel viewModel)
     {
@@ -270,6 +322,9 @@ public sealed partial class ShellViewModel : ObservableObject, IRecipient<Elevat
             LogPageEntryFailed(_logger, viewModel.Page, ex);
         }
     }
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "Echec de la verification de la version de l'application")]
+    private static partial void LogUpdateCheckFailed(ILogger logger, Exception exception);
 
     [LoggerMessage(Level = LogLevel.Error, Message = "Echec de l'ouverture de la page {Page}")]
     private static partial void LogPageEntryFailed(ILogger logger, PageKey page, Exception exception);

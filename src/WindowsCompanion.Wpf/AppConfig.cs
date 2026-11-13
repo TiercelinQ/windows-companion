@@ -13,7 +13,7 @@ public static class AppConfig
     public const string AppDisplayName = "Windows Companion";
 
     /// <summary>Version, mirror of the .csproj &lt;Version&gt; (rules/versioning.md).</summary>
-    public const string AppVersion = "1.0.2";
+    public const string AppVersion = "1.1.0";
 
     // Accent (design-system.md §2) - fallback when the Windows accent cannot be read
     /// <summary>Fallback accent, the default Windows blue.</summary>
@@ -143,6 +143,22 @@ public static class AppConfig
     /// <summary>Timeout of one step of a CIM enumeration. A step that times out ends the enumeration silently, so it is
     /// sized for the slow providers (licensing, signed drivers) when every startup query runs at once.</summary>
     public const int CimTimeoutMs = 10000;
+
+    // Application updates (D-13)
+    /// <summary>GitHub repository (owner/name) whose releases are checked.</summary>
+    public const string GitHubRepository = "TiercelinQ/windows-companion";
+
+    /// <summary>GitHub API address of the latest release.</summary>
+    public const string ReleasesApiUrl = "https://api.github.com/repos/" + GitHubRepository + "/releases/latest";
+
+    /// <summary>Page opened by the "Télécharger" action; a constant, never an address read from the API.</summary>
+    public const string ReleasesPageUrl = "https://github.com/" + GitHubRepository + "/releases/latest";
+
+    /// <summary>Minimum time between two automatic checks.</summary>
+    public const int UpdateCheckIntervalHours = 24;
+
+    /// <summary>Timeout of the check.</summary>
+    public const int UpdateCheckTimeoutMs = 5000;
 
     // Single instance (F-FEN-07)
     /// <summary>Name of the single-instance mutex.</summary>

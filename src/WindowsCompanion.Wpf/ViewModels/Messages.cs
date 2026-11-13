@@ -30,5 +30,8 @@ public sealed record ElevationRequestedMessage(PageKey Page);
 /// <summary>The settings changed: sources, options or ignored applications (A7).</summary>
 public sealed record SettingsChangedMessage;
 
+/// <summary>The user asked, from Settings, to look for a newer version of the application (D-13).</summary>
+public sealed record AppUpdateCheckRequestedMessage;
+
 /// <summary>An entry was added to the history.</summary>
 public sealed record HistoryChangedMessage;

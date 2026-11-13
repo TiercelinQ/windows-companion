@@ -59,6 +59,12 @@ public sealed record AppSettings
     /// <summary>Gets the time of the last update search, or null before the first one.</summary>
     public DateTimeOffset? LastSearchAt { get; set; }
 
+    /// <summary>Gets a value indicating whether a newer version of the application is looked for at startup (D-13).</summary>
+    public bool CheckAppUpdates { get; set; } = true;
+
+    /// <summary>Gets the time of the last successful check for a newer version, or null before the first one.</summary>
+    public DateTimeOffset? LastAppUpdateCheckAt { get; set; }
+
     /// <summary>Gets the ignored applications.</summary>
     public IReadOnlyList<ExclusionEntry> Exclusions { get; set; } = [];
 }

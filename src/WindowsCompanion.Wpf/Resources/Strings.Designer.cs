@@ -686,6 +686,24 @@ public static class Strings
     /// <summary>Gets the resource string <c>Security_SecureBoot</c>.</summary>
     public static string Security_SecureBoot => Get("Security_SecureBoot");
 
+    /// <summary>Gets the resource string <c>Set_AppUpdates</c>.</summary>
+    public static string Set_AppUpdates => Get("Set_AppUpdates");
+
+    /// <summary>Gets the resource string <c>Set_AppUpdatesAuto</c>.</summary>
+    public static string Set_AppUpdatesAuto => Get("Set_AppUpdatesAuto");
+
+    /// <summary>Gets the resource string <c>Set_AppUpdatesAutoDescription</c>.</summary>
+    public static string Set_AppUpdatesAutoDescription => Get("Set_AppUpdatesAutoDescription");
+
+    /// <summary>Gets the resource string <c>Set_AppUpdatesAutoName</c>.</summary>
+    public static string Set_AppUpdatesAutoName => Get("Set_AppUpdatesAutoName");
+
+    /// <summary>Gets the resource string <c>Set_AppUpdatesCheck</c>.</summary>
+    public static string Set_AppUpdatesCheck => Get("Set_AppUpdatesCheck");
+
+    /// <summary>Gets the resource string <c>Set_AppUpdatesCheckDescription</c>.</summary>
+    public static string Set_AppUpdatesCheckDescription => Get("Set_AppUpdatesCheckDescription");
+
     /// <summary>Gets the resource string <c>Set_Appearance</c>.</summary>
     public static string Set_Appearance => Get("Set_Appearance");
 
@@ -748,6 +766,9 @@ public static class Strings
 
     /// <summary>Gets the resource string <c>Shell_PaneToggleTip</c>.</summary>
     public static string Shell_PaneToggleTip => Get("Shell_PaneToggleTip");
+
+    /// <summary>Gets the resource string <c>Shell_Version</c>.</summary>
+    public static string Shell_Version => Get("Shell_Version");
 
     /// <summary>Gets the resource string <c>Size_Gb</c>.</summary>
     public static string Size_Gb => Get("Size_Gb");
@@ -1114,6 +1135,27 @@ public static class Strings
 
     /// <summary>Gets the resource string <c>Toast_CloseName</c>.</summary>
     public static string Toast_CloseName => Get("Toast_CloseName");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionCurrent_Message</c>.</summary>
+    public static string Toast_CompanionCurrent_Message => Get("Toast_CompanionCurrent_Message");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionCurrent_Title</c>.</summary>
+    public static string Toast_CompanionCurrent_Title => Get("Toast_CompanionCurrent_Title");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionDownload</c>.</summary>
+    public static string Toast_CompanionDownload => Get("Toast_CompanionDownload");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionFailed_Message</c>.</summary>
+    public static string Toast_CompanionFailed_Message => Get("Toast_CompanionFailed_Message");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionFailed_Title</c>.</summary>
+    public static string Toast_CompanionFailed_Title => Get("Toast_CompanionFailed_Title");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionNew_Message</c>.</summary>
+    public static string Toast_CompanionNew_Message => Get("Toast_CompanionNew_Message");
+
+    /// <summary>Gets the resource string <c>Toast_CompanionNew_Title</c>.</summary>
+    public static string Toast_CompanionNew_Title => Get("Toast_CompanionNew_Title");
 
     /// <summary>Gets the resource string <c>Toast_Connected_Message</c>.</summary>
     public static string Toast_Connected_Message => Get("Toast_Connected_Message");

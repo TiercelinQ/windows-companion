@@ -14,7 +14,7 @@ namespace WindowsCompanion.ViewModels;
 /// <param name="Detail">"identifier · reason" line.</param>
 public sealed record ExclusionRow(ExclusionEntry Entry, string Detail);
 
-/// <summary>Settings page: sources, installation, ignored applications, appearance (cahier 4.8, v1.0 scope).</summary>
+/// <summary>Settings page: sources, installation, application updates, ignored applications, appearance (cahier 4.8, v1.0 scope).</summary>
 public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel, IRecipient<SettingsChangedMessage>
 {
     private readonly IPreferencesService _preferences;
@@ -34,6 +34,9 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
 
     [ObservableProperty]
     private bool _silentInstall;
+
+    [ObservableProperty]
+    private bool _checkAppUpdates;
 
     [ObservableProperty]
     private ThemeMode _themeMode;
@@ -85,6 +88,8 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
 
     partial void OnSilentInstallChanged(bool value) => Persist(s => s with { SilentInstall = value });
 
+    partial void OnCheckAppUpdatesChanged(bool value) => Persist(s => s with { CheckAppUpdates = value });
+
     partial void OnThemeModeChanged(ThemeMode value)
     {
         if (!_loading)
@@ -92,6 +97,10 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
             _ = _theme.SetModeAsync(value, CancellationToken.None);
         }
     }
+
+    // The shell runs the check and shows the outcome (D-13).
+    [RelayCommand]
+    private void CheckAppUpdate() => _messenger.Send(new AppUpdateCheckRequestedMessage());
 
     [RelayCommand]
     private async Task ReactivateAsync(ExclusionRow? row)
@@ -133,6 +142,7 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
             UseMsStore = settings.UseMsStore;
             IncludeUnknownVersions = settings.IncludeUnknownVersions;
             SilentInstall = settings.SilentInstall;
+            CheckAppUpdates = settings.CheckAppUpdates;
             ThemeMode = _theme.Mode;
 
             // Rebuilt only when the list changed: another setting leaves the rows (and their controls) in place.

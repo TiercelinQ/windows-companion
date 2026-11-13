@@ -31,6 +31,8 @@ Déclarées et validées en phase 4 ; détail dans `docs/specs/04-architect.md` 
 - Bouton de volet dans la barre de titre, thème réglé seulement dans Paramètres (D-11)
 - Pipeline GitHub Actions : `.github/workflows/ci.yml` (restore, build, format, test, audit des paquets) et `release.yml` (push sur `main` : publish, exe et ZIP, release GitHub si le tag de la version n'existe pas) - reason: le contrat ne prévoyait aucun fichier d'intégration continue (D-12)
 
+- Vérification de nouvelle version : appel sortant vers `api.github.com` (dernière release du dépôt), absent du contrat initial - reason: informer l'utilisateur d'une version plus récente ; aucun paquet ajouté, `User-Agent` générique, page des releases ouverte par une URL constante via `IProcessRunner` (D-13)
+
 ## Open points
 
 Suivi dans `docs/errors.md` (privé) : E-02 (hors application) et la liste des points de recette non exercés. E-01 (progression d'installation) et E-03 (versions tronquées) sont corrigés le 2026-11-12.

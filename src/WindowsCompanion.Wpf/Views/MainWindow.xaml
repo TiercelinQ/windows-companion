@@ -55,6 +55,7 @@
                         AutomationProperties.Name="{x:Static res:Strings.Shell_PaneToggleName}" />
                     <Image x:Name="BrandImage" Style="{StaticResource BrandImageStyle}" />
                     <TextBlock Style="{StaticResource BrandTextStyle}" Text="{x:Static app:AppConfig.AppDisplayName}" />
+                    <TextBlock Style="{StaticResource BrandVersionStyle}" Text="{Binding Source={x:Static app:AppConfig.AppVersion}, Mode=OneTime, StringFormat={x:Static res:Strings.Shell_Version}}" />
                 </StackPanel>
             </ui:TitleBar.Header>
         </ui:TitleBar>

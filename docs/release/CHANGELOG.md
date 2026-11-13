@@ -5,6 +5,11 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-13
+### Added
+- New-version check: at startup (once a day at most) and from a "Rechercher maintenant" button in Settings, the application compares its version with the latest GitHub release and, when a newer one exists, shows a toast with a "Télécharger" action that opens the releases page. A Settings switch turns the automatic check off.
+- The title bar shows the application version (for example "v1.1.0") to the right of the application name.
+
 ## [1.0.2] - 2026-11-12
 ### Changed
 - Added GitHub Actions workflows: a CI that restores, builds, checks the format, runs the tests and audits the packages on every pull request and push to `main`, and a release workflow that, after each merge into `main`, builds the executable and the ZIP and publishes them as a new GitHub release when the version has no tag yet.
