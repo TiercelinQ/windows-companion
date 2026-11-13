@@ -4,13 +4,15 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <AssemblyName>WindowsCompanion</AssemblyName>
+    <!-- File description: the name Windows shows for a pinned shortcut (Start menu, taskbar tooltip). -->
+    <AssemblyTitle>Windows Companion</AssemblyTitle>
     <RootNamespace>WindowsCompanion</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
     <!-- LibraryImport and the DXGI vtable calls (Services/Platform). -->
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <!-- Canonical version (rules/versioning.md). AppConfig.AppVersion mirrors it; only /wpf-release changes it. -->
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

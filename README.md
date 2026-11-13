@@ -1,4 +1,4 @@
-# Windows Companion - v1.1.0
+# Windows Companion - v1.1.1
 
 ## Objective
 
