@@ -58,6 +58,13 @@
                                 <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_UnknownDescription}" />
                             </StackPanel>
 </DockPanel>
+                        <DockPanel Style="{StaticResource SettingRowStyle}">
+<ui:ToggleSwitch Style="{StaticResource SettingToggleStyle}" IsChecked="{Binding AutoSearchUpdates}" AutomationProperties.Name="{x:Static res:Strings.Set_AutoSearchName}" />
+<StackPanel Style="{StaticResource SettingTextPanelStyle}">
+                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_AutoSearch}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_AutoSearchDescription}" />
+                            </StackPanel>
+</DockPanel>
                     </StackPanel>
                 </Border>
 
@@ -115,6 +122,20 @@
 <StackPanel Style="{StaticResource SettingTextPanelStyle}">
                                 <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_AppUpdatesCheck}" />
                                 <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_AppUpdatesCheckDescription}" />
+                            </StackPanel>
+</DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Diagnostic: log files -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static res:Strings.Set_Diagnostic}" />
+                        <DockPanel Style="{StaticResource SettingRowStyle}">
+<ui:Button Style="{StaticResource SettingButtonStyle}" Content="{x:Static res:Strings.Set_LogsOpen}" Command="{Binding OpenLogsFolderCommand}" AutomationProperties.Name="{x:Static res:Strings.Set_Logs}" />
+<StackPanel Style="{StaticResource SettingTextPanelStyle}">
+                                <TextBlock Style="{StaticResource StrongTextStyle}" Text="{x:Static res:Strings.Set_Logs}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{x:Static res:Strings.Set_LogsDescription}" />
                             </StackPanel>
 </DockPanel>
                     </StackPanel>

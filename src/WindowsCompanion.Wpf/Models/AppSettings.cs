@@ -56,6 +56,9 @@ public sealed record AppSettings
     /// <summary>Gets the saved window bounds, or null on first launch.</summary>
     public WindowPlacement? Window { get; set; }
 
+    /// <summary>Gets a value indicating whether the updates are searched when the application starts (off by default).</summary>
+    public bool AutoSearchUpdates { get; set; }
+
     /// <summary>Gets the time of the last update search, or null before the first one.</summary>
     public DateTimeOffset? LastSearchAt { get; set; }
 

@@ -235,6 +235,13 @@
   <data name="Set_Appearance" xml:space="preserve"><value>Apparence</value></data>
   <data name="Set_ExclusionDetail" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="Set_Ignored" xml:space="preserve"><value>Applications ignorées</value></data>
+  <data name="Set_AutoSearch" xml:space="preserve"><value>Rechercher les mises à jour au démarrage</value></data>
+  <data name="Set_AutoSearchDescription" xml:space="preserve"><value>Lance une recherche à l&apos;ouverture de l&apos;application</value></data>
+  <data name="Set_AutoSearchName" xml:space="preserve"><value>Recherche automatique des mises à jour au démarrage</value></data>
+  <data name="Set_Diagnostic" xml:space="preserve"><value>Diagnostic</value></data>
+  <data name="Set_Logs" xml:space="preserve"><value>Journaux</value></data>
+  <data name="Set_LogsDescription" xml:space="preserve"><value>Fichiers de suivi de l&apos;application, utiles en cas de problème</value></data>
+  <data name="Set_LogsOpen" xml:space="preserve"><value>Ouvrir le dossier</value></data>
   <data name="Set_Installation" xml:space="preserve"><value>Installation</value></data>
   <data name="Set_NoIgnored" xml:space="preserve"><value>Aucune application ignorée.</value></data>
   <data name="Set_Reactivate" xml:space="preserve"><value>Réactiver</value></data>

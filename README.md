@@ -1,4 +1,4 @@
-# Windows Companion - v1.2.0
+# Windows Companion - v1.3.0
 
 ## Objective
 
@@ -15,7 +15,7 @@ It reads, installs and diagnoses. It changes no system setting beyond applicatio
 - System: six cards, filter, copy summary, HTML export.
 - Network: adapter blocks, four local connectivity tests, enable an adapter, flush DNS, HTML export.
 - History: installation history, CSV export, two-step clear.
-- Settings: sources, unknown versions, silent install, new-version check (automatic switch and "Rechercher maintenant" button), theme (System, Light, Dark), ignored applications.
+- Settings: sources, unknown versions, update search at startup (off by default), silent install, new-version check (automatic switch and "Rechercher maintenant" button), theme (System, Light, Dark), ignored applications.
 - New-version check: at startup (once a day at most) and on demand, compares the installed version with the latest GitHub release and shows a toast with a "Télécharger" action that opens the releases page.
 - Toasts: own host with four severities, up to two actions, stack of four, duplicate merge, pause on hover.
 - Relaunch as administrator on the same page, single instance with activation of the open window, remembered window size and position, `F5` runs the main command of the page.
@@ -62,7 +62,7 @@ windows-companion/
 | Updates | `IRunningAppService` | finds a running process under the package install location, soft close |
 | Hardware, system | `IHardwareService`, `ISystemInfoService` | snapshots built from CIM, registry, native calls and DXGI |
 | Network | `INetworkService` | adapters, gateway ping, DNS, internet check, enable adapter, flush DNS |
-| Export | `IExportService` | HTML reports, history CSV, text summary, reveal in Explorer |
+| Export | `IExportService` | HTML reports, history CSV, text summary, reveal in Explorer, open the logs folder |
 | Overview | `IRecommendationService` | recommended actions from the latest snapshots |
 | App version | `IUpdateCheckService` | latest GitHub release compared with the installed version (daily at startup, or on demand), opens the releases page |
 | Persistence | `IPreferencesService`, `IHistoryService`, `IJsonFileStore` | settings, exclusions, history (1,000 entries at most) |

@@ -20,6 +20,7 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
     private readonly IPreferencesService _preferences;
     private readonly IAppThemeService _theme;
     private readonly IFeedbackService _feedback;
+    private readonly IExportService _export;
     private readonly IMessenger _messenger;
     private bool _loading;
 
@@ -31,6 +32,9 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
 
     [ObservableProperty]
     private bool _includeUnknownVersions;
+
+    [ObservableProperty]
+    private bool _autoSearchUpdates;
 
     [ObservableProperty]
     private bool _silentInstall;
@@ -48,13 +52,15 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
     /// <param name="preferences">Settings storage.</param>
     /// <param name="theme">Theme mode.</param>
     /// <param name="feedback">Toasts.</param>
+    /// <param name="export">Opens the folder of the log files.</param>
     /// <param name="messenger">Shared messages.</param>
-    public SettingsViewModel(IPreferencesService preferences, IAppThemeService theme, IFeedbackService feedback, IMessenger messenger)
+    public SettingsViewModel(IPreferencesService preferences, IAppThemeService theme, IFeedbackService feedback, IExportService export, IMessenger messenger)
     {
         ArgumentNullException.ThrowIfNull(theme);
         _preferences = preferences;
         _theme = theme;
         _feedback = feedback;
+        _export = export;
         _messenger = messenger;
         theme.ThemeChanged += (_, _) => Load();
         messenger.RegisterAll(this);
@@ -86,6 +92,8 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
 
     partial void OnIncludeUnknownVersionsChanged(bool value) => Persist(s => s with { IncludeUnknownVersions = value });
 
+    partial void OnAutoSearchUpdatesChanged(bool value) => Persist(s => s with { AutoSearchUpdates = value });
+
     partial void OnSilentInstallChanged(bool value) => Persist(s => s with { SilentInstall = value });
 
     partial void OnCheckAppUpdatesChanged(bool value) => Persist(s => s with { CheckAppUpdates = value });
@@ -101,6 +109,9 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
     // The shell runs the check and shows the outcome (D-13).
     [RelayCommand]
     private void CheckAppUpdate() => _messenger.Send(new AppUpdateCheckRequestedMessage());
+
+    [RelayCommand]
+    private void OpenLogsFolder() => _export.OpenLogsFolder();
 
     [RelayCommand]
     private async Task ReactivateAsync(ExclusionRow? row)
@@ -141,6 +152,7 @@ public sealed partial class SettingsViewModel : ObservableObject, IPageViewModel
             UseWinget = settings.UseWinget;
             UseMsStore = settings.UseMsStore;
             IncludeUnknownVersions = settings.IncludeUnknownVersions;
+            AutoSearchUpdates = settings.AutoSearchUpdates;
             SilentInstall = settings.SilentInstall;
             CheckAppUpdates = settings.CheckAppUpdates;
             ThemeMode = _theme.Mode;

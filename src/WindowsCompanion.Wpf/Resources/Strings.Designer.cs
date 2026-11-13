@@ -713,6 +713,27 @@ public static class Strings
     /// <summary>Gets the resource string <c>Set_Ignored</c>.</summary>
     public static string Set_Ignored => Get("Set_Ignored");
 
+    /// <summary>Gets the resource string <c>Set_AutoSearch</c>.</summary>
+    public static string Set_AutoSearch => Get("Set_AutoSearch");
+
+    /// <summary>Gets the resource string <c>Set_AutoSearchDescription</c>.</summary>
+    public static string Set_AutoSearchDescription => Get("Set_AutoSearchDescription");
+
+    /// <summary>Gets the resource string <c>Set_AutoSearchName</c>.</summary>
+    public static string Set_AutoSearchName => Get("Set_AutoSearchName");
+
+    /// <summary>Gets the resource string <c>Set_Diagnostic</c>.</summary>
+    public static string Set_Diagnostic => Get("Set_Diagnostic");
+
+    /// <summary>Gets the resource string <c>Set_Logs</c>.</summary>
+    public static string Set_Logs => Get("Set_Logs");
+
+    /// <summary>Gets the resource string <c>Set_LogsDescription</c>.</summary>
+    public static string Set_LogsDescription => Get("Set_LogsDescription");
+
+    /// <summary>Gets the resource string <c>Set_LogsOpen</c>.</summary>
+    public static string Set_LogsOpen => Get("Set_LogsOpen");
+
     /// <summary>Gets the resource string <c>Set_Installation</c>.</summary>
     public static string Set_Installation => Get("Set_Installation");
 

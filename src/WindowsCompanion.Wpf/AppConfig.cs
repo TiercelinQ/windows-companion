@@ -13,7 +13,7 @@ public static class AppConfig
     public const string AppDisplayName = "Windows Companion";
 
     /// <summary>Version, mirror of the .csproj &lt;Version&gt; (rules/versioning.md).</summary>
-    public const string AppVersion = "1.2.0";
+    public const string AppVersion = "1.3.0";
 
     // Accent (design-system.md §2) - fallback when the Windows accent cannot be read
     /// <summary>Fallback accent, the default Windows blue.</summary>
@@ -21,6 +21,9 @@ public static class AppConfig
 
     /// <summary>Gets the parsed fallback accent.</summary>
     public static Color AccentColorValue { get; } = (Color)ColorConverter.ConvertFromString(AccentColor)!;
+
+    /// <summary>Folder of the log files, under the user data folder.</summary>
+    public const string LogsFolderName = "logs";
 
     // Data files - relative to %APPDATA%\WindowsCompanion
     /// <summary>Settings file.</summary>

@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
 ## [Unreleased]
+
+## [1.3.0] - 2026-11-13
+### Added
+- New Settings switch "Rechercher les mises à jour au démarrage" (off by default): the updates are searched when the application starts, so the Overview tile, the navigation badge and the status bar are filled without a click. The "Tout est à jour" toast is not shown for this automatic search.
+- New "Diagnostic" block in Settings with an "Ouvrir le dossier" button that opens the folder of the log files.
+
 ### Changed
 - GitHub Actions workflows: `checkout`, `setup-dotnet` and `upload-artifact` moved to versions that run on Node.js 24 (Node.js 20 is deprecated). No change to the application.
 
