@@ -851,8 +851,14 @@ public static class Strings
     /// <summary>Gets the resource string <c>Status_WingetMissing</c>.</summary>
     public static string Status_WingetMissing => Get("Status_WingetMissing");
 
+    /// <summary>Gets the resource string <c>Status_WingetMissingToolTip</c>.</summary>
+    public static string Status_WingetMissingToolTip => Get("Status_WingetMissingToolTip");
+
     /// <summary>Gets the resource string <c>Status_WingetReady</c>.</summary>
     public static string Status_WingetReady => Get("Status_WingetReady");
+
+    /// <summary>Gets the resource string <c>Status_WingetToolTip</c>.</summary>
+    public static string Status_WingetToolTip => Get("Status_WingetToolTip");
 
     /// <summary>Gets the resource string <c>Storage_Free</c>.</summary>
     public static string Storage_Free => Get("Storage_Free");
@@ -1429,6 +1435,9 @@ public static class Strings
 
     /// <summary>Gets the resource string <c>Upd_ProgressLabel</c>.</summary>
     public static string Upd_ProgressLabel => Get("Upd_ProgressLabel");
+
+    /// <summary>Gets the resource string <c>Upd_OpenStore</c>.</summary>
+    public static string Upd_OpenStore => Get("Upd_OpenStore");
 
     /// <summary>Gets the resource string <c>Upd_Retry</c>.</summary>
     public static string Upd_Retry => Get("Upd_Retry");

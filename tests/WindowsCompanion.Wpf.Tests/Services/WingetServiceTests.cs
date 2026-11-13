@@ -33,6 +33,16 @@ public sealed class WingetServiceTests
     }
 
     [Fact]
+    public void Ouvre_la_page_du_store_par_rundll32_avec_l_adresse_constante()
+    {
+        _service.OpenStorePage();
+
+        _runner.Received(1).Start(
+            Arg.Is<string>(f => f.EndsWith("rundll32.exe", StringComparison.OrdinalIgnoreCase)),
+            Arg.Is<IReadOnlyList<string>>(a => a.SequenceEqual(new[] { "url.dll,FileProtocolHandler", AppConfig.WingetStorePageUrl })));
+    }
+
+    [Fact]
     public async Task Garde_les_resultats_d_une_source_quand_l_autre_echoue()
     {
         Answer("winget", new ProcessResult(0, WingetTable, string.Empty));

@@ -133,6 +133,11 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
         ? Strings.Status_WingetMissing
         : WingetVersion is null ? Strings.Status_WingetChecking : Formats.Template(Strings.Status_WingetReady, WingetVersion);
 
+    /// <summary>Gets the tooltip of the winget status bar item: where winget is updated, or installed when it is missing; none while it is looked for.</summary>
+    public string? WingetStatusToolTip => IsWingetMissing
+        ? Strings.Status_WingetMissingToolTip
+        : WingetVersion is null ? null : Strings.Status_WingetToolTip;
+
     /// <summary>Gets the status bar text about the last search (F-FEN-11).</summary>
     public string LastSearchText => LastSearchAt is { } at
         ? Formats.Template(Strings.Status_LastSearch, Formats.Relative(at, _time.GetLocalNow(), capitalize: false))
@@ -234,7 +239,11 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
 
     partial void OnIsWingetMissingChanged(bool value) => RefreshAll();
 
-    partial void OnWingetVersionChanged(string? value) => OnPropertyChanged(nameof(WingetStatusText));
+    partial void OnWingetVersionChanged(string? value)
+    {
+        OnPropertyChanged(nameof(WingetStatusText));
+        OnPropertyChanged(nameof(WingetStatusToolTip));
+    }
 
     partial void OnLastSearchAtChanged(DateTimeOffset? value) => OnPropertyChanged(nameof(LastSearchText));
 
@@ -306,6 +315,9 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
 
     [RelayCommand(CanExecute = nameof(CanInstallAll))]
     private void InstallAll() => Enqueue([.. _items.Where(i => i.IsSelectable)]);
+
+    [RelayCommand]
+    private void OpenWingetStore() => _winget.OpenStorePage();
 
     [RelayCommand]
     private void InstallItem(UpdateItemViewModel? item)
@@ -503,6 +515,7 @@ public sealed partial class UpdatesViewModel : ObservableObject, IPageViewModel,
         OnPropertyChanged(nameof(SearchingSourcesText));
         OnPropertyChanged(nameof(SearchToolTip));
         OnPropertyChanged(nameof(WingetStatusText));
+        OnPropertyChanged(nameof(WingetStatusToolTip));
         SearchCommand.NotifyCanExecuteChanged();
         InstallSelectionCommand.NotifyCanExecuteChanged();
         InstallAllCommand.NotifyCanExecuteChanged();

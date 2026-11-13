@@ -13,7 +13,7 @@ public static class AppConfig
     public const string AppDisplayName = "Windows Companion";
 
     /// <summary>Version, mirror of the .csproj &lt;Version&gt; (rules/versioning.md).</summary>
-    public const string AppVersion = "1.1.1";
+    public const string AppVersion = "1.2.0";
 
     // Accent (design-system.md §2) - fallback when the Windows accent cannot be read
     /// <summary>Fallback accent, the default Windows blue.</summary>
@@ -118,6 +118,9 @@ public static class AppConfig
     // External programs and probes
     /// <summary>winget, resolved through the user's PATH (App Execution Alias).</summary>
     public const string WingetExecutable = "winget";
+
+    /// <summary>Microsoft Store page of the App Installer (the package that ships winget); opened by a constant, never by a read value.</summary>
+    public const string WingetStorePageUrl = "ms-windows-store://pdp/?productid=9NBLGGH4NNS1";
 
     /// <summary>Gateway ping timeout.</summary>
     public const int GatewayPingTimeoutMs = 2000;

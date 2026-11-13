@@ -98,10 +98,17 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Style="{StaticResource StatusItemPanelStyle}">
-                    <Ellipse Style="{StaticResource StatusDotStyle}" />
-                    <TextBlock Style="{StaticResource StatusBarTextStyle}" Text="{Binding Updates.WingetStatusText}" />
-                </StackPanel>
+                <ui:Button
+                    Style="{StaticResource StatusWingetButtonStyle}"
+                    Command="{Binding Updates.OpenWingetStoreCommand}"
+                    ToolTip="{Binding Updates.WingetStatusToolTip}"
+                    AutomationProperties.Name="{Binding Updates.WingetStatusText}"
+                    AutomationProperties.HelpText="{Binding Updates.WingetStatusToolTip}">
+                    <StackPanel Style="{StaticResource StatusItemPanelStyle}">
+                        <Ellipse Style="{StaticResource StatusDotStyle}" />
+                        <TextBlock Style="{StaticResource StatusBarTextStyle}" Text="{Binding Updates.WingetStatusText}" />
+                    </StackPanel>
+                </ui:Button>
                 <TextBlock Grid.Column="1" Style="{StaticResource StatusBarSpacedTextStyle}" Text="{Binding Updates.LastSearchText}" />
                 <ui:Button
                     Grid.Column="2"

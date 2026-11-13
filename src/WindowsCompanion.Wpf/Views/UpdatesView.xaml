@@ -209,6 +209,7 @@
                             <ui:SymbolIcon Symbol="CheckmarkCircle24" Style="{StaticResource EmptyIconUpToDateStyle}" />
                             <TextBlock Style="{StaticResource EmptyTitleStyle}" Text="{Binding EmptyTitle}" />
                             <TextBlock Style="{StaticResource EmptyTextStyle}" Text="{Binding EmptyText}" />
+                            <ui:Button Style="{StaticResource EmptyActionButtonStyle}" Content="{x:Static res:Strings.Upd_OpenStore}" Command="{Binding OpenWingetStoreCommand}" />
                         </StackPanel>
                     </Grid>
                 </Border>

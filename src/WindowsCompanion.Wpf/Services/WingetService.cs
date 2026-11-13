@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.IO;
 using Microsoft.Extensions.Logging;
 using WindowsCompanion.Helpers;
 using WindowsCompanion.Models;
@@ -30,6 +31,9 @@ public interface IWingetService
     /// <param name="ct">Cancellation token; cancelling stops winget and the installer.</param>
     /// <returns>How the installation ended.</returns>
     Task<InstallOutcome> InstallAsync(UpdateItem item, bool silent, Action<WingetLogLine> log, CancellationToken ct);
+
+    /// <summary>Opens the App Installer page of the Microsoft Store, where winget is installed or updated.</summary>
+    void OpenStorePage();
 }
 
 /// <summary>Command-line implementation of <see cref="IWingetService"/>.</summary>
@@ -37,6 +41,11 @@ public interface IWingetService
 /// <param name="logger">Logger.</param>
 public sealed partial class WingetService(IProcessRunner runner, ILogger<WingetService> logger) : IWingetService
 {
+    // explorer.exe does not handle the ms-windows-store: protocol (it opens Documents): the protocol handler is reached through rundll32 (A26).
+    /// <inheritdoc />
+    public void OpenStorePage() =>
+        runner.Start(Path.Combine(Environment.SystemDirectory, "rundll32.exe"), ["url.dll,FileProtocolHandler", AppConfig.WingetStorePageUrl]);
+
     /// <inheritdoc />
     public async Task<Result<string>> GetVersionAsync(CancellationToken ct)
     {

@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using WindowsCompanion.Models;
+using WindowsCompanion.Resources;
 using WindowsCompanion.Services;
 using WindowsCompanion.Tests.Support;
 using WindowsCompanion.ViewModels;
@@ -53,6 +54,28 @@ public sealed class UpdatesViewModelTests
 
         Assert.Empty(_viewModel.VisibleItems);
         _feedback.Received(1).Show(Arg.Is<ResultError>(e => e.Type == FeedbackType.Danger), Arg.Any<ToastAction[]>());
+    }
+
+    [Fact]
+    public void Ouvre_la_page_du_store_depuis_la_commande()
+    {
+        _viewModel.OpenWingetStoreCommand.Execute(null);
+
+        _winget.Received(1).OpenStorePage();
+    }
+
+    [Fact]
+    public async Task Adapte_l_infobulle_de_winget_a_son_etat()
+    {
+        Assert.Null(_viewModel.WingetStatusToolTip);
+
+        _winget.GetVersionAsync(default).ReturnsForAnyArgs(Result<string>.Success("1.29.380"));
+        await _viewModel.InitializeAsync(TestContext.Current.CancellationToken);
+        Assert.Equal(Strings.Status_WingetToolTip, _viewModel.WingetStatusToolTip);
+
+        _winget.GetVersionAsync(default).ReturnsForAnyArgs(Result<string>.Failure(new(FeedbackType.Danger, "winget introuvable")));
+        await _viewModel.InitializeAsync(TestContext.Current.CancellationToken);
+        Assert.Equal(Strings.Status_WingetMissingToolTip, _viewModel.WingetStatusToolTip);
     }
 
     [Fact]
