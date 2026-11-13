@@ -148,6 +148,14 @@
         </Style.Triggers>
     </Style>
 
+    <!-- tokens: Spacing2Horizontal, BorderWidthNone - the winget item is a button that opens the Store page (transparent, same look as the text) -->
+    <Style x:Key="StatusWingetButtonStyle" TargetType="ui:Button" BasedOn="{StaticResource {x:Type ui:Button}}">
+        <Setter Property="Appearance" Value="Transparent" />
+        <Setter Property="Padding" Value="{StaticResource Spacing2Horizontal}" />
+        <Setter Property="BorderThickness" Value="{StaticResource BorderWidthNone}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
     <Style x:Key="StatusAdminPanelStyle" TargetType="StackPanel" BasedOn="{StaticResource StatusItemPanelStyle}">
         <Setter Property="Visibility" Value="Collapsed" />
         <Style.Triggers>
@@ -1126,6 +1134,18 @@
         <Setter Property="Visibility" Value="Collapsed" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- tokens: Spacing3Top - action of the "winget introuvable" empty state, shown only when winget is missing (F-LIM-01) -->
+    <Style x:Key="EmptyActionButtonStyle" TargetType="ui:Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+        <Setter Property="Margin" Value="{StaticResource Spacing3Top}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsWingetMissing}" Value="True">
                 <Setter Property="Visibility" Value="Visible" />
             </DataTrigger>
         </Style.Triggers>

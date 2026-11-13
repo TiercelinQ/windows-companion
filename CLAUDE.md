@@ -33,6 +33,8 @@ Déclarées et validées en phase 4 ; détail dans `docs/specs/04-architect.md` 
 
 - Vérification de nouvelle version : appel sortant vers `api.github.com` (dernière release du dépôt), absent du contrat initial - reason: informer l'utilisateur d'une version plus récente ; aucun paquet ajouté, `User-Agent` générique, page des releases ouverte par une URL constante via `IProcessRunner` (D-13)
 
+- Ouverture de la page du Microsoft Store (winget absent ou à mettre à jour) : `rundll32.exe url.dll,FileProtocolHandler` sur une adresse constante, via `IProcessRunner` - reason: `explorer.exe` ne traite pas le protocole `ms-windows-store:` (A26)
+
 ## Open points
 
 Suivi dans `docs/errors.md` (privé) : E-02 (hors application) et la liste des points de recette non exercés. E-01 (progression d'installation) et E-03 (versions tronquées) sont corrigés le 2026-11-12.

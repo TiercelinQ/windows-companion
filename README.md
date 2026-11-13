@@ -1,4 +1,4 @@
-# Windows Companion - v1.1.1
+# Windows Companion - v1.2.0
 
 ## Objective
 
@@ -58,7 +58,7 @@ windows-companion/
 
 | Area | Service | What it does |
 |---|---|---|
-| Updates | `IWingetService`, `IProcessRunner` | version, one `winget upgrade` call per source, install with live log, cancel by killing the process tree |
+| Updates | `IWingetService`, `IProcessRunner` | version, one `winget upgrade` call per source, install with live log, cancel by killing the process tree, open the App Installer page of the Microsoft Store |
 | Updates | `IRunningAppService` | finds a running process under the package install location, soft close |
 | Hardware, system | `IHardwareService`, `ISystemInfoService` | snapshots built from CIM, registry, native calls and DXGI |
 | Network | `INetworkService` | adapters, gateway ping, DNS, internet check, enable adapter, flush DNS |

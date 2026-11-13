@@ -5,6 +5,11 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-13
+### Added
+- The winget version in the status bar is now a button: it opens the Microsoft Store page of the App Installer (where winget is updated), and its tooltip says so.
+- When winget is not found, the Updates page offers an "Ouvrir le Microsoft Store" button to install it, and the status bar item opens the same page.
+
 ## [1.1.1] - 2026-11-13
 ### Changed
 - Settings page: the blocks are laid out in two columns instead of one.

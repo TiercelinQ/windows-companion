@@ -281,7 +281,9 @@
   <data name="Status_RightsStandard" xml:space="preserve"><value>Droits standard</value></data>
   <data name="Status_WingetChecking" xml:space="preserve"><value>Recherche de winget</value></data>
   <data name="Status_WingetMissing" xml:space="preserve"><value>winget introuvable</value></data>
+  <data name="Status_WingetMissingToolTip" xml:space="preserve"><value>Installer winget depuis le Microsoft Store</value></data>
   <data name="Status_WingetReady" xml:space="preserve"><value>winget v{0} prêt</value></data>
+  <data name="Status_WingetToolTip" xml:space="preserve"><value>Mise à jour via le Microsoft Store</value></data>
   <data name="Storage_Free" xml:space="preserve"><value>{0} Go libres</value></data>
   <data name="Storage_GaugeName" xml:space="preserve"><value>Espace utilisé sur {0}</value></data>
   <data name="Storage_LineTitle" xml:space="preserve"><value>{0} · {1}</value></data>
@@ -474,6 +476,7 @@
   <data name="Upd_NotSearchedText" xml:space="preserve"><value>Lancez une recherche pour trouver les mises à jour disponibles.</value></data>
   <data name="Upd_NotSearchedTitle" xml:space="preserve"><value>Aucune recherche effectuée</value></data>
   <data name="Upd_ProgressLabel" xml:space="preserve"><value>Application {0} sur {1} : {2}</value></data>
+  <data name="Upd_OpenStore" xml:space="preserve"><value>Ouvrir le Microsoft Store</value></data>
   <data name="Upd_Retry" xml:space="preserve"><value>Réessayer</value></data>
   <data name="Upd_Search" xml:space="preserve"><value>Rechercher</value></data>
   <data name="Upd_Searching" xml:space="preserve"><value>Recherche en cours</value></data>
