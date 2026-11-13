@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
 ## [Unreleased]
+### Changed
+- GitHub Actions workflows: `checkout`, `setup-dotnet` and `upload-artifact` moved to versions that run on Node.js 24 (Node.js 20 is deprecated). No change to the application.
 
 ## [1.2.0] - 2026-11-13
 ### Added
